@@ -1,0 +1,20 @@
+# Default portfolio settings
+portfolio:
+  conId: 0
+  symbol: "Dummy"
+  secType: "STK"
+  expiry: "YYYYMMDD" # lastTradeDateOrContractMonth
+  contract: None
+  dte: 0.0
+  strike: 0.0
+  right: null
+  position: 0.0
+  mktPrice: 0.0
+  mktVal: 0.0
+  avgCost: 0.0
+  unPnL: 0.0
+  rePnL: 0.0
+
+# Field Name conversion
+  lastTradeDateOrContractMonth: expiry
+  
