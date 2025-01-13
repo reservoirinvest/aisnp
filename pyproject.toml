@@ -28,6 +28,7 @@ dependencies = [
     "pandas-datareader>=0.10.0",
     "ibflex>=0.15",
     "jupyter>=1.1.1",
+    "black>=24.10.0",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
