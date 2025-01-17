@@ -1,5 +1,5 @@
-# File: run_states.py
-from states import main
+from ibfuncs import get_financials, get_ib
+with get_ib("SNP") as ib:
+    d = ib.run(get_financials(ib))
+    print(d)
 
-if __name__ == "__main__":
-    main()

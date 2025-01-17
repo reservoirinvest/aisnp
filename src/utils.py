@@ -10,12 +10,13 @@ from typing import Iterable, Optional, Union
 import numpy as np
 import pandas as pd
 import pandas_datareader.data as web
+import pandas_market_calendars as mcal
 import pytz
 import yaml
 from dateutil import parser
 from dotenv import find_dotenv, load_dotenv
 from from_root import from_root
-from ib_async import util
+from ib_async import Option, util
 from loguru import logger
 from scipy.stats import norm
 from tqdm import tqdm
@@ -645,7 +646,7 @@ def update_unds_status(df_unds, df_pf, df_openords):
     # Zen conditions
     zen_symbols = set()
 
-    # 1. Symbols with both covering and protecting positions
+    # 1. Symbols with both covering and protecting positions are zen
     for symbol, group in df_openords.groupby("symbol"):
         if len(group) == 2 and {"covering", "protecting"}.issubset(set(group.state)):
             zen_symbols.add(symbol)
@@ -661,47 +662,115 @@ def update_unds_status(df_unds, df_pf, df_openords):
     zen_symbols.update(straddled_symbols)
 
     # 3. Symbols with short 'sowing' order
-    sowing_symbols = df_openords[df_openords.status == "sowing"].symbol
+    sowing_symbols = df_openords[df_openords.state == "sowing"].symbol
     zen_symbols.update(sowing_symbols)
 
     # 4. Unprotected with protecting order
     unprotected_with_protect = df_pf[
         (df_pf.state == "unprotected")
-        & df_pf.symbol.isin(df_openords[df_openords.status == "protecting"].symbol)
+        & df_pf.symbol.isin(df_openords[df_openords.state == "protecting"].symbol)
     ].symbol
     zen_symbols.update(unprotected_with_protect)
 
     # 5. Uncovered with covering order
     uncovered_with_cover = df_pf[
         (df_pf.state == "uncovered")
-        & df_pf.symbol.isin(df_openords[df_openords.status == "covering"].symbol)
+        & df_pf.symbol.isin(df_openords[df_openords.state == "covering"].symbol)
     ].symbol
     zen_symbols.update(uncovered_with_cover)
 
     # 6. Long 'orphaned' position with 'de-orphaning' order
     orphaned_with_deorphan = df_pf[
         (df_pf.state == "orphaned")
-        & df_pf.symbol.isin(df_openords[df_openords.status == "de-orphaning"].symbol)
+        & df_pf.symbol.isin(df_openords[df_openords.state == "de-orphaning"].symbol)
     ].symbol
     zen_symbols.update(orphaned_with_deorphan)
 
     # 7. Short 'sowed' position with 'reaping' order
     sowed_with_reap = df_pf[
         (df_pf.state == "sowed")
-        & df_pf.symbol.isin(df_openords[df_openords.status == "reaping"].symbol)
+        & df_pf.symbol.isin(df_openords[df_openords.state == "reaping"].symbol)
     ].symbol
     zen_symbols.update(sowed_with_reap)
 
     # Update status for zen symbols
     df_unds.loc[df_unds.symbol.isin(zen_symbols), "state"] = "zen"
 
-    # Unreaped: Symbol has a short option position with no open 'reaping' order
+    # 8. Unreaped: Symbol has a short option position with no open 'reaping' order
     unreaped_symbols = df_pf[
         (df_pf.state == "sowed")
-        & ~df_pf.symbol.isin(df_openords[df_openords.status == "reaping"].symbol)
+        & ~df_pf.symbol.isin(df_openords[df_openords.state == "reaping"].symbol)
     ].symbol
 
     # Update status for unreaped symbols
     df_unds.loc[df_unds.symbol.isin(unreaped_symbols), "state"] = "unreaped"
 
+    # 9. Unprotected: Symbol has an exposed state with only one 'covering' order
+    unprotected_symbols = []
+    for symbol in df_unds[df_unds.state == "exposed"].symbol:
+        openord_group = df_openords[df_openords.symbol == symbol]
+        if len(openord_group) == 1 and openord_group.iloc[0].state == "covering":
+            unprotected_symbols.append(symbol)
+
+    # Update status for unprotected symbols
+    df_unds.loc[df_unds.symbol.isin(unprotected_symbols), "state"] = "unprotected"
+
+    # 10. Uncovered: Symbol has an exposed state with only one 'protecting' order
+    uncovered_symbols = []
+    for symbol in df_unds[df_unds.state == "exposed"].symbol:
+        openord_group = df_openords[df_openords.symbol == symbol]
+        if len(openord_group) == 1 and openord_group.iloc[0].state == "protecting":
+            uncovered_symbols.append(symbol)
+
+    # Update status for uncovered symbols
+    df_unds.loc[df_unds.symbol.isin(uncovered_symbols), "state"] = "uncovered"
+
     return df_unds
+
+def clean_option_expiry(df) -> list:
+    """
+    Cleans option contracts in the dataframe by keeping only year in expiry
+    """
+    return [Option(c.symbol, c.lastTradeDateOrContractMonth[:8], c.strike, c.right, c.exchange, conId=c.conId) for c in df.contract]
+
+def atm_margin(strike, undPrice, dte, vy):
+    """
+    Calculates the margin for an at-the-money put sale.
+    
+    Parameters:
+    strike (float): The strike price of the put option.
+    undPrice (float): The underlying asset price.
+    dte (int): The number of days to expiration.
+    vy (float): The volatility of the underlying asset.
+    
+    Returns:
+    float: The margin for the put sale.
+    """
+    
+    # Calculate the time to expiration in years
+    t = dte / 365
+    
+    # Calculate the delta of the put option
+    d1 = (np.log(undPrice / strike) + (vy**2 / 2) * t) / (vy * np.sqrt(t))
+    delta = -norm.cdf(d1)
+    
+    # Calculate the margin
+    margin = strike * 100 * abs(delta)
+    
+    return margin
+
+def is_market_open():
+    """
+    Checks if the US stock market (NYSE) is currently open.
+
+    Returns:
+        True if the market is open, False otherwise.
+    """
+
+    start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    end_date = datetime.now().strftime("%Y-%m-%d")
+
+    nyse = mcal.get_calendar('NYSE')
+    market_schedule = nyse.schedule(start_date=start_date, end_date=end_date)
+
+    return not market_schedule.empty

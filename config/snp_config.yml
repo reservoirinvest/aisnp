@@ -6,6 +6,11 @@ MAX_FILE_AGE: 1
 
 COVER_STD_MULT: 0.95
 COVER_MIN_DTE: 4
+
+VIRGIN_DTE: 35
+VIRGIN_STD_MULT: 2.2
+VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty
+
 PROTECTION_STRIP: 1 # strike down for longs and up for shorts
 MINEXPOPTPRICE: 0.2
 

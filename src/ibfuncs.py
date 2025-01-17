@@ -236,6 +236,8 @@ async def margin(ib:IB, co: list, sleep_time:int=5.5, msg: str=None) -> pd.DataF
     
     Returns:
         pd.DataFrame: DataFrame with contract details and margin information
+
+    Notes: whatif order margin doesn't play well with contract expiry sometimes. So Option() with conId forced in can be used.
     """
 
     # Prepare function parameters for do_in_chunks
