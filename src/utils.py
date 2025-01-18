@@ -23,7 +23,6 @@ from tqdm import tqdm
 
 ROOT = from_root()
 
-
 class Timediff:
     def __init__(
         self, td: timedelta, days: int, hours: int, minutes: int, seconds: float
@@ -33,7 +32,6 @@ class Timediff:
         self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
-
 
 def load_config(market: str):
     dotenv_path = find_dotenv()
@@ -48,42 +46,6 @@ def load_config(market: str):
             config[key] = value
 
     return config
-
-
-def configure_logging(module_name: Optional[str] = None, log_level: str = "INFO") -> None:
-    """
-    Configure loguru logging with module-specific log files.
-
-    Args:
-        module_name (Optional[str]): Name of the module for log file naming.
-                                     If None, uses the caller's module name.
-        log_level (str): Logging level (e.g., 'INFO', 'DEBUG', 'ERROR'). Defaults to 'INFO'.
-    """
-
-    # Configure log file path
-    log_file = ROOT / "log" / f"{module_name or 'default'}.log"
-
-    # Remove default logger
-    logger.remove()
-
-    # Configure console logging
-    logger.add(
-        sys.stderr,
-        level=log_level,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
-        "<level>{level: <8}</level> | "
-        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
-    )
-
-    # Configure file logging with rotation
-    logger.add(
-        log_file,
-        level=log_level,
-        rotation="10 MB",  # Rotate log files when they reach 10 MB
-        retention="10 days",  # Keep log files for 10 days
-        compression="zip",  # Compress old log files
-        format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
-    )
 
 
 def do_in_chunks(
@@ -759,18 +721,19 @@ def atm_margin(strike, undPrice, dte, vy):
     
     return margin
 
-def is_market_open():
+def is_market_open(date: Union[None, datetime]=datetime.now()) -> bool:
     """
     Checks if the US stock market (NYSE) is currently open.
 
+    Parameters:
+    date (str): The date to check. If None, the current date is used.
+
     Returns:
-        True if the market is open, False otherwise.
+    bool: True if the market is open, False otherwise.
     """
-
-    start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-    end_date = datetime.now().strftime("%Y-%m-%d")
-
-    nyse = mcal.get_calendar('NYSE')
-    market_schedule = nyse.schedule(start_date=start_date, end_date=end_date)
-
-    return not market_schedule.empty
+    if date:
+        result = mcal.get_calendar("NYSE").schedule(start_date=date, end_date=date)
+    else:
+        result = mcal.get_calendar("NYSE").schedule(start_date=datetime.now(), end_date=datetime.now())
+    
+    return result.empty is False

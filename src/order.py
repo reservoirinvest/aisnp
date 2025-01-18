@@ -43,6 +43,8 @@ if (df_cov_path := ROOT / "data" / "df_cov.pkl").exists():
     cov_trades = place_orders(cos)
     pickle_me(cov_trades, ROOT / "data" / "cover_trades.pkl")
     df_cov_path.unlink()
+else:
+    print('There are no covers')
 
 if (df_nkd_path := ROOT / "data" / "df_nkd.pkl").exists():
     df_nkd = get_pickle(df_nkd_path)
@@ -51,3 +53,5 @@ if (df_nkd_path := ROOT / "data" / "df_nkd.pkl").exists():
     nkd_trades = place_orders(nkd_cos)
     pickle_me(nkd_trades, ROOT / "data" / "nkd_trades.pkl")
     df_nkd_path.unlink()
+else:
+    print("There are no nakeds")

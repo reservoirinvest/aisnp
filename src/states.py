@@ -1,21 +1,22 @@
 # This program identifies states and generates orders
 # %%
+# IMPORTS AND VARIABLES
 
 import numpy as np
 
 import pandas as pd
-from ib_async import Option
+from ib_async import Option, util
 
 from ibfuncs import (df_chains, df_iv, get_ib, get_open_orders, ib_pf,
                      qualify_me, get_financials)
 from snp import snp_qualified_und_contracts
 from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
-                   clean_ib_util_df, configure_logging, do_i_refresh, get_dte,
-                   get_pickle, load_config, pickle_me, update_unds_status)
+                   clean_ib_util_df, do_i_refresh, get_dte,
+                   get_pickle, load_config, pickle_me, update_unds_status,
+                   is_market_open)
 
-from utils import is_market_open
-
-configure_logging()
+util.logToFile(ROOT / "log" / "states.log")
+# configure_logging()
 
 unds_ct_path = ROOT / "data" / "und_contracts.pkl"
 unds_path = ROOT / "data" / "df_unds.pkl"
@@ -38,6 +39,8 @@ MAX_FILE_AGE = config.get("MAX_FILE_AGE")
 VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
 MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
 
+# %%
+# BUILD UNDS
 # Get portfolio and open orders
 with get_ib("SNP") as ib:
     qpf = ib_pf(ib)
@@ -46,13 +49,13 @@ with get_ib("SNP") as ib:
     df_openords = get_open_orders(ib, is_active=False)
     df_openords = classify_open_orders(df_openords, df_pf)
 
-if is_market_open():
+if is_market_open() or get_pickle(unds_path) is None:
     # Get unds. Make it fresh if stale.
     if do_i_refresh(unds_ct_path, max_days=MAX_FILE_AGE):
         unds = snp_qualified_und_contracts(unds_path=unds_ct_path, fresh=True)
     else:
         print(
-            f"Reusing underlyings as they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old"
+            f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old"
         )
         unds = get_pickle(unds_ct_path)
 
@@ -132,14 +135,12 @@ df_unds.loc[
     "symbol",
 ].map(opt_state_dict)
 
-
 # ..update status for symbols not in qpf
 df_unds.loc[~df_unds.symbol.isin(qpf.symbol), "state"] = "virgin"
 
 df_unds = df_unds.drop(
     columns=["iv", "hv", "expiry", "strike", "right"], errors="ignore"
 )
-
 
 # ..apply the status update to df_unds and pickle
 df_unds = update_unds_status(df_unds, df_pf, df_openords)
@@ -148,8 +149,9 @@ pickle_me(df_unds, unds_path)
 pickle_me(df_pf, pf_path)
 pickle_me(df_openords, oo_path)
 
+# %%
+#  GET CHAINS
 
-#  Get chains
 if do_i_refresh(chains_path, max_days=MAX_FILE_AGE):
     chain_recreate = True
 else:
@@ -170,7 +172,9 @@ if chain_recreate:
 else:
     chains = pd.read_pickle(chains_path)
 
-# Make covered calls for 'exposed' and 'uncovered' positions
+# %%
+# MAKE COVERS FOR EXPOSED AND UNCOVERED STOCK POSITIONS
+
 # Get exposed and uncovered long
 uncov = df_unds.state.isin(["exposed", "uncovered"])
 uncov_long = df_unds[uncov & (df_unds.position > 0)].reset_index(drop=True)
@@ -311,7 +315,7 @@ else:
     ]
 
     with get_ib("SNP") as ib:
-        ib.run(qualify_me(ib, cov_puts))
+        ib.run(qualify_me(ib, cov_puts, desc='Qualifying covered puts'))
 
     df_cp1 = clean_ib_util_df([p for p in cov_puts if p.conId > 0])
 
@@ -385,7 +389,7 @@ if not df_cov.empty:
     print(f"Max Profit: {maxProfit:.2f}")
 
 # %%
-# GET SOWING CONTRACTS FOR VIRGIN SYMBOLS
+# MAKE SOWING CONTRACTS FOR VIRGIN SYMBOLS
 
 df_v = df_unds[df_unds.state == "virgin"].reset_index(drop=True)
 
@@ -433,13 +437,12 @@ virg_puts = [
 ]
 
 with get_ib("SNP") as ib:
-    ib.run(qualify_me(ib, virg_puts))
+    ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
 
 df_virg1 = clean_ib_util_df([p for p in virg_puts if p.conId > 0])
 
 df_virg1["dte"] = df_virg1.expiry.apply(lambda x: get_dte(x))
 
-# %%
 # Get the lower strike of the short virgin put
 nakeds = df_virg1.loc[df_virg1.groupby("symbol")["strike"].idxmax()]
 
@@ -461,7 +464,6 @@ with get_ib("SNP") as ib:
         )
     )
 
-# %%
 # Integrate dfx_n to nakeds
 df_nkd = nakeds.merge(
     dfx_n[["symbol", "price"]],
@@ -495,5 +497,3 @@ if not df_nkd.empty:
 # Analyze naked puts
 premium = (df_nkd.price * 100 * df_nkd.qty).sum()
 print(f"Naked Premiums: {premium:.2f}")
-
-# %%

@@ -13,7 +13,6 @@ import pandas as pd
 from tqdm.asyncio import tqdm_asyncio
 from utils import (
     clean_ib_util_df,
-    configure_logging,
     do_in_chunks,
     get_dte,
     load_config,
@@ -23,10 +22,7 @@ from utils import (
 # Apply nest_asyncio to allow nested event loops
 nest_asyncio.apply()
 
-configure_logging()
-
 ACTIVESTATUS = os.getenv("ACTIVESTATUS", "").split(",")
-
 
 @dataclass
 class Portfolio:
