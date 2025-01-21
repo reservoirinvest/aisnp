@@ -2,7 +2,6 @@ import asyncio
 import math
 import os
 import pickle
-import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Optional, Union
@@ -567,10 +566,10 @@ def classify_open_orders(df_openords, pf):
     )
     df.loc[straddle_mask, "state"] = "straddling"
 
-    # 'de-orphaning' - option SELL order with only an underlying option position and no stock position
+    # 'de-orphaning' - option BUY order with only an underlying option position and no stock position
     deorphaning_mask = opt_orders.apply(
         lambda row: (
-            row.action == "SELL"
+            row.action == "BUY"
             and
             # No stock position for the symbol
             row.symbol not in pf[(pf.secType == "STK")].symbol
@@ -582,10 +581,25 @@ def classify_open_orders(df_openords, pf):
     )
     df.loc[deorphaning_mask, "state"] = "de-orphaning"
 
+    # 'reaping' - option SELL order with only an underlying option position and no stock position
+    reaping_mask = opt_orders.apply(
+        lambda row: (
+            row.action == "SELL"
+            and
+            # No stock position for the symbol
+            row.symbol not in pf[(pf.secType == "STK")].symbol
+            and
+            # Has an option position for the symbol
+            not pf[(pf.secType == "OPT") & (pf.symbol == row.symbol)].empty
+        ),
+        axis=1,
+    )
+    df.loc[reaping_mask, "state"] = "reaping"
+
     return df
 
 
-def update_unds_status(df_unds, df_pf, df_openords):
+def update_unds_status(df_unds:pd.DataFrame, df_pf:pd.DataFrame, df_openords:pd.DataFrame) -> pd.DataFrame:
     """
     Update underlying symbols status based on portfolio and open orders.
 

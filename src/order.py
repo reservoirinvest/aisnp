@@ -38,20 +38,30 @@ def place_orders(cos: tuple, blk_size: int=25) -> List:
 
 if (df_cov_path := ROOT / "data" / "df_cov.pkl").exists():
     df_cov = get_pickle(df_cov_path)
-    df_cov['xPrice'] = df_cov.price.apply(lambda x: max(get_prec(x, 0.01), MINEXPOPTPRICE))
     cos = make_ib_orders(df_cov)
     cov_trades = place_orders(cos)
     pickle_me(cov_trades, ROOT / "data" / "cover_trades.pkl")
     df_cov_path.unlink()
+    print(f'Placed {len(df_cov)} cover orders\n')
 else:
-    print('There are no covers')
+    print('There are no covers\n')
 
 if (df_nkd_path := ROOT / "data" / "df_nkd.pkl").exists():
     df_nkd = get_pickle(df_nkd_path)
-    df_nkd['xPrice'] = df_nkd.price.apply(lambda x: max(get_prec(x, 0.01), MINEXPOPTPRICE))
     nkd_cos = make_ib_orders(df_nkd)
     nkd_trades = place_orders(nkd_cos)
     pickle_me(nkd_trades, ROOT / "data" / "nkd_trades.pkl")
     df_nkd_path.unlink()
+    print(f'Placed {len(df_nkd)} naked options\n')
 else:
-    print("There are no nakeds")
+    print("There are no nakeds\n")
+
+if (df_reap_path := ROOT / "data" / "df_reap.pkl").exists():
+    df_reap = get_pickle(df_reap_path)
+    reap_cos = make_ib_orders(df_reap)
+    reap_trades = place_orders(reap_cos)
+    pickle_me(reap_trades, ROOT / "data" / "reap_trades.pkl")
+    df_reap_path.unlink()
+    print(f'Placed {len(df_reap)} reaped options\n')
+else:
+    print("There are no sowed options\n")

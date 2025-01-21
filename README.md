@@ -1,4 +1,4 @@
-# Program for optimizing covering, protecting, sowing and reaping SNP
+# Program for optimized sowing, covering, protecting, reaping and de-orphaning SNPs
 
 ## Identifying states
 
@@ -6,13 +6,13 @@
 
 **Note**: Portfolio has 'state' field.
 
-    - 'solid': Perfect. Stock with both covering and protecting option positions
+    - 'zen': Perfect. Stock with both covering and protecting option positions
 
     - 'exposed': Stock positions without options
     - 'unprotected': Stock with only covering option position
     - 'uncovered': Stock with only protecting options position
-
     - 'straddled': Matching call and put options with no underlying stock
+      - ... straddles are for stocks having earnings declaration within naked time horizon
     - 'covering': Short calls or puts with underlying stock
     - 'protecting': Long calls or puts with underlying stock
     - 'sowed': Short options without matching stock positions
@@ -32,7 +32,6 @@
 * Symbol state are derived from portfolio state and order state. They are reflected in df_unds.
 
   - 'zen': symbol
-
     - has both covering and protecting portfolio positions or orders
     - has 'straddled' portfolio state
     - has a short 'sowing' order
@@ -49,28 +48,22 @@
 
 ## Get the base ready
 
-* Get portfolios
-* Classify portfolio state
-* Get snp_qualified_und_contracts
-* Put them in a df and update portfolio fields
-* Make the NaN state as 'virgin'
-* Get the missing mktPrice in the df
-* Populate volatilities 'vy' ind the df. Call it df_und and pickle it.
-* Get open orders
-* Add state to open orders
-* Append symbol 'state' to 'df_unds'
-* Check if chains.pkl exists and is fresh. Else generate 'df_chains' for 'df_unds' and pickle.
-* Append 'und_price' and 'und_vy' to the chains and pickle.
+* Get `portfolio` and `openorders`. Classify them
+* Build `unds` with price and volatility (vy)
+* Update `unds` states based on portfolio and open orders 
+
+* Get `chains`
+  - **Note:** Chain generation is to be done with **IBG** (not TWS)
 
 ## Generate orders
 
 ...with correct xPrice
 
-* For 'uncovered' symbols generate covering orders an SD away
-* For 'unprotected' symbols generate protecting orders
-* For 'orphaned' symbols generate parenting orders
-* For 'unreaped' symbols generate reaping orders
-* For 'virgin' symbols generate naked put orders
+* Make weekly `cover` orders for `exposed` and `uncovered` stock positions
+* Make monthly-horizon naked `sow` orders for `virgin` symbols
+* Make `reap` orders for unreaped sows
+* Make monthly `portect` orders for `unprotected` stock positions
+* Make `de-orphan` orders for `orphaned` options
 
 ## Check and Place orders
 

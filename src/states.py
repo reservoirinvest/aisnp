@@ -2,35 +2,41 @@
 # %%
 # IMPORTS AND VARIABLES
 
-import numpy as np
+from contextlib import ExitStack
 
+import loguru
+import numpy as np
 import pandas as pd
 from ib_async import Option, util
 
-from ibfuncs import (df_chains, df_iv, get_ib, get_open_orders, ib_pf,
-                     qualify_me, get_financials)
+from ibfuncs import (df_chains, df_iv, get_financials,
+                     get_ib, get_open_orders, ib_pf, qualify_me)
 from snp import snp_qualified_und_contracts
 from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
-                   clean_ib_util_df, do_i_refresh, get_dte,
-                   get_pickle, load_config, pickle_me, update_unds_status,
-                   is_market_open)
+                   clean_ib_util_df, do_i_refresh, get_dte, get_pickle,
+                   get_prec, is_market_open, load_config, pickle_me,
+                   update_unds_status, tqdm)
 
-util.logToFile(ROOT / "log" / "states.log")
-# configure_logging()
+log_file_path = ROOT / "log" / "states.log"
 
 unds_ct_path = ROOT / "data" / "und_contracts.pkl"
 unds_path = ROOT / "data" / "df_unds.pkl"
 chains_path = ROOT / "data" / "chains.pkl"
-pf_path = ROOT / "data" / "df_pf.pkl"  # portfolio path
-oo_path = ROOT / "data" / "df_oo.pkl"  # open orders path
+
 cov_path = ROOT / "data" / "df_cov.pkl"  # covered call and put path
 nkd_path = ROOT / "data" / "df_nkd.pkl"
 
-unds = get_pickle(unds_path)
+pf_path = ROOT / "data" / "df_pf.pkl"
+
+util.logToFile(log_file_path, level=40) # IB ERRORs only logged.
+loguru.logger.add(log_file_path, rotation="1 week")
+
+unds = get_pickle(unds_ct_path)
 df_unds = get_pickle(unds_path)
 chains = get_pickle(chains_path)
-df_pf = get_pickle(pf_path)
-df_openords = get_pickle(oo_path)
+
+df_cov = get_pickle(cov_path)
+df_nkd = get_pickle(nkd_path)
 
 config = load_config("SNP")
 COVER_MIN_DTE = config.get("COVER_MIN_DTE")
@@ -38,16 +44,20 @@ VIRGIN_DTE = config.get("VIRGIN_DTE")
 MAX_FILE_AGE = config.get("MAX_FILE_AGE")
 VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
 MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
+MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
 
 # %%
 # BUILD UNDS
-# Get portfolio and open orders
+# Get portfolio, open orders and financials
 with get_ib("SNP") as ib:
     qpf = ib_pf(ib)
     df_pf = classify_pf(qpf)
 
-    df_openords = get_open_orders(ib, is_active=False)
-    df_openords = classify_open_orders(df_openords, df_pf)
+    openords = get_open_orders(ib)
+
+    fin = ib.run(get_financials(ib))
+
+df_openords = classify_open_orders(openords, df_pf)
 
 if is_market_open() or get_pickle(unds_path) is None:
     # Get unds. Make it fresh if stale.
@@ -93,15 +103,8 @@ if is_market_open() or get_pickle(unds_path) is None:
             dfu,
             dfu.merge(
                 qpf[qpf.secType == "STK"][
-                    [
-                        "symbol",
-                        "position",
-                        "mktPrice",
-                        "mktVal",
-                        "avgCost",
-                        "unPnL",
-                        "rePnL",
-                    ]
+                    ["symbol", "position", "mktPrice", "mktVal", 
+                    "avgCost", "unPnL", "rePnL"]
                 ],
                 on="symbol",
                 how="left",
@@ -114,9 +117,16 @@ if is_market_open() or get_pickle(unds_path) is None:
     df_unds = dfu.merge(
         df_pf[["symbol", "secType", "state"]], on=["symbol", "secType"], how="left"
     )
+
+    # ... update df_pf with undPrice and avgCost
+    df_pf = pd.merge(df_pf, df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+    df_pf.insert(5, "undPrice", df_pf.pop("undPrice"))
+    df_pf = df_pf.assign(avgCost = df_pf.avgCost/100)
+
 else:
     df_unds = get_pickle(unds_path)
 
+# ... initialize unds state
 df_unds.loc[df_unds.state.isna(), "state"] = "tbd"
 
 # ..update status for symbols in df_unds but not in qpf
@@ -141,13 +151,11 @@ df_unds.loc[~df_unds.symbol.isin(qpf.symbol), "state"] = "virgin"
 df_unds = df_unds.drop(
     columns=["iv", "hv", "expiry", "strike", "right"], errors="ignore"
 )
-
 # ..apply the status update to df_unds and pickle
-df_unds = update_unds_status(df_unds, df_pf, df_openords)
+df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords)
 
 pickle_me(df_unds, unds_path)
 pickle_me(df_pf, pf_path)
-pickle_me(df_openords, oo_path)
 
 # %%
 #  GET CHAINS
@@ -159,16 +167,28 @@ else:
     chain_recreate = False
 
 if chain_recreate:
-    with get_ib("SNP", LIVE=True) as ib:
-        chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
+
+    # Check if IBG PAPER is online for comprehensive chains. TWS chains usually get incomplete.
+    with ExitStack() as es:
+        try:
+            ib = es.enter_context(get_ib("SNP", LIVE=False))
+            chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
+        except Exception:
+            loguru.logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
+            ib = get_ib("SNP", LIVE=True)
+            chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
+    
         unds1 = clean_ib_util_df(unds)
         missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]
         if not missing_unds.empty:
             additional_chains = ib.run(
                 df_chains(ib, missing_unds.contract.to_list(), msg="missing chains")
-            )
-            chains = pd.concat([chains, additional_chains], ignore_index=True)
-            pickle_me(chains, chains_path)
+                )
+            if additional_chains is not None and not additional_chains.empty:
+                chains = pd.concat([chains, additional_chains], ignore_index=True)
+        
+    pickle_me(chains, chains_path)
+
 else:
     chains = pd.read_pickle(chains_path)
 
@@ -369,24 +389,33 @@ if not df_cov.empty:
     # add 'dte' column with get_dte(expiry) as the 5th column
     df_cov.insert(4, "dte", df_cov.expiry.apply(get_dte))
 
+    df_cov["xPrice"] = df_cov.apply(
+        lambda x: get_prec(max(x.price, MINEXPOPTPRICE / x.qty), 0.01)
+        if x.qty != 0 else 0,
+        axis=1,
+    )
+
     # Pickle df_cov
     pickle_me(df_cov, cov_path)
 
     # Analyze covered calls and puts
     cost = (df_cov.avgCost * df_cov.qty * 100).sum()
-    premium = (df_cov.price * 100).sum()
+    premium = (df_cov.xPrice * df_cov.qty * 100).sum()
     maxProfit = (
         np.where(
             df_cov.right == "C",
-            (df_cov.strike - df_cov.undPrice) * 100,
-            (df_cov.undPrice - df_cov.strike) * 100,
+            (df_cov.strike - df_cov.undPrice) * df_cov.qty * 100,
+            (df_cov.undPrice - df_cov.strike) * df_cov.qty * 100,
         ).sum()
         + premium
     )
 
-    print(f"Cost: {cost:.2f}")
-    print(f"Premium: {premium:.2f}")
+    print(f"Position Cost: {cost:.2f}")
+    print(f"Cover Premium: {premium:.2f}")
     print(f"Max Profit: {maxProfit:.2f}")
+
+else:
+    print("No covers available!")
 
 # %%
 # MAKE SOWING CONTRACTS FOR VIRGIN SYMBOLS
@@ -409,9 +438,9 @@ df_virg = df_virg.merge(df_unds[["symbol", "undPrice", "vy"]],
 # Calculate standard deviation based on implied volatility and days to expiration
 df_virg["sdev"] = df_virg.undPrice * df_virg.vy * (df_virg.dte / 365) ** 0.5
 
-# For each symbol and expiry, get 3 strikes above undPrice + sdev
+# For each symbol and expiry, get 4 strikes above undPrice + sdev
 v_std = config.get("VIRGIN_STD_MULT", 3)  # Default to 3 if not specified
-no_of_options = 3
+no_of_options = 4
 
 # Sort df_virg.strike, with ascending = False,  grouped on symbol and expiry
 df_virg = df_virg.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
@@ -430,70 +459,131 @@ virg_short = (
     .drop(columns=["level_2", "diff"], errors="ignore")
 )
 
-# Make short virgin put options
+# Make short virgin put optionsk
 virg_puts = [
     Option(s, e, k, "P", "SMART")
     for s, e, k in zip(virg_short.symbol, virg_short.expiry, virg_short.strike)
 ]
 
-with get_ib("SNP") as ib:
-    ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
+with get_ib("SNP", LIVE=False) as ib:
+    virg_puts = ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
 
-df_virg1 = clean_ib_util_df([p for p in virg_puts if p.conId > 0])
+if not virg_puts:
+    virg_puts_dict = virg_short[['symbol', 'expiry', 'strike']] \
+                        .set_index('symbol').T.to_dict()
 
-df_virg1["dte"] = df_virg1.expiry.apply(lambda x: get_dte(x))
+    print(
+        f"Virgin puts for {virg_puts_dict} is not available!\n"
+    )
+    df_nkd = pd.DataFrame()
+else:
+    df_virg1 = clean_ib_util_df([p for p in virg_puts if p.conId > 0])
 
-# Get the lower strike of the short virgin put
-nakeds = df_virg1.loc[df_virg1.groupby("symbol")["strike"].idxmax()]
+    df_virg1["dte"] = df_virg1.expiry.apply(lambda x: get_dte(x))
 
-nakeds = nakeds.reset_index(drop=True)
+    # Get the lower strike of the short virgin put
+    nakeds = df_virg1.loc[df_virg1.groupby("symbol")["strike"].idxmax()]
 
-# Append undPrice and vy from df_unds
-nakeds = nakeds.merge(
-    df_unds[["symbol", "undPrice", "vy"]], on="symbol", how="left"
-)
+    nakeds = nakeds.reset_index(drop=True)
 
-# Get prices and volatilities of nakeds
-with get_ib("SNP") as ib:
-    dfx_n = ib.run(
-        df_iv(
-            ib=ib,
-            stocks=nakeds["contract"].tolist(),
-            sleep_time=10,
-            msg="naked put prices and vy",
-        )
+    # Append undPrice and vy from df_unds
+    nakeds = nakeds.merge(
+        df_unds[["symbol", "undPrice", "vy"]], on="symbol", how="left"
     )
 
-# Integrate dfx_n to nakeds
-df_nkd = nakeds.merge(
-    dfx_n[["symbol", "price"]],
-    on="symbol",
-    how="left",
-)
+    # Get prices and volatilities of nakeds
+    with get_ib("SNP") as ib:
+        dfx_n = ib.run(
+            df_iv(
+                ib=ib,
+                stocks=nakeds["contract"].tolist(),
+                sleep_time=10,
+                msg="naked put prices and vy",
+            )
+        )
 
-# Calculate atm_margin of df_nkd
-df_nkd["margin"] = df_nkd.apply(
-    lambda x: atm_margin(x.strike, x.undPrice, get_dte(x.expiry), x.vy), axis=1
-)
+    # Integrate dfx_n to nakeds
+    df_nkd = nakeds.merge(
+        dfx_n[["symbol", "price"]],
+        on="symbol",
+        how="left",
+    )
 
-# Get financials
-with get_ib('SNP') as ib:
-    fin = ib.run(get_financials(ib))
+    # Calculate atm_margin of df_nkd
+    df_nkd["margin"] = df_nkd.apply(
+        lambda x: atm_margin(x.strike, x.undPrice, get_dte(x.expiry), x.vy), axis=1
+    )
 
-# Calculate qty of nakeds
-VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
-max_fund_per_symbol = VIRGIN_QTY_MULT * fin.get("nlv", 0)
-df_nkd["qty"] = df_nkd.margin.apply(
-    lambda x: max(1, int(max_fund_per_symbol / x)) if x > 0 else 1
-)
+    # Calculate qty of nakeds
+    VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
+    max_fund_per_symbol = VIRGIN_QTY_MULT * fin.get("nlv", 0)
+    df_nkd["qty"] = df_nkd.margin.apply(
+        lambda x: max(1, int(max_fund_per_symbol / x)) if x > 0 else 1
+    )
+    df_nkd['xPrice'] = df_nkd.apply(
+        lambda x: get_prec(max(x.price, MINNAKEDOPTPRICE / x.qty), 0.01), axis=1)
+
 
 if nkd_path.exists():
     nkd_path.unlink()
 
 if not df_nkd.empty:
+
     pickle_me(df_nkd, nkd_path)
 
+    # Analyze naked puts
+    premium = (df_nkd.xPrice * 100 * df_nkd.qty).sum()
+    print(f"Naked Premiums: {premium:.2f}")
+else:
+    print("No naked puts available!")
 
-# Analyze naked puts
-premium = (df_nkd.price * 100 * df_nkd.qty).sum()
-print(f"Naked Premiums: {premium:.2f}")
+# %%
+# MAKE REAPS
+# Extract unreaped contracts from df_unds
+df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
+
+# Remove reaping open orders
+
+# Extract unreaped option contracts from df_pf
+df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
+            & (df_pf.secType == "OPT")].reset_index(drop=True)
+
+# Integrate Vy (volatility) into df_sowed_pf from df_unds
+df_reap = df_reap.merge(
+    df_unds[["symbol", "vy"]], on="symbol", how="left"
+)
+
+with get_ib("SNP") as ib:
+    reaped = {}
+    sow_cts = ib.run(qualify_me(ib, df_reap.contract.tolist(), desc="Qualifying reap contracts"))
+    df_reap = df_reap.assign(contract = sow_cts)
+
+    for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
+                                desc="reap opt price", total=len(sow_cts)):
+        s = ib.calculateOptionPrice(c, vy, undPrice)
+        reaped[c.conId] = s
+df_reap['optPrice'] = [s.optPrice for s in df_reap.conId.map(reaped)]
+df_reap["xPrice"] = [get_prec(max(0.01,s.optPrice),0.01) for s in df_reap.conId.map(reaped)]
+df_reap['qty'] = df_reap.position.abs().astype(int)
+
+
+reap_path = ROOT/'data'/'df_reap.pkl'
+
+if not df_reap.empty:
+    pickle_me(df_reap, reap_path)
+    print(f'Have {len(df_reap)} reaping options')
+else:
+    print("There are no reaping options")
+
+# %%
+# BUILD PROTECTIONS
+df_unprot = df_unds[df_unds.state == 'unprotected'].reset_index(drop=True)
+
+# Protect longs
+...
+
+# Protect shorts
+
+...
+
+# %%

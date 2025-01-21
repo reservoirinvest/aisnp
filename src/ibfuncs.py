@@ -16,7 +16,7 @@ from utils import (
     do_in_chunks,
     get_dte,
     load_config,
-    to_list,
+    to_list, get_prec,
 )
 
 # Apply nest_asyncio to allow nested event loops
@@ -57,7 +57,7 @@ class OpenOrder:
     order: Order = None
     permId: int = 0
     action: str = "SELL"
-    totalQuantity: float = 0.0
+    qty: float = 0.0
     lmtPrice: float = 0.0  # Same as xPrice
     status: str = None
 
@@ -351,6 +351,9 @@ async def df_chains(ib: IB, stocks: list, sleep_time: int = 4, msg: str = None) 
 
     # Create a list to hold the expanded rows
 
+    if df.empty:
+        return None
+
     expanded_rows = []
 
     # Iterate over each row in the DataFrame
@@ -479,7 +482,8 @@ def get_open_orders(ib, is_active: bool = False) -> pd.DataFrame:
         all_trades_df = all_trades_df.assign(order=order)
 
         all_trades_df.rename(
-            {"lastTradeDateOrContractMonth": "expiry"}, axis="columns", inplace=True
+            {"lastTradeDateOrContractMonth": "expiry",
+            "totalQuantity": "qty"}, axis="columns", inplace=True
         )
 
         if "symbol" not in all_trades_df.columns:
@@ -498,3 +502,5 @@ def get_open_orders(ib, is_active: bool = False) -> pd.DataFrame:
             dfo = dfo[dfo.status.isin(ACTIVESTATUS)]
 
     return dfo
+
+
