@@ -14,6 +14,7 @@ VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty
 PROTECTION_STRIP: 1 # strike down for longs and up for shorts
 MINEXPOPTPRICE: 0.4
 MINNAKEDOPTPRICE: 0.85
+PROTECT_DTE: 35
 
 # SNP ports and client IDs
 PORT: 1300

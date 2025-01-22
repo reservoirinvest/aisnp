@@ -45,6 +45,7 @@ MAX_FILE_AGE = config.get("MAX_FILE_AGE")
 VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
 MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
 MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
+PROTECT_DTE = config.get("PROTECT_DTE")
 
 # %%
 # BUILD UNDS
@@ -576,14 +577,118 @@ else:
     print("There are no reaping options")
 
 # %%
-# BUILD PROTECTIONS
+# BUILD PROTECTION RECOMMENDATIONS
 df_unprot = df_unds[df_unds.state == 'unprotected'].reset_index(drop=True)
 
 # Protect longs
-...
+df_ulong = df_unprot[df_unprot.position > 0]
+
+# Get chains nearest to desired dte
+df_uch = chains.loc[
+    chains[chains.symbol.isin(df_ulong.symbol.to_list())]
+    .groupby(["symbol", "strike"])["dte"]
+    .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
+]
+
+# get 8 contracts lower than undPrice
+df_ul = df_uch[df_uch.symbol.isin(df_ulong.symbol)]
+df_ul = df_ul.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
+df_ul = df_ul.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+df_ul = df_ul.groupby("symbol").apply(
+    lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(8),
+    include_groups=False
+).reset_index().drop(columns="level_1")
+
+df_ul['right'] = 'P'
+
+df_ul['contract'] = df_ul.apply(
+    lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
+    axis=1
+)
+
+with get_ib("SNP") as ib:
+    ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
+    df_iv_p = ib.run(df_iv(
+        ib=ib,
+        stocks=ul1,
+        sleep_time=10,
+        msg="gets protect option prices and vy",
+    ))
+
+# Protection recommendation suite
+# df_iv_p = df_iv_p.assign(conId = [c.conId for c in df_iv_p.contract])
+df_ivp = df_iv_p.merge(
+    df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
+)
+df_ivp = df_ivp.assign(vy=df_ivp["iv"].combine_first(df_ivp["vy"]))
+
+df_ivp = df_ivp.merge(
+    df_pf[["symbol", "position"]], on="symbol", how="left"
+)
+
+df_ivp['qty'] = (df_ivp.position.abs()/100).astype('int')
+df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
+df_ivp['cost'] = df_ivp.price*df_ivp.qty*100
+df_ivp.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
+df_ivp["cup"] = df_ivp.cost/df_ivp.protection
+
+# Median protection
+df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[(len(x)+1)//2], include_groups=False).reset_index()
+
+pickle_me(ROOT/'data'/'df_protect_longs.pkl', df_lprot)
 
 # Protect shorts
+df_ushort = df_unprot[df_unprot.position < 0]
 
-...
+# Get chains nearest to desired dte for short positions
+df_sch = chains.loc[
+    chains[chains.symbol.isin(df_ushort.symbol.to_list())]
+    .groupby(["symbol", "strike"])["dte"]
+    .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
+]
 
-# %%
+# get 8 contracts higher than undPrice for protection
+df_us = df_sch[df_sch.symbol.isin(df_ushort.symbol)]
+df_us = df_us.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, True])
+df_us = df_us.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+df_us = df_us.groupby("symbol").apply(
+    lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(8),
+    include_groups=False
+).reset_index().drop(columns="level_1")
+
+df_us['right'] = 'C'
+
+df_us['contract'] = df_us.apply(
+    lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
+    axis=1
+)
+
+with get_ib("SNP") as ib:
+    us1 = ib.run(qualify_me(ib, df_us.contract, desc="Qualifying short protects"))
+    df_iv_s = ib.run(df_iv(
+        ib=ib,
+        stocks=us1,
+        sleep_time=10,
+        msg="gets protect option prices and vy",
+    ))
+
+# Short protection recommendation suite
+df_ivs = df_iv_s.merge(
+    df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
+)
+df_ivs = df_ivs.assign(vy=df_ivs["iv"].combine_first(df_ivs["vy"]))
+
+df_ivs = df_ivs.merge(
+    df_pf[["symbol", "position"]], on="symbol", how="left"
+)
+
+df_ivs['qty'] = (df_ivs.position.abs()/100).astype('int')
+df_ivs["protection"] = (df_ivs["strike"] - df_ivs["undPrice"])*100*df_ivs.qty
+df_ivs['cost'] = df_ivs.price*df_ivs.qty*100
+df_ivs.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
+df_ivs["cup"] = df_ivs.cost/df_ivs.protection
+
+# Median protection for shorts
+df_sprot = df_ivs.groupby('symbol').apply(lambda x: x.iloc[(len(x)+1)//2], include_groups=False).reset_index()
+
+pickle_me(ROOT/'data'/'df_protect_shorts.pkl', df_sprot)
