@@ -751,3 +751,34 @@ def is_market_open(date: Union[None, datetime]=datetime.now()) -> bool:
         result = mcal.get_calendar("NYSE").schedule(start_date=datetime.now(), end_date=datetime.now())
     
     return result.empty is False
+
+def delete_pkl_files(files_to_delete, root=None):
+    """
+    Delete specified .pkl files from the data directory.
+    
+    Args:
+        files_to_delete (list): List of filenames to delete
+        root (Path, optional): Root directory. Defaults to project root/data.
+    """
+    from pathlib import Path
+    
+    # Use provided root or default to project root/data
+    if root is None:
+        root = ROOT / 'data'
+    else:
+        root = Path(root)
+    
+    for filename in files_to_delete:
+        # Ensure filename ends with .pkl
+        if not filename.endswith('.pkl'):
+            filename += '.pkl'
+        
+        file_path = root / filename
+        try:
+            if file_path.exists():
+                file_path.unlink()
+                print(f"Deleted: {filename}")
+            else:
+                print(f"File not found: {filename}")
+        except Exception as e:
+            print(f"Error deleting {filename}: {e}")

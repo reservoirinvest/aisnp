@@ -2,22 +2,26 @@ MARKET: SNP
 
 LOGLEVEL: ERROR
 
-MAX_FILE_AGE: 1.5
-
-COVER_STD_MULT: 0.8
-COVER_MIN_DTE: 4
-
-VIRGIN_DTE: 35
-VIRGIN_STD_MULT: 2.2
-VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty
-
-PROTECTION_STRIP: 1 # strike down for longs and up for shorts
-MINEXPOPTPRICE: 0.4
-MINNAKEDOPTPRICE: 0.85
-PROTECT_DTE: 35
-
 # SNP ports and client IDs
 PORT: 1300
 PAPER: 1301
 
 CID: 10
+
+MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading
+
+MAX_FILE_AGE: 1.5
+
+COVER_MIN_DTE: 4
+COVER_STD_MULT: 0.8
+
+VIRGIN_DTE: 35
+VIRGIN_PUT_STD_MULT: 2.2
+VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty of virgins
+
+PROTECT_DTE: 35
+PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
+
+MINEXPOPTPRICE: 0.4
+MINNAKEDOPTPRICE: 0.85
+
