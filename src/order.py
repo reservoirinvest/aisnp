@@ -1,3 +1,6 @@
+# %%
+# @@@ CAUTION: This script places orders @@@
+
 from utils import get_prec, get_pickle, ROOT, load_config, pickle_me
 from ibfuncs import get_ib, get_financials
 import pandas as pd
@@ -6,6 +9,11 @@ from typing import List
 from tqdm import tqdm
 from utils import delete_pkl_files
 import numpy as np
+
+cov_path = ROOT / "data" / "df_cov.pkl"  # covered call and put path
+nkd_path = ROOT / "data" / "df_nkd.pkl"
+reap_path = ROOT / "data" / "df_reap.pkl"
+protect_path = ROOT / "data" / "df_protect.pkl"
 
 config = load_config('SNP')
 
@@ -41,37 +49,61 @@ def place_orders(cos: tuple, blk_size: int=25) -> List:
 
     return trades
 
-if (df_cov_path := ROOT / "data" / "df_cov.pkl").exists():
+# %%
+# ORDER COVER OPTIONS
+if (df_cov_path := cov_path).exists():
     df_cov = get_pickle(df_cov_path)
     cos = make_ib_orders(df_cov, action='SELL')
     cov_trades = place_orders(cos)
     pickle_me(cov_trades, ROOT / "data" / "traded_covers.pkl")
+    print(f'\nPlaced {len(df_cov)} cover orders')
     delete_pkl_files(['df_cov.pkl'])
-    print(f'Placed {len(df_cov)} cover orders\n')
 else:
-    print('There are no covers\n')
+    print('\nThere are no covers\n')
 
-if (df_nkd_path := ROOT / "data" / "df_nkd.pkl").exists():
+# %%
+# ORDER REAP OPTIONS
+if (df_reap_path := reap_path).exists():
+    df_reap = get_pickle(df_reap_path)
+    reap_cos = make_ib_orders(df_reap, action='BUY')
+    reap_trades = place_orders(reap_cos)
+    print(f'\nPlaced {len(df_reap)} reaped options')
+    pickle_me(reap_trades, ROOT / "data" / "traded_reaps.pkl")
+    delete_pkl_files(['df_reap.pkl'])
+else:
+    print("\nThere are no options to be reaped\n")
+
+# %%
+# ORDER NAKEDS BASED ON CUSHION
+if (df_nkd_path := nkd_path).exists():
     with get_ib('SNP') as ib:
         fin = ib.run(get_financials(ib))
         cushion = fin.get('cushion', np.nan)
+        ib.disconnect()
     if cushion < MINCUSHION:
         print(f"Cushion: {cushion:.2f} < MINCUSHION: {MINCUSHION:.2f}, not placing naked orders")
     else:
         df_nkd = get_pickle(df_nkd_path)
         nkd_cos = make_ib_orders(df_nkd, action='SELL')
         nkd_trades = place_orders(nkd_cos)
+        print(f'\nPlaced {len(df_nkd)} naked options')
         pickle_me(nkd_trades, ROOT / "data" / "traded_nakeds.pkl")
         delete_pkl_files(['df_nkd.pkl'])
-        print(f'Placed {len(df_nkd)} naked options\n')
-    print("There are no nakeds\n")
-
-if (df_reap_path := ROOT / "data" / "df_reap.pkl").exists():
-    df_reap = get_pickle(df_reap_path)
-    reap_cos = make_ib_orders(df_reap, action='BUY')
-    reap_trades = place_orders(reap_cos)
-    pickle_me(reap_trades, ROOT / "data" / "traded_reaps.pkl")
-    delete_pkl_files(['df_reap.pkl'])
-    print(f'Placed {len(df_reap)} reaped options\n')
 else:
-    print("There are no sowed options\n")
+    print("\nThere are no nakeds\n")
+
+# %%
+# ORDER PROTECT OPTIONS
+if (df_protect_path := protect_path).exists():
+    df_protect = get_pickle(df_protect_path)
+    protect_cos = make_ib_orders(df_protect, action='BUY')
+    protect_trades = place_orders(protect_cos)
+    print(f'\nPlaced {len(df_protect)} protect options')
+    pickle_me(protect_trades, ROOT / "data" / "traded_protects.pkl")
+    delete_pkl_files(['df_protect.pkl'])
+else:
+    print("\nThere are no protect options\n")
+
+
+
+# %%

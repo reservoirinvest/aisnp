@@ -464,11 +464,10 @@ async def get_financials(ib: IB) -> dict:
 
 
 def get_open_orders(ib, is_active: bool = False) -> pd.DataFrame:
-    df_openords = OpenOrder().empty()
 
     trades = ib.reqAllOpenOrders()
 
-    dfo = pd.DataFrame([])
+    dfo = OpenOrder().empty()
 
     if trades:
         all_trades_df = (
@@ -496,11 +495,14 @@ def get_open_orders(ib, is_active: bool = False) -> pd.DataFrame:
                     "Neither 'symbol' nor 'contract' column found in the DataFrame"
                 )
 
-        dfo = all_trades_df[df_openords.columns]
+        dfo = all_trades_df[dfo.columns]
 
         if is_active:
-            dfo = dfo[dfo.status.isin(ACTIVESTATUS)]
+            dfo = dfo[dfo.state.isin(ACTIVESTATUS)]
 
+    if "state" not in dfo.columns:
+        dfo = dfo.assign(state="unknown")
+    
     return dfo
 
 

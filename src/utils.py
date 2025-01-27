@@ -4,7 +4,7 @@ import os
 import pickle
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Iterable, Optional, Union
+from typing import Iterable, Optional, Union, List
 
 import numpy as np
 import pandas as pd
@@ -15,10 +15,11 @@ import yaml
 from dateutil import parser
 from dotenv import find_dotenv, load_dotenv
 from from_root import from_root
-from ib_async import Option, util
+from ib_async import util
 from loguru import logger
 from scipy.stats import norm
 from tqdm import tqdm
+
 
 ROOT = from_root()
 
@@ -184,9 +185,8 @@ def clean_ib_util_df(
 
     # Convert expiry to UTC datetime, if it exists
     if len(udf.expiry.iloc[0]) != 0:
-        udf["expiry"] = udf["expiry"].apply(
-            lambda x: convert_to_utc_datetime(x, eod=eod, ist=ist)
-        )
+        # udf["expiry"] = udf["expiry"].apply(lambda x: convert_to_utc_datetime(x, eod=eod, ist=ist))
+        udf["expiry"] = udf["expiry"].apply(util.formatIBDatetime)
     else:
         udf["expiry"] = pd.NaT
 
@@ -199,6 +199,7 @@ def clean_ib_util_df(
 def convert_to_utc_datetime(date_string, eod=False, ist=True):
     try:
         dt = parser.parse(date_string)
+        date_obj = datetime.strptime(date_string, '%Y%m%d')
     except ValueError as e:
         logger.error(f"Invalid date string format {e}")
         return np.nan
@@ -207,13 +208,13 @@ def convert_to_utc_datetime(date_string, eod=False, ist=True):
         if ist:
             timezone = pytz.timezone("Asia/Kolkata")
             dt = dt.replace(hour=15, minute=30, second=0)
+            dt = timezone.localize(dt)
         else:
-            timezone = pytz.timezone("America/New_York")
-            dt = dt.replace(hour=16, minute=0, second=0)
+            timezone = pytz.timezone('US/Eastern')
+            dt = timezone.localize(date_obj.replace(hour=16, minute=0))
+            # dt = est_datetime.strftime('%Y-%m-%d %H:%M:%S %Z')
 
-        dt = timezone.localize(dt)
-
-    return dt.astimezone(pytz.UTC)
+    return dt
 
 
 def yes_or_no(question: str, default="n") -> bool:
@@ -261,34 +262,39 @@ def how_many_days_old(file_path: Path) -> float:
     return file_age_in_days
 
 
-def get_dte(
-    s: Union[pd.Series, datetime], exchange: Optional[str] = None
-) -> Union[pd.Series, float]:
-    now_utc = datetime.now(timezone.utc)
-
-    if isinstance(s, pd.Series):
-        try:
-            if isinstance(s.iloc[0], str):
-                if exchange == "NSE":
-                    s = (
-                        pd.to_datetime(s)
-                        .dt.tz_localize("Asia/Kolkata")
-                        .apply(lambda x: x.replace(hour=15, minute=30, second=0))
-                    )
-                else:
-                    s = (
-                        pd.to_datetime(s)
-                        .dt.tz_localize("US/Eastern")
-                        .apply(lambda x: x.replace(hour=16, minute=0, second=0))
-                    )
-            return (s - now_utc).dt.total_seconds() / (24 * 60 * 60)
-        except (TypeError, ValueError):
-            return pd.Series([np.nan] * len(s))
-    elif isinstance(s, datetime):
-        return (s - now_utc).total_seconds() / (24 * 60 * 60)
-    else:
-        raise TypeError("Input must be a pandas Series or a datetime.datetime object")
-
+def get_dte(date_input):
+    """
+    Calculate days to expiration from a date string or pandas Series of date strings.
+    
+    Args:
+        date_input (str or pd.Series): Date string(s) in 'YYYYMMDD' format
+    
+    Returns:
+        float or pd.Series: Number of days from option closing time to current time in UTC
+    """
+    # If input is a pandas Series, apply the function to each element
+    if isinstance(date_input, pd.Series):
+        return date_input.apply(get_dte)
+    
+    # Take first 8 characters if string is longer
+    date_str = str(date_input)[:8]
+    
+    # Parse the date
+    year = int(date_str[:4])
+    month = int(date_str[4:6])
+    day = int(date_str[6:8])
+    
+    # Create datetime object at option closing time (4 PM market close)
+    expiry_datetime = datetime(year, month, day, 16, 0, 0, tzinfo=timezone.utc)
+    
+    # Get current time in UTC
+    current_time = datetime.now(timezone.utc)
+    
+    # Calculate time difference and convert to days
+    time_diff = expiry_datetime - current_time
+    days_to_expiry = time_diff.total_seconds() / (24 * 3600)
+    
+    return days_to_expiry
 
 def us_repo_rate():
     """Risk free US interest rate
@@ -535,6 +541,21 @@ def classify_open_orders(df_openords, pf):
     )
     df.loc[sowing_mask, "state"] = "sowing"
 
+    # # 'de-orphaning' - option BUY order with only an underlying option position and no stock position
+    # deorphaning_mask = opt_orders.apply(
+    #     lambda row: (
+    #         row.action == "BUY"
+    #         and
+    #         # No stock position for the symbol
+    #         row.symbol not in pf[(pf.secType == "STK")].symbol
+    #         and
+    #         # Has an option position for the symbol
+    #         not pf[(pf.secType == "OPT") & (pf.symbol == row.symbol)].empty
+    #     ),
+    #     axis=1,
+    # )
+    # df.loc[deorphaning_mask, "state"] = "de-orphaning"
+
     # 'reaping' - option BUY order with matching existing option position
     reaping_mask = opt_orders.apply(
         lambda row: (
@@ -566,58 +587,48 @@ def classify_open_orders(df_openords, pf):
     )
     df.loc[straddle_mask, "state"] = "straddling"
 
-    # 'de-orphaning' - option BUY order with only an underlying option position and no stock position
-    deorphaning_mask = opt_orders.apply(
-        lambda row: (
-            row.action == "BUY"
-            and
-            # No stock position for the symbol
-            row.symbol not in pf[(pf.secType == "STK")].symbol
-            and
-            # Has an option position for the symbol
-            not pf[(pf.secType == "OPT") & (pf.symbol == row.symbol)].empty
-        ),
-        axis=1,
-    )
-    df.loc[deorphaning_mask, "state"] = "de-orphaning"
-
-    # 'reaping' - option SELL order with only an underlying option position and no stock position
-    reaping_mask = opt_orders.apply(
-        lambda row: (
-            row.action == "SELL"
-            and
-            # No stock position for the symbol
-            row.symbol not in pf[(pf.secType == "STK")].symbol
-            and
-            # Has an option position for the symbol
-            not pf[(pf.secType == "OPT") & (pf.symbol == row.symbol)].empty
-        ),
-        axis=1,
-    )
-    df.loc[reaping_mask, "state"] = "reaping"
-
     return df
 
 
-def update_unds_status(df_unds:pd.DataFrame, df_pf:pd.DataFrame, df_openords:pd.DataFrame) -> pd.DataFrame:
+def update_unds_status(df_unds:pd.DataFrame, 
+                    df_pf:pd.DataFrame, 
+                    df_openords: pd.DataFrame) -> pd.DataFrame:
     """
     Update underlying symbols status based on portfolio and open orders.
 
     Parameters:
     df_unds (pd.DataFrame): Underlying symbols DataFrame
     df_pf (pd.DataFrame): Portfolio DataFrame
-    df_openords (pd.DataFrame): Open orders DataFrame
 
     Returns:
     pd.DataFrame: Updated underlying symbols DataFrame with 'state' column
     """
+
     # Initialize status column if not exists
     if "state" not in df_unds.columns:
         df_unds["state"] = df_pf.set_index("symbol")["state"].reindex(
             df_unds.symbol, fill_value="unknown"
         )
-    if df_openords is None or df_openords.empty:
-        return df_unds
+
+    df_unds.loc[:, "state"] = "unknown"
+
+    # update status from df_pf for stock symbols
+    stk_symbols = df_pf[df_pf.secType == "STK"].symbol
+    stk_state_dict = dict(
+        zip(
+            df_pf.loc[df_pf.secType == "STK", "symbol"],
+            df_pf.loc[df_pf.secType == "STK", "state"],
+        )
+    )
+
+    df_unds.loc[df_unds.symbol.isin(stk_symbols), "state"] = \
+            df_unds.loc[df_unds.symbol.isin(stk_symbols)].symbol.map(stk_state_dict)
+
+    # ..update status for symbols not in df_pf
+    df_unds.loc[~df_unds.symbol.isin(df_pf.symbol.unique()), "state"] = "virgin"
+
+    # if df_openords is None or df_openords.empty:
+    #     return df_unds
 
     # Zen conditions
     zen_symbols = set()
@@ -683,7 +694,7 @@ def update_unds_status(df_unds:pd.DataFrame, df_pf:pd.DataFrame, df_openords:pd.
 
     # 9. Unprotected: Symbol has an exposed state with only one 'covering' order
     unprotected_symbols = []
-    for symbol in df_unds[df_unds.state == "exposed"].symbol:
+    for symbol in df_pf[df_pf.state == "unprotected"].symbol:
         openord_group = df_openords[df_openords.symbol == symbol]
         if len(openord_group) == 1 and openord_group.iloc[0].state == "covering":
             unprotected_symbols.append(symbol)
@@ -702,12 +713,6 @@ def update_unds_status(df_unds:pd.DataFrame, df_pf:pd.DataFrame, df_openords:pd.
     df_unds.loc[df_unds.symbol.isin(uncovered_symbols), "state"] = "uncovered"
 
     return df_unds
-
-def clean_option_expiry(df) -> list:
-    """
-    Cleans option contracts in the dataframe by keeping only year in expiry
-    """
-    return [Option(c.symbol, c.lastTradeDateOrContractMonth[:8], c.strike, c.right, c.exchange, conId=c.conId) for c in df.contract]
 
 def atm_margin(strike, undPrice, dte, vy):
     """

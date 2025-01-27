@@ -32,7 +32,7 @@
 * Symbol state are derived from portfolio state and order state. They are reflected in df_unds.
 
   - 'zen': symbol
-    - has both covering and protecting portfolio positions or orders
+    - has a stock both covering and protecting portfolio positions or orders
     - has 'straddled' portfolio state
     - has a short 'sowing' order
     - is in 'unprotected' portfolio state with a 'protecting' order
@@ -40,9 +40,12 @@
     - has long option 'orphaned' position with an open 'de-orphaning' order
     - has short option 'sowed' position with a on open 'reaping' order
   - 'unreaped': Symbol has a short option position with no open 'reaping' order
+  - 'exposed': Symbol has a stock, but has not covering or protecting order or option position
+  - 'uncovered': Symbol has a stock that is protected, but not covered
+  - 'unprotected': Symbol has a stock that is covered, but not protected
   - 'virgin': Symbol is not sowed and ready for naked orders
-
-  ...rest would be state derived from position
+  - 'orphaned': Symbol has a put or call buy position, but without any underlying
+  - 'unknown': Anything that is not in any one of the above states. (Should not be there!!)
 
 # Steps
 

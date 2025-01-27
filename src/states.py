@@ -4,7 +4,7 @@
 
 from contextlib import ExitStack
 
-import loguru
+from loguru import logger
 import numpy as np
 import pandas as pd
 from ib_async import Option, util
@@ -17,7 +17,7 @@ from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
                    get_prec, is_market_open, load_config, pickle_me,
                    update_unds_status, tqdm, delete_pkl_files)
 
-delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_prot_long.pkl', 'df_prot_short.pkl'])
+delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl'])
 
 log_file_path = ROOT / "log" / "states.log"
 
@@ -31,7 +31,7 @@ nkd_path = ROOT / "data" / "df_nkd.pkl"
 pf_path = ROOT / "data" / "df_pf.pkl"
 
 util.logToFile(log_file_path, level=40) # IB ERRORs only logged.
-loguru.logger.add(log_file_path, rotation="1 week")
+logger.add(log_file_path, rotation="1 week")
 
 unds = get_pickle(unds_ct_path)
 df_unds = get_pickle(unds_path)
@@ -159,7 +159,6 @@ df_unds = df_unds.drop(
 df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords)
 
 pickle_me(df_unds, unds_path)
-pickle_me(df_pf, pf_path)
 
 # %%
 #  GET CHAINS
@@ -176,11 +175,12 @@ if chain_recreate:
     with ExitStack() as es:
         try:
             ib = es.enter_context(get_ib("SNP", LIVE=False))
-            chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
         except Exception:
-            loguru.logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
+            logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
             ib = get_ib("SNP", LIVE=True)
+        finally:
             chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
+            ib.disconnect()
     
         unds1 = clean_ib_util_df(unds)
         missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]
@@ -247,7 +247,7 @@ else:
     ]
 
     with get_ib("SNP") as ib:
-        ib.run(qualify_me(ib, cov_calls, desc="Qualifying covered calls"))
+        cov_calls = ib.run(qualify_me(ib, cov_calls, desc="Qualifying covered calls"))
 
     df_cc1 = clean_ib_util_df([c for c in cov_calls if c.conId > 0])
 
@@ -469,10 +469,18 @@ virg_puts = [
     for s, e, k in zip(virg_short.symbol, virg_short.expiry, virg_short.strike)
 ]
 
-with get_ib("SNP", LIVE=False) as ib:
-    virg_puts = ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
+# Check if IBG PAPER is online to qualify virigin puts.
+with ExitStack() as es:
+    try:
+        ib = es.enter_context(get_ib("SNP", LIVE=False))
+    except Exception:
+        ib = get_ib("SNP", LIVE=True)
+    finally:
+        virg_puts = ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
+        ib.disconnect()
 
 if not virg_puts:
+    make_virg_puts = False
     virg_puts_dict = virg_short[['symbol', 'expiry', 'strike']] \
                         .set_index('symbol').T.to_dict()
 
@@ -481,6 +489,9 @@ if not virg_puts:
     )
     df_nkd = pd.DataFrame()
 else:
+    make_virg_puts = True
+
+if make_virg_puts:
     df_virg1 = clean_ib_util_df([p for p in virg_puts if p.conId > 0])
 
     df_virg1["dte"] = df_virg1.expiry.apply(lambda x: get_dte(x))
@@ -544,7 +555,7 @@ else:
 # %%
 # MAKE REAPS
 # Extract unreaped contracts from df_unds
-df_sowed = df_unds[df_unds.state == "sowed"].reset_index(drop=True)
+df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
 
 # Extract unreaped option contracts from df_pf
 df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
@@ -555,23 +566,22 @@ df_reap = df_reap.merge(
     df_unds[["symbol", "vy"]], on="symbol", how="left"
 )
 
-with get_ib("SNP") as ib:
-    reaped = {}
-    sow_cts = ib.run(qualify_me(ib, df_reap.contract.tolist(), desc="Qualifying reap unds"))
-    df_reap = df_reap.assign(contract = sow_cts)
+if df_reap is not None and not df_reap.empty:
+    with get_ib("SNP") as ib:
+        reaped = {}
+        sow_cts = ib.run(qualify_me(ib, df_reap.contract.tolist(), desc="Qualifying reap unds"))
+        df_reap = df_reap.assign(contract = sow_cts)
 
-    for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
-                                desc="reap opt price", total=len(sow_cts)):
-        s = ib.calculateOptionPrice(c, vy, undPrice)
-        reaped[c.conId] = s
-df_reap['optPrice'] = [s.optPrice for s in df_reap.conId.map(reaped)]
-df_reap["xPrice"] = [get_prec(max(0.01,s.optPrice),0.01) for s in df_reap.conId.map(reaped)]
-df_reap['qty'] = df_reap.position.abs().astype(int)
+        for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
+                                    desc="reap opt price", total=len(sow_cts)):
+            s = ib.calculateOptionPrice(c, vy, undPrice)
+            reaped[c.conId] = s
+    df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
+    df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
+    df_reap['qty'] = df_reap.position.abs().astype(int)
 
+    reap_path = ROOT/'data'/'df_reap.pkl'
 
-reap_path = ROOT/'data'/'df_reap.pkl'
-
-if not df_reap.empty:
     pickle_me(df_reap, reap_path)
     print(f'Have {len(df_reap)} reaping options')
 else:
@@ -584,131 +594,171 @@ df_unprot = df_unds[df_unds.state == 'unprotected'].reset_index(drop=True)
 # Protect longs
 df_ulong = df_unprot[df_unprot.position > 0]
 
-# Get chains nearest to desired dte
-df_uch = chains.loc[
-    chains[chains.symbol.isin(df_ulong.symbol.to_list())]
-    .groupby(["symbol", "strike"])["dte"]
-    .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
-]
+make_long_protect = not df_ulong.empty
 
-# get PROTECTION_STRIP contracts lower than undPrice
-df_ul = df_uch[df_uch.symbol.isin(df_ulong.symbol)]
-df_ul = df_ul.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
-df_ul = df_ul.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
-df_ul = df_ul.groupby("symbol").apply(
-    lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
-    include_groups=False
-).reset_index().drop(columns="level_1")
+if make_long_protect:
+    # Get chains nearest to desired dte
+    df_uch = chains.loc[
+        chains[chains.symbol.isin(df_ulong.symbol.to_list())]
+        .groupby(["symbol", "strike"])["dte"]
+        .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
+    ]
 
-df_ul['right'] = 'P'
+    # get PROTECTION_STRIP contracts lower than undPrice
+    df_ul = df_uch[df_uch.symbol.isin(df_ulong.symbol)]
+    df_ul = df_ul.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
+    df_ul = df_ul.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+    df_ul = df_ul.groupby("symbol").apply(
+        lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
+        include_groups=False
+    ).reset_index().drop(columns="level_1", errors='ignore')
 
-df_ul['contract'] = df_ul.apply(
-    lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
-    axis=1
-)
+    df_ul['right'] = 'P'
 
-with get_ib("SNP") as ib:
-    ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
-    df_iv_p = ib.run(df_iv(
-        ib=ib,
-        stocks=ul1,
-        sleep_time=10,
-        msg="long protect option prices and vy",
-    ))
+    df_ul['contract'] = df_ul.apply(
+        lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
+        axis=1
+    )
+
+    with get_ib("SNP") as ib:
+        ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
+        df_iv_p = ib.run(df_iv(
+            ib=ib,
+            stocks=ul1,
+            sleep_time=10,
+            msg="long protect option prices and vy",
+        ))
+
+    # Long Protection recommendation suite
+    df_ivp = df_iv_p.merge(
+        df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
+    )
+    df_ivp = df_ivp.assign(vy=df_ivp["iv"].combine_first(df_ivp["vy"]))
+
+    df_ivp = df_ivp.merge(df_pf[df_pf.secType == 'STK'][['symbol', 'position']], on='symbol')
+
+    df_ivp['qty'] = (df_ivp.position.abs()/100).astype('int')
+    df_ivp['dte'] = get_dte(df_ivp.expiry)
+    df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
+
+    # Median protection
+    df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
+
+else:
+    df_lprot = pd.DataFrame()
 
 # Protect shorts
 df_ushort = df_unprot[df_unprot.position < 0]
 
-# Get chains nearest to desired dte for short positions
-df_sch = chains.loc[
-    chains[chains.symbol.isin(df_ushort.symbol.to_list())]
-    .groupby(["symbol", "strike"])["dte"]
-    .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
-]
+make_short_protect = not df_ushort.empty
 
-# get PROTECTION_STRIPS  contracts higher than undPrice for protection
-df_us = df_sch[df_sch.symbol.isin(df_ushort.symbol)]
-df_us = df_us.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, True])
-df_us = df_us.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
-df_us = df_us.groupby("symbol").apply(
-    lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
-    include_groups=False
-).reset_index().drop(columns="level_1")
+if make_short_protect:
+    # Get chains nearest to desired dte for short positions
+    df_sch = chains.loc[
+        chains[chains.symbol.isin(df_ushort.symbol.to_list())]
+        .groupby(["symbol", "strike"])["dte"]
+        .apply(lambda x: x.sub(PROTECT_DTE).abs().idxmin())
+    ]
 
-df_us['right'] = 'C'
+    # get PROTECTION_STRIPS  contracts higher than undPrice for protection
+    df_us = df_sch[df_sch.symbol.isin(df_ushort.symbol)]
+    df_us = df_us.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, True])
+    df_us = df_us.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+    df_us = df_us.groupby("symbol").apply(
+        lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
+        include_groups=False
+    ).reset_index().drop(columns="level_1")
 
-df_us['contract'] = df_us.apply(
-    lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
-    axis=1
-)
+    df_us['right'] = 'C'
 
-with get_ib("SNP") as ib:
-    us1 = ib.run(qualify_me(ib, df_us.contract, desc="Qualifying short protects"))
-    df_iv_s = ib.run(df_iv(
-        ib=ib,
-        stocks=us1,
-        sleep_time=10,
-        msg="short protect option prices and vy",
-    ))
+    df_us['contract'] = df_us.apply(
+        lambda x: Option(x.symbol, x.expiry, x.strike, x.right, 'SMART'),
+        axis=1
+    )
 
-# Long Protection recommendation suite
-df_ivp = df_iv_p.merge(
-    df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
-)
-df_ivp = df_ivp.assign(vy=df_ivp["iv"].combine_first(df_ivp["vy"]))
+    with get_ib("SNP") as ib:
+        us1 = ib.run(qualify_me(ib, df_us.contract, desc="Qualifying short protects"))
+        df_iv_s = ib.run(df_iv(
+            ib=ib,
+            stocks=us1,
+            sleep_time=10,
+            msg="short protect option prices and vy",
+        ))
 
-df_ivp = df_ivp.merge(df_pf[df_pf.secType == 'STK'][['symbol', 'position']], on='symbol')
+    # Short protection recommendation suite
+    df_ivs = df_iv_s.merge(
+        df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
+    )
+    df_ivs = df_ivs.assign(vy=df_ivs["iv"].combine_first(df_ivs["vy"]))
 
-df_ivp['qty'] = (df_ivp.position.abs()/100).astype('int')
-df_ivp['dte'] = get_dte(df_ivp.expiry)
-df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
-# df_ivp['cost'] = df_ivp.price*df_ivp.qty*100
-# df_ivp.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
-# df_ivp["puc"] = df_ivp.protection/df_ivp.cost
+    df_ivs = df_ivs.merge(
+        df_pf[df_pf.secType == "STK"][["symbol", "position"]], on="symbol", how="left"
+    )
 
-# Median protection
-df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
+    df_ivs['qty'] = (df_ivs.position.abs()/100).astype('int')
+    df_ivs['dte'] = get_dte(df_ivs.expiry)
+    df_ivs["protection"] = (df_ivs["strike"] - df_ivs["undPrice"])*100*df_ivs.qty
 
-# pickle_me(df_ivp, ROOT/'data'/'df_prot_long.pkl')
+    # Median protection for shorts
+    df_sprot = df_ivs.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
 
-# Short protection recommendation suite
-df_ivs = df_iv_s.merge(
-    df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
-)
-df_ivs = df_ivs.assign(vy=df_ivs["iv"].combine_first(df_ivs["vy"]))
-
-df_ivs = df_ivs.merge(
-    df_pf[df_pf.secType == "STK"][["symbol", "position"]], on="symbol", how="left"
-)
-
-df_ivs['qty'] = (df_ivs.position.abs()/100).astype('int')
-df_ivs['dte'] = get_dte(df_ivs.expiry)
-df_ivs["protection"] = (df_ivs["strike"] - df_ivs["undPrice"])*100*df_ivs.qty
-# df_ivs['cost'] = df_ivs.price*df_ivs.qty*100
-# df_ivs.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
-# df_ivs["puc"] = df_ivs.protection/df_ivs.cost
-
-# Median protection for shorts
-df_sprot = df_ivs.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
+else:
+    df_sprot = pd.DataFrame()
 
 # Combine protect and get xPrice, based on ib's calculations
 df_protect = pd.concat([df_lprot, df_sprot], ignore_index=True)
 
-protect = {}
-with get_ib("SNP") as ib:
-    for c, vy, undPrice in tqdm(zip(df_protect.contract, df_protect.vy, df_protect.undPrice),
-                                desc="protect opt price", total=len(df_protect)):
-        s = ib.calculateOptionPrice(c, vy, undPrice)
-        protect[c.conId] = s
-df_protect['xPrice'] = [x.optPrice for x in df_protect.conId.map(protect)]
-df_protect = df_protect.assign(cost = df_protect.xPrice*df_protect.qty*100)
-df_protect = df_protect.assign(puc = df_protect.protection/df_protect.cost)
-df_protect.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
+if not df_lprot.empty or not df_sprot.empty:
+    df_protect.loc[df_protect.vy.isna(), "vy"] = df_protect.loc[df_protect.vy.isna(), "symbol"].map(df_unds.set_index("symbol")["vy"])
 
-pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
+    protect = {}
+    with get_ib("SNP") as ib:
+        for c, vy, undPrice in tqdm(zip(df_protect.contract, df_protect.vy, df_protect.undPrice),
+                                    desc="protect opt price", total=len(df_protect)):
+            s = ib.calculateOptionPrice(c, vy, undPrice)
+            protect[c.conId] = s
+
+    df_protect['optPrice'] = [s.optPrice if s else np.nan for s in df_protect.conId.map(protect)]
+    df_protect['xPrice'] = [get_prec(max(0.01,s.optPrice),0.01) if s else 0.01 for s in df_protect.conId.map(protect)]
+
+    df_protect = df_protect.assign(cost = df_protect.xPrice*df_protect.qty*100)
+    df_protect = df_protect.assign(puc = df_protect.protection/df_protect.cost)
+    df_protect.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
+
+    print(f"Damage after ${df_protect.protection.sum():,.0f}")
+    print(f"...protected for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days")
+    pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
+else:
+    print("There are no protect options")
 
 # %%
-print(f"Protects: ${df_protect.protection.sum():,.0f} for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days")
+# CONSOLIDATED UNDS, PORTFOLIO AND ORDERS
+df = pd.concat([
+    df_unds.assign(source='und'),
+    df_pf.assign(source='pf'),
+    df_openords.assign(source='oo')
+], ignore_index=True)
+
+df = df.assign(
+    status='unknown',
+    dte=df.expiry.apply(lambda x: get_dte(x) if pd.notna(x) and x else np.nan)
+)
+
+cols = [
+    'source', 'symbol', 'secType', 'state', 'conId', 'undPrice', 'strike',
+    'right', 'expiry', 'dte', 'position', 'qty', 'action'
+]
+df = df[cols]
+
+# First, create a temporary column for sorting
+df['sort_key'] = df.apply(lambda x: (
+    x['symbol'],
+    {'C': 0, '0': 1, 'P': 2}.get(x['right'], 3),
+    1 if x['source'] == 'und' else 0
+), axis=1)
+
+# Sort using the temporary column
+df_sorted = df.sort_values('sort_key').drop('sort_key', axis=1)
 
 
 # %%
