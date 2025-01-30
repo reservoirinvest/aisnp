@@ -561,6 +561,11 @@ df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
 df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
             & (df_pf.secType == "OPT")].reset_index(drop=True)
 
+# Remove in-the-money options from df_reap
+df_reap = df_reap[~((df_reap.right == 'C') & (df_reap.strike < df_reap.undPrice)) &
+                      ~((df_reap.right == 'P') & (df_reap.undPrice < df_reap.strike))].reset_index(drop=True)
+
+
 # Integrate Vy (volatility) into df_sowed_pf from df_unds
 df_reap = df_reap.merge(
     df_unds[["symbol", "vy"]], on="symbol", how="left"
@@ -578,6 +583,8 @@ if df_reap is not None and not df_reap.empty:
             reaped[c.conId] = s
     df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
     df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
+    df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost/2), 0.01)), axis=1)
+
     df_reap['qty'] = df_reap.position.abs().astype(int)
 
     reap_path = ROOT/'data'/'df_reap.pkl'
@@ -730,35 +737,3 @@ if not df_lprot.empty or not df_sprot.empty:
     pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
 else:
     print("There are no protect options")
-
-# %%
-# CONSOLIDATED UNDS, PORTFOLIO AND ORDERS
-df = pd.concat([
-    df_unds.assign(source='und'),
-    df_pf.assign(source='pf'),
-    df_openords.assign(source='oo')
-], ignore_index=True)
-
-df = df.assign(
-    status='unknown',
-    dte=df.expiry.apply(lambda x: get_dte(x) if pd.notna(x) and x else np.nan)
-)
-
-cols = [
-    'source', 'symbol', 'secType', 'state', 'conId', 'undPrice', 'strike',
-    'right', 'expiry', 'dte', 'position', 'qty', 'action'
-]
-df = df[cols]
-
-# First, create a temporary column for sorting
-df['sort_key'] = df.apply(lambda x: (
-    x['symbol'],
-    {'C': 0, '0': 1, 'P': 2}.get(x['right'], 3),
-    1 if x['source'] == 'und' else 0
-), axis=1)
-
-# Sort using the temporary column
-df_sorted = df.sort_values('sort_key').drop('sort_key', axis=1)
-
-
-# %%

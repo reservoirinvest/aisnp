@@ -4,7 +4,7 @@ import os
 import pickle
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Iterable, Optional, Union, List
+from typing import Iterable, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -97,10 +97,12 @@ def pickle_me(obj, file_path: Path):
 def get_pickle(path: Path, print_msg: bool = True):
     try:
         with open(path, "rb") as f:
-            return pickle.load(f)
+            output = pickle.load(f)
+            print(f"Loaded {path}")
+            return output
     except FileNotFoundError:
         if print_msg:
-            logger.error(f"File not found: {path}")
+            print(f"File not found: {path}")
         return None
 
 
@@ -604,6 +606,17 @@ def update_unds_status(df_unds:pd.DataFrame,
     pd.DataFrame: Updated underlying symbols DataFrame with 'state' column
     """
 
+    # Merge df_pf mktPrice into df_unds mktPrice and undPrice
+    df_unds = df_unds.merge(
+        df_pf[df_pf["secType"] == "STK"][["symbol", "mktPrice"]],
+        on="symbol",
+        how="left",
+        suffixes=("", "_new"),
+    ).assign(
+        undPrice=lambda x: x["mktPrice_new"].combine_first(x["undPrice"]),
+        mktPrice=lambda x: x["mktPrice_new"].combine_first(x["mktPrice"]),
+    ).drop(columns=["mktPrice_new"])
+
     # Initialize status column if not exists
     if "state" not in df_unds.columns:
         df_unds["state"] = df_pf.set_index("symbol")["state"].reindex(
@@ -787,3 +800,5 @@ def delete_pkl_files(files_to_delete, root=None):
                 print(f"File not found: {filename}")
         except Exception as e:
             print(f"Error deleting {filename}: {e}")
+
+

@@ -16,7 +16,7 @@ from utils import (
     do_in_chunks,
     get_dte,
     load_config,
-    to_list, get_prec,
+    to_list,
 )
 
 # Apply nest_asyncio to allow nested event loops
@@ -433,15 +433,16 @@ async def get_financials(ib: IB) -> dict:
     df_acc = util.df(ib.accountValues())
 
     d_map = {
-        "NetLiquidation": "nlv",
+        "NetLiquidation": "net liquidation value",
+        "StockMarketValue": "stocks",
         "TotalCashBalance": "cash",
         "Cushion": "cushion",
-        "InitMarginReq": "init_margin",
-        "EquityWithLoanValue": "equity_val",
-        "MaintMarginReq": "maint_margin",
-        "realizedPnL": "pnl_real",
-        "UnrealizedPnL": "pnl_unreal",
-        "LookAheadAvailableFunds": "funds_avlbl",
+        "InitMarginReq": "initial margin",
+        # "EquityWithLoanValue": "equity_val",
+        "MaintMarginReq": "maintenance margin",
+        "UnrealizedPnL": "unrealized pnl",
+        "realizedPnL": "realized pnl",
+        "LookAheadAvailableFunds": "funds available to trade",
     }
 
     # get account values as a dictionary
