@@ -4,24 +4,23 @@
 
 from contextlib import ExitStack
 
-from loguru import logger
 import numpy as np
 import pandas as pd
 from ib_async import Option, util
+from loguru import logger
 
-from ibfuncs import (df_chains, df_iv, get_financials,
-                     get_ib, get_open_orders, ib_pf, qualify_me)
-from snp import snp_qualified_und_contracts
+from ibfuncs import (df_chains, df_iv, get_financials, get_ib, get_open_orders,
+                     ib_pf, qualify_me)
+from snp import make_snp_unds
 from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
-                   clean_ib_util_df, do_i_refresh, get_dte, get_pickle,
-                   get_prec, is_market_open, load_config, pickle_me,
-                   update_unds_status, tqdm, delete_pkl_files)
+                   clean_ib_util_df, delete_pkl_files, do_i_refresh, get_dte,
+                   get_pickle, get_prec, is_market_open, load_config,
+                   pickle_me, tqdm, update_unds_status)
 
 delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl'])
 
 log_file_path = ROOT / "log" / "states.log"
 
-unds_ct_path = ROOT / "data" / "und_contracts.pkl"
 unds_path = ROOT / "data" / "df_unds.pkl"
 chains_path = ROOT / "data" / "chains.pkl"
 
@@ -33,7 +32,6 @@ pf_path = ROOT / "data" / "df_pf.pkl"
 util.logToFile(log_file_path, level=40) # IB ERRORs only logged.
 logger.add(log_file_path, rotation="1 week")
 
-unds = get_pickle(unds_ct_path)
 df_unds = get_pickle(unds_path)
 chains = get_pickle(chains_path)
 
@@ -64,101 +62,23 @@ with get_ib("SNP") as ib:
 df_openords = classify_open_orders(openords, df_pf)
 
 if is_market_open() or get_pickle(unds_path) is None:
+
     # Get unds. Make it fresh if stale.
-    if do_i_refresh(unds_ct_path, max_days=MAX_FILE_AGE):
-        unds = snp_qualified_und_contracts(unds_path=unds_ct_path, fresh=True)
+    if do_i_refresh(df_unds, max_days=MAX_FILE_AGE):
+        df_unds = make_snp_unds()
     else:
         print(
             f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old"
         )
-        unds = get_pickle(unds_ct_path)
+        df_unds = get_pickle(df_unds)
 
-    dfu = clean_ib_util_df(unds)
+        pickle_me(df_unds, unds_path)
 
-    # Update df_unds undPrice
-    dfu["undPrice"] = dfu.merge(
-        qpf[qpf.secType == "STK"][["symbol", "mktPrice"]], on="symbol", how="left"
-    )["mktPrice"]
-
-    # Get und prices, volatilities
-    with get_ib("SNP") as ib:
-        dfp = ib.run(
-            df_iv(
-                ib=ib,
-                stocks=dfu["contract"].tolist(),
-                sleep_time=10,
-                msg="gets undPrices and Vy",
-            )
-        )
-
-    # Merge price data
-    dfu.loc[dfu.undPrice.isnull(), "undPrice"] = dfu.merge(
-        dfp[["symbol", "price"]], on="symbol", how="left"
-    )["price"]
-
-    # Merge volatility data
-    dfu = dfu.merge(dfp[["symbol", "hv", "iv"]], on="symbol", how="left")
-
-    # ..create 'vy' field that shows 'iv' or 'hv' if 'iv' is NaN
-    dfu["vy"] = dfu["iv"].combine_first(dfu["hv"])
-
-    dfu = pd.concat(
-        [
-            dfu,
-            dfu.merge(
-                qpf[qpf.secType == "STK"][
-                    ["symbol", "position", "mktPrice", "mktVal", 
-                    "avgCost", "unPnL", "rePnL"]
-                ],
-                on="symbol",
-                how="left",
-            )[["position", "mktPrice", "mktVal", "avgCost", "unPnL", "rePnL"]],
-        ],
-        axis=1,
-    )
-
-    #  Establish status for pf and df_unds
-    df_unds = dfu.merge(
-        df_pf[["symbol", "secType", "state"]], on=["symbol", "secType"], how="left"
-    )
-
-    # ... update df_pf with undPrice and avgCost
-    df_pf = pd.merge(df_pf, df_unds[["symbol", "undPrice"]], on="symbol", how="left")
-    df_pf.insert(5, "undPrice", df_pf.pop("undPrice"))
-    df_pf = df_pf.assign(avgCost = df_pf.avgCost/100)
-
-else:
-    df_unds = get_pickle(unds_path)
-
-# ... initialize unds state
-df_unds.loc[df_unds.state.isna(), "state"] = "tbd"
-
-# ..update status for symbols in df_unds but not in qpf
-opt_symbols = df_pf[df_pf.secType == "OPT"].symbol
-opt_state_dict = dict(
-    zip(
-        df_pf.loc[df_pf.secType == "OPT", "symbol"],
-        df_pf.loc[df_pf.secType == "OPT", "state"],
-    )
-)
-df_unds.loc[
-    (df_unds.symbol.isin(opt_symbols)) & (df_unds.state == "tbd"),
-    "state",
-] = df_unds.loc[
-    (df_unds.symbol.isin(opt_symbols)) & (df_unds.state == "tbd"),
-    "symbol",
-].map(opt_state_dict)
-
-# ..update status for symbols not in qpf
-df_unds.loc[~df_unds.symbol.isin(qpf.symbol), "state"] = "virgin"
-
-df_unds = df_unds.drop(
-    columns=["iv", "hv", "expiry", "strike", "right"], errors="ignore"
-)
 # ..apply the status update to df_unds and pickle
-df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords)
+df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords).sort_values("symbol").reset_index(drop=True)
 
-pickle_me(df_unds, unds_path)
+# Update symbol in df_pf with undPrice in df_unds
+df_pf = df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
 
 # %%
 #  GET CHAINS
@@ -170,6 +90,8 @@ else:
     chain_recreate = False
 
 if chain_recreate:
+
+    unds = df_unds.contract.to_list()
 
     # Check if IBG PAPER is online for comprehensive chains. TWS chains usually get incomplete.
     with ExitStack() as es:
@@ -422,9 +344,9 @@ else:
     print("No covers available!")
 
 # %%
-# MAKE SOWING CONTRACTS FOR VIRGIN SYMBOLS
+# MAKE SOWING CONTRACTS FOR VIRGIN AND ORPHANED SYMBOLS
 
-df_v = df_unds[df_unds.state == "virgin"].reset_index(drop=True)
+df_v = df_unds[(df_unds.state == "virgin") | (df_unds.state == "orphaned")].reset_index(drop=True)
 
 # Get chains of df_unds with dtes nearest to VIRGIN_DTE
 VIRGIN_DTE = config.get("VIRGIN_DTE")

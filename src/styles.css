@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+caption {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/* Custom row styling from style_rows() */
+.breach-row {
+    background-color: black !important;
+    color: white !important;
+}
+.und-row-positive {
+    background-color: green !important;
+    color: white !important;
+}
+.und-row-negative {
+    background-color: red !important;
+    color: white !important;
+}
+.default-row {
+    background-color: #313131 !important;
+    color: #b4b1b1 !important;
+}
+
+pre {
+    white-space: pre-wrap;
+}

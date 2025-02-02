@@ -1,12 +1,14 @@
 from functools import lru_cache
+from pathlib import Path
 
 import pandas as pd
 from ib_async import Stock
 from loguru import logger
 
-from ibfuncs import get_ib, qualify_me
-from utils import ROOT, clean_ib_util_df, get_pickle, pickle_me
-from pathlib import Path
+from ibfuncs import (df_iv, get_ib, get_open_orders,
+                     ib_pf, qualify_me)
+from utils import (ROOT, classify_pf, clean_ib_util_df, get_pickle, pickle_me,
+                   update_unds_status, classify_open_orders)
 
 
 @lru_cache(maxsize=1)
@@ -54,8 +56,120 @@ def snp_qualified_und_contracts(unds_path: Path, fresh: bool=False) -> pd.Series
 
     output = pd.Series(qualified_contracts)
     
-    pickle_me(output, unds_path)
+    # pickle_me(output, unds_path)
     
     return output
 
 
+def make_snp_unds() -> pd.DataFrame:
+
+    unds_path = ROOT / "data" / "df_unds.pkl"
+
+    with get_ib(MARKET='SNP') as ib:
+        qpf = ib_pf(ib)
+        df_pf = classify_pf(qpf)
+        openords = get_open_orders(ib)
+        df_openords = classify_open_orders(openords, df_pf)
+
+    # Get fresh underlying contracts
+    unds = snp_qualified_und_contracts(unds_path=unds_path, fresh=True)
+    dfu = clean_ib_util_df(unds)
+
+    # Update df_unds undPrice
+    dfu["undPrice"] = dfu.merge(
+        qpf[qpf.secType == "STK"][["symbol", "mktPrice"]], 
+        on="symbol", 
+        how="left"
+    )["mktPrice"]
+
+    # Get und prices, volatilities
+    with get_ib(MARKET='SNP') as ib:
+        dfp = ib.run(
+            df_iv(
+                ib=ib,
+                stocks=dfu["contract"].tolist(),
+                sleep_time=15,
+                msg="getting undPrices and vy",
+            )
+        )
+
+    # Merge price data
+    dfu.loc[dfu.undPrice.isnull(), "undPrice"] = dfu.merge(
+        dfp[["symbol", "price"]], on="symbol", how="left"
+    )["price"]
+
+    # Merge volatility data
+    dfu = dfu.merge(dfp[["symbol", "hv", "iv"]], on="symbol", how="left")
+    dfu["vy"] = dfu["iv"].combine_first(dfu["hv"])
+
+    # Merge portfolio data
+    dfu = pd.concat(
+        [
+            dfu,
+            dfu.merge(
+                qpf[qpf.secType == "STK"][
+                    ["symbol", "position", "mktPrice", "mktVal", 
+                    "avgCost", "unPnL", "rePnL"]
+                ],
+                on="symbol",
+                how="left",
+            )[["position", "mktPrice", "mktVal", "avgCost", "unPnL", "rePnL"]],
+        ],
+        axis=1,
+    )
+
+    # Establish status
+    df_unds = dfu.merge(
+        df_pf[["symbol", "secType", "state"]], 
+        on=["symbol", "secType"], 
+        how="left"
+    )
+
+    # Initialize states
+    df_unds.loc[df_unds.state.isna(), "state"] = "tbd"
+    
+    # Update states for options
+    opt_symbols = df_pf[df_pf.secType == "OPT"].symbol
+    opt_state_dict = dict(zip(
+        df_pf.loc[df_pf.secType == "OPT", "symbol"],
+        df_pf.loc[df_pf.secType == "OPT", "state"],
+    ))
+    
+    df_unds.loc[
+        (df_unds.symbol.isin(opt_symbols)) & (df_unds.state == "tbd"),
+        "state",
+    ] = df_unds.loc[
+        (df_unds.symbol.isin(opt_symbols)) & (df_unds.state == "tbd"),
+        "symbol",
+    ].map(opt_state_dict)
+
+    # Update virgin states
+    df_unds.loc[~df_unds.symbol.isin(qpf.symbol), "state"] = "virgin"
+
+    # Clean up columns
+    df_unds = df_unds.drop(
+        columns=["iv", "hv", "expiry", "strike", "right"], 
+        errors="ignore"
+    )
+
+    # Final status update
+    df_unds = update_unds_status(
+        df_unds=df_unds, 
+        df_pf=df_pf, 
+        df_openords=df_openords
+    )
+
+    no_undPrice = df_unds[df_unds.undPrice.isna()]
+    no_vy = df_unds[df_unds.vy.isna()]
+    if not no_undPrice.empty:
+        print(f"{len(no_undPrice)} symbols have no undPrice, sample: {no_undPrice.symbol.head().to_list()}")
+    if not no_vy.empty:
+        print(f"{len(no_vy)} symbols have no vy, sample: {no_vy.symbol.head().to_list()}")
+
+    pickle_me(df_unds, unds_path)
+
+    return df_unds
+
+# %%
+if __name__ == "__main__":
+    df_unds = make_snp_unds()

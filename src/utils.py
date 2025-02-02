@@ -2,10 +2,10 @@ import asyncio
 import math
 import os
 import pickle
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Optional, Union
-
 import numpy as np
 import pandas as pd
 import pandas_datareader.data as web
@@ -543,21 +543,6 @@ def classify_open_orders(df_openords, pf):
     )
     df.loc[sowing_mask, "state"] = "sowing"
 
-    # # 'de-orphaning' - option BUY order with only an underlying option position and no stock position
-    # deorphaning_mask = opt_orders.apply(
-    #     lambda row: (
-    #         row.action == "BUY"
-    #         and
-    #         # No stock position for the symbol
-    #         row.symbol not in pf[(pf.secType == "STK")].symbol
-    #         and
-    #         # Has an option position for the symbol
-    #         not pf[(pf.secType == "OPT") & (pf.symbol == row.symbol)].empty
-    #     ),
-    #     axis=1,
-    # )
-    # df.loc[deorphaning_mask, "state"] = "de-orphaning"
-
     # 'reaping' - option BUY order with matching existing option position
     reaping_mask = opt_orders.apply(
         lambda row: (
@@ -572,6 +557,21 @@ def classify_open_orders(df_openords, pf):
         axis=1,
     )
     df.loc[reaping_mask, "state"] = "reaping"
+
+    # 'de-orphaning' - option SELL order with matching existing option position
+    de_orphaning_mask = opt_orders.apply(
+        lambda row: (
+            row.action == "SELL"
+            and not pf[
+                (pf.secType == "OPT")
+                & (pf.symbol == row.symbol)
+                & (pf.right == row.right)
+                & (pf.strike == row.strike)
+            ].empty
+        ),
+        axis=1,
+    )
+    df.loc[de_orphaning_mask, "state"] = "de-orphaning"
 
     # 'straddling' - two option BUY orders for same symbol not in portfolio
     # Group by symbol and count BUY actions
@@ -588,6 +588,7 @@ def classify_open_orders(df_openords, pf):
         & (~opt_orders.symbol.isin(pf.symbol))
     )
     df.loc[straddle_mask, "state"] = "straddling"
+
 
     return df
 
@@ -606,24 +607,12 @@ def update_unds_status(df_unds:pd.DataFrame,
     pd.DataFrame: Updated underlying symbols DataFrame with 'state' column
     """
 
-    # Merge df_pf mktPrice into df_unds mktPrice and undPrice
-    df_unds = df_unds.merge(
-        df_pf[df_pf["secType"] == "STK"][["symbol", "mktPrice"]],
+    df_unds = df_unds.drop(columns=['mktPrice', 'state', ], errors='ignore').merge(
+        df_pf[df_pf["secType"] == "STK"][["symbol", "mktPrice", 'state']],
         on="symbol",
         how="left",
         suffixes=("", "_new"),
-    ).assign(
-        undPrice=lambda x: x["mktPrice_new"].combine_first(x["undPrice"]),
-        mktPrice=lambda x: x["mktPrice_new"].combine_first(x["mktPrice"]),
-    ).drop(columns=["mktPrice_new"])
-
-    # Initialize status column if not exists
-    if "state" not in df_unds.columns:
-        df_unds["state"] = df_pf.set_index("symbol")["state"].reindex(
-            df_unds.symbol, fill_value="unknown"
-        )
-
-    df_unds.loc[:, "state"] = "unknown"
+    )
 
     # update status from df_pf for stock symbols
     stk_symbols = df_pf[df_pf.secType == "STK"].symbol
@@ -639,9 +628,6 @@ def update_unds_status(df_unds:pd.DataFrame,
 
     # ..update status for symbols not in df_pf
     df_unds.loc[~df_unds.symbol.isin(df_pf.symbol.unique()), "state"] = "virgin"
-
-    # if df_openords is None or df_openords.empty:
-    #     return df_unds
 
     # Zen conditions
     zen_symbols = set()
@@ -693,10 +679,17 @@ def update_unds_status(df_unds:pd.DataFrame,
     ].symbol
     zen_symbols.update(sowed_with_reap)
 
+    # 8. Short 'orphaned' position with 'virgin' order
+    orphaned_with_virgin = df_pf[
+        (df_pf.state == "orphaned")
+        & ~df_pf.symbol.isin(df_openords[df_openords.state == "virgin"].symbol)
+    ].symbol
+    zen_symbols.update(orphaned_with_virgin)
+
     # Update status for zen symbols
     df_unds.loc[df_unds.symbol.isin(zen_symbols), "state"] = "zen"
 
-    # 8. Unreaped: Symbol has a short option position with no open 'reaping' order
+    # Unreaped: Symbol has a short option position with no open 'reaping' order
     unreaped_symbols = df_pf[
         (df_pf.state == "sowed")
         & ~df_pf.symbol.isin(df_openords[df_openords.state == "reaping"].symbol)
@@ -705,7 +698,7 @@ def update_unds_status(df_unds:pd.DataFrame,
     # Update status for unreaped symbols
     df_unds.loc[df_unds.symbol.isin(unreaped_symbols), "state"] = "unreaped"
 
-    # 9. Unprotected: Symbol has an exposed state with only one 'covering' order
+    # Unprotected: Symbol has an exposed state with only one 'covering' order
     unprotected_symbols = []
     for symbol in df_pf[df_pf.state == "unprotected"].symbol:
         openord_group = df_openords[df_openords.symbol == symbol]
@@ -715,7 +708,7 @@ def update_unds_status(df_unds:pd.DataFrame,
     # Update status for unprotected symbols
     df_unds.loc[df_unds.symbol.isin(unprotected_symbols), "state"] = "unprotected"
 
-    # 10. Uncovered: Symbol has an exposed state with only one 'protecting' order
+    # Uncovered: Symbol has an exposed state with only one 'protecting' order
     uncovered_symbols = []
     for symbol in df_unds[df_unds.state == "exposed"].symbol:
         openord_group = df_openords[df_openords.symbol == symbol]
@@ -724,6 +717,12 @@ def update_unds_status(df_unds:pd.DataFrame,
 
     # Update status for uncovered symbols
     df_unds.loc[df_unds.symbol.isin(uncovered_symbols), "state"] = "uncovered"
+
+    # Orphaned: Symbol has an 'orphaned' state with no open orders
+    orphaned_symbols = df_pf[(df_pf.state == "orphaned") & ~df_pf.symbol.isin(df_openords.symbol)].symbol
+
+    # Update status for orphaned symbols
+    df_unds.loc[df_unds.symbol.isin(orphaned_symbols), "state"] = "orphaned"
 
     return df_unds
 
@@ -802,3 +801,27 @@ def delete_pkl_files(files_to_delete, root=None):
             print(f"Error deleting {filename}: {e}")
 
 
+def is_running_in_regular_terminal() -> bool:
+    """
+    This function determines if the code is running in a regular terminal.
+    
+    Returns:
+        bool: True if running in a regular terminal, False otherwise.
+    """
+    # Check for VSCode
+    if 'VSCODE_PID' in os.environ:
+        return False
+    # Check for PyCharm
+    elif 'PYCHARM_HOSTED' in os.environ:
+        return False
+    # Check for generic VSCode
+    elif 'TERM_PROGRAM' in os.environ and 'vscode' in os.environ['TERM_PROGRAM'].lower():
+        return False
+    # Check for Jupyter Notebook
+    elif 'ipykernel' in sys.modules:
+        return False
+    # Check for Streamlit
+    elif 'streamlit' in sys.argv:
+        return False
+    else:
+        return True
