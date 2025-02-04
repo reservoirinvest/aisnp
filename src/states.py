@@ -64,7 +64,7 @@ df_openords = classify_open_orders(openords, df_pf)
 if is_market_open() or get_pickle(unds_path) is None:
 
     # Get unds. Make it fresh if stale.
-    if do_i_refresh(df_unds, max_days=MAX_FILE_AGE):
+    if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
         df_unds = make_snp_unds()
     else:
         print(
