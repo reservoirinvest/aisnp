@@ -70,7 +70,7 @@ if is_market_open() or get_pickle(unds_path) is None:
         print(
             f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old"
         )
-        df_unds = get_pickle(df_unds)
+        df_unds = get_pickle(unds_path)
 
         pickle_me(df_unds, unds_path)
 
@@ -385,7 +385,7 @@ virg_short = (
     .drop(columns=["level_2", "diff"], errors="ignore")
 )
 
-# Make short virgin put optionsk
+# Make short virgin put options
 virg_puts = [
     Option(s, e, k, "P", "SMART")
     for s, e, k in zip(virg_short.symbol, virg_short.expiry, virg_short.strike)
@@ -403,11 +403,18 @@ with ExitStack() as es:
 
 if not virg_puts:
     make_virg_puts = False
-    virg_puts_dict = virg_short[['symbol', 'expiry', 'strike']] \
-                        .set_index('symbol').T.to_dict()
+    virg_puts_dict = virg_short.groupby('symbol').agg({
+    'expiry': 'first',
+    'strike': lambda x: x.tolist()
+}).apply(
+    lambda x: {
+        'expiry': str(x['expiry']),
+        'strike': x['strike']
+    }, axis=1
+).to_dict()
 
     print(
-        f"Virgin puts for {virg_puts_dict} is not available!\n"
+        "\n".join(f"Virgin put for {k}: {v} is not available! " for k, v in virg_puts_dict.items())
     )
     df_nkd = pd.DataFrame()
 else:

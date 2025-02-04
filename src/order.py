@@ -104,6 +104,8 @@ if (df_protect_path := protect_path).exists():
 else:
     print("\nThere are no protect options\n")
 
-
-
 # %%
+# %%
+# RUN ANALYSIS
+exec(open(ROOT / "src" / "analysis.py").read())
+

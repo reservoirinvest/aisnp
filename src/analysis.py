@@ -388,6 +388,9 @@ def webbrowser_styled_df(styled_df):
     # Convert the styled DataFrame to HTML using to_html()
     html = styled_df.to_html()
 
+    # Print the message pad contents
+    print("\n".join(msg_pad))
+
     # Read the contents of the CSS file
     try:
         css_path = Path(ROOT / 'src' / 'styles.css')
@@ -415,22 +418,37 @@ def webbrowser_styled_df(styled_df):
     msg_pad_html = '<div class="msg-pad">' + '\n'.join(msg_pad) + '</div>'
 
     # Combine the custom CSS with the HTML
-    full_html = f"<html><head>{custom_css}</head><body>{html}{msg_pad_html}</body></html>"
+    full_html = f"""
+    <html>
+    <head>{custom_css}</head>
+    <body>
+        {msg_pad_html}
+        {html}
+    </body>
+    </html>"""
 
-    # Create a temporary HTML file
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w') as f:
+    # Ensure the report directory exists
+    report_dir = ROOT / 'report'
+    report_dir.mkdir(exist_ok=True)
+
+    # Create a filename with current timestamp in yyyymmdd_hh format
+    from datetime import datetime
+    timestamp = datetime.now().strftime('%Y%m%d_%H')
+    report_path = report_dir / f'report_{timestamp}.html'
+
+    # Write the full HTML to the file
+    with report_path.open('w') as f:
         f.write(full_html)
-        temp_file_path = f.name
 
     # Set read permissions for the file
-    Path(temp_file_path).chmod(0o644)
+    report_path.chmod(0o644)
 
     # Open the HTML file in the default web browser
     try:
-        webbrowser.open(f'file://{temp_file_path}')
+        webbrowser.open(f'file://{report_path}')
     except Exception as e:
         print(f"Error opening browser: {e}")
-        print(f"Try opening this file manually: {temp_file_path}")
+        print(f"Try opening this file manually: {report_path}")
 
     # Explicitly prevent the Styler object from being printed in the terminal
     return
