@@ -8,7 +8,9 @@
 		"editor.tabCompletion": "on",
 		"editor.formatOnSave": false,
 		"editor.defaultFormatter": "ms-python.black-formatter",
-		"python.REPL.sendToNativeREPL": true
+		"python.REPL.sendToNativeREPL": true,
+		"vscode-pydata-viewer.pythonPath": "default",
+		"vscode-pydata-viewer.scriptPath": "C:\\Users\\kashi\\python\\aisnp\\.venv\\Scripts"
 	},
 	"launch": {
 		"version": "0.2.0",

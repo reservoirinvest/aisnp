@@ -17,7 +17,6 @@ protect_path = ROOT / "data" / "df_protect.pkl"
 
 config = load_config('SNP')
 
-MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
 MINCUSHION = config.get("MINCUSHION")
 
 def make_ib_orders(df: pd.DataFrame, action: str) -> tuple:

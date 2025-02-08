@@ -22,7 +22,7 @@ delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl'])
 log_file_path = ROOT / "log" / "states.log"
 
 unds_path = ROOT / "data" / "df_unds.pkl"
-chains_path = ROOT / "data" / "chains.pkl"
+chains_path = ROOT / "data" / "df_chains.pkl"
 
 cov_path = ROOT / "data" / "df_cov.pkl"  # covered call and put path
 nkd_path = ROOT / "data" / "df_nkd.pkl"
@@ -106,14 +106,17 @@ if chain_recreate:
     
         unds1 = clean_ib_util_df(unds)
         missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]
+        
         if not missing_unds.empty:
-            additional_chains = ib.run(
-                df_chains(ib, missing_unds.contract.to_list(), msg="missing chains")
-                )
-            if additional_chains is not None and not additional_chains.empty:
-                chains = pd.concat([chains, additional_chains], ignore_index=True)
+            with get_ib("SNP") as ib:
+                additional_chains = ib.run(
+                    df_chains(ib, missing_unds.contract.to_list(), msg="missing chains")
+                    )
+                if additional_chains is not None and not additional_chains.empty:
+                    chains = pd.concat([chains, additional_chains], ignore_index=True)
         
     pickle_me(chains, chains_path)
+    
 
 else:
     chains = pd.read_pickle(chains_path)
@@ -336,9 +339,9 @@ if not df_cov.empty:
         + premium
     )
 
-    print(f"Position Cost: {cost:.2f}")
-    print(f"Cover Premium: {premium:.2f}")
-    print(f"Max Profit: {maxProfit:.2f}")
+    print(f"Position Cost: $ {cost:,.2f}")
+    print(f"Cover Premium: $ {premium:,.2f}")
+    print(f"Max Profit: $ {maxProfit:,.2f}")
 
 else:
     print("No covers available!")
@@ -477,7 +480,7 @@ if not df_nkd.empty:
 
     # Analyze naked puts
     premium = (df_nkd.xPrice * 100 * df_nkd.qty).sum()
-    print(f"Naked Premiums: {premium:.2f}")
+    print(f"Naked Premiums: $ {premium:,.2f}")
 else:
     print("No naked puts available!")
 
@@ -515,12 +518,14 @@ if df_reap is not None and not df_reap.empty:
     df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost/2), 0.01)), axis=1)
 
     df_reap['qty'] = df_reap.position.abs().astype(int)
+    reaps = (abs(df_reap.mktPrice - df_reap.xPrice)*df_reap.qty*100).sum()
 
     reap_path = ROOT/'data'/'df_reap.pkl'
 
     pickle_me(df_reap, reap_path)
-    print(f'Have {len(df_reap)} reaping options')
+    print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}')
 else:
+    
     print("There are no reaping options")
 
 # %%

@@ -1,4 +1,3 @@
-
 # %%
 # MAKE QUALIFIED CHAINS
 
@@ -8,7 +7,7 @@ from ibfuncs import get_ib, qualify_me
 from ib_async import Option, IB
 from tqdm.asyncio import tqdm
 
-ch = get_pickle(ROOT / "data" / "chains.pkl", print_msg=False)
+ch = get_pickle(ROOT / "data" / "df_chains.pkl", print_msg=False)
 ch['dte'] = ch.expiry.apply(get_dte)
 ch = ch[ch.dte >= 0]
 

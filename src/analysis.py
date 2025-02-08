@@ -2,7 +2,6 @@
 # GETS OVERALL FINANCIALS
 
 import os
-import tempfile
 import webbrowser
 from pathlib import Path
 
@@ -26,7 +25,7 @@ nkd_path = ROOT / "data" / "df_nkd.pkl"
 unds_path = ROOT / "data" / "df_unds.pkl"
 protect_path = ROOT / "data" / "df_protect.pkl"
 reap_path = ROOT / "data" / "df_reap.pkl"
-chains_path = ROOT / "data" / "chains.pkl"
+chains_path = ROOT / "data" / "df_chains.pkl"
 
 df_pf = get_pickle(pf_path, print_msg=False)
 df_cov = get_pickle(cov_path, print_msg=False)
@@ -296,13 +295,13 @@ if option_breach_index:
     # Get the breach PnL for the relevant symbols
     breach_pnl = df[(df.source == "und") &
                     (df.symbol.isin(df.loc[option_breach_index, 'symbol'].unique())) &
-                    (df.state.isin(['solid', 'unprotected']))]["unPnL"]
-
-    # Filter the DataFrame for display
-    opt_breached_df = df[df.symbol.isin(df.loc[option_breach_index, 'symbol'])]
+                    (df.state.isin(['solid', 'unprotected', 'uncovered']))]["unPnL"]
 
     # Calculate the total breach PnL for the caption
     total_breach_pnl = format(breach_pnl.sum(), ",.0f")
+
+    # Filter the DataFrame for display
+    opt_breached_df = df[df.symbol.isin(df.loc[option_breach_index, 'symbol'])]
 
 # Show breached options for the portfolio.
 dfs = style_rows(
@@ -417,11 +416,27 @@ def webbrowser_styled_df(styled_df):
     # Create message pad HTML
     msg_pad_html = '<div class="msg-pad">' + '\n'.join(msg_pad) + '</div>'
 
-    # Combine the custom CSS with the HTML
+    # Create a timestamp for the top of the HTML
+    from datetime import datetime
+    current_time = datetime.now().strftime('%d-%b-%Y %H:%M:%S')
+    timestamp_html = f'<div class="timestamp">Report Generated: {current_time}</div>'
+
+    # Modify the full_html to include the timestamp
     full_html = f"""
     <html>
-    <head>{custom_css}</head>
+    <head>{custom_css}
+        <style>
+            .timestamp {{
+                font-family: Arial, sans-serif;
+                text-align: right;
+                color: #666;
+                padding: 10px;
+                font-size: 0.9em;
+            }}
+        </style>
+    </head>
     <body>
+        {timestamp_html}
         {msg_pad_html}
         {html}
     </body>

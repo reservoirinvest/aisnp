@@ -13,15 +13,15 @@ MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading
 MAX_FILE_AGE: 1.5
 
 COVER_MIN_DTE: 4
-COVER_STD_MULT: 0.8
+COVER_STD_MULT: 0.75
 
 VIRGIN_DTE: 35
-VIRGIN_PUT_STD_MULT: 2.2
+VIRGIN_PUT_STD_MULT: 2
 VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty of virgins
 
 PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
 
-MINEXPOPTPRICE: 0.4
-MINNAKEDOPTPRICE: 0.85
+MINEXPOPTPRICE: 0.95
+MINNAKEDOPTPRICE: 1.1
 

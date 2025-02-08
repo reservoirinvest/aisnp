@@ -108,18 +108,27 @@ def make_snp_unds() -> pd.DataFrame:
             dfu,
             dfu.merge(
                 qpf[qpf.secType == "STK"][
-                    ["symbol", "position", "mktPrice", "mktVal", 
-                    "avgCost", "unPnL", "rePnL"]
+                    ["symbol", "position", "mktPrice", "mktVal", "avgCost"]
                 ],
                 on="symbol",
                 how="left",
-            )[["position", "mktPrice", "mktVal", "avgCost", "unPnL", "rePnL"]],
+            )[["position", "mktPrice", "mktVal", "avgCost"]],
         ],
         axis=1,
     )
 
-    # Establish status
+    # Compute unPnL and rePnL grouped by symbol
+    pnl_summary = qpf.groupby('symbol').agg({
+        'unPnL': 'sum',
+        'rePnL': 'sum'
+    }).reset_index()
+
+    # Merge PnL summary with dfu
     df_unds = dfu.merge(
+        pnl_summary, 
+        on="symbol", 
+        how="left"
+    ).merge(
         df_pf[["symbol", "secType", "state"]], 
         on=["symbol", "secType"], 
         how="left"
