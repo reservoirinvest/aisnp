@@ -13,13 +13,14 @@ from ibfuncs import (df_chains, df_iv, get_financials, get_ib, get_open_orders,
                      ib_pf, qualify_me)
 from snp import make_snp_unds
 from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
-                   clean_ib_util_df, delete_pkl_files, do_i_refresh, get_dte,
+                   clean_ib_util_df, delete_files, delete_pkl_files, do_i_refresh, get_dte,
                    get_pickle, get_prec, is_market_open, load_config,
                    pickle_me, tqdm, update_unds_status)
 
 delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl'])
 
 log_file_path = ROOT / "log" / "states.log"
+delete_files([log_file_path])
 
 unds_path = ROOT / "data" / "df_unds.pkl"
 chains_path = ROOT / "data" / "df_chains.pkl"
@@ -670,4 +671,5 @@ if not df_lprot.empty or not df_sprot.empty:
     print(f"...protected for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days")
     pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
 else:
-    print("There are no protect options")
+    print("All are protected. No protection needed.")
+# %%

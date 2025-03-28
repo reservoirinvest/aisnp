@@ -1,0 +1,19 @@
+A: Assignment
+B: Automatic Buy-in
+C: Closing Trade
+Ca: Cancelled
+Co: Corrected Trade
+D: IB acted as Dual Agent
+E: Resulted from an Expired Position
+Ex: Exercise
+G: Trade in Guaranteed Account Segment
+GEA: Expiration or Assignment resulting from offsetting positions
+L: Ordered by IB (Margin Violation)
+M: Entered manually by IBO
+O: Opening Trade
+P: Partial Execution
+R: Dividend Reinvestment
+Rb: Rebill
+RI: Recurring Investment
+Si: Solicited Trade (This order was solicited by Interactive Brokers).
+T: Transfer

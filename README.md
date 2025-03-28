@@ -11,8 +11,10 @@
     - 'exposed': Stock positions without options
     - 'unprotected': Stock with only covering option position
     - 'uncovered': Stock with only protecting options position
+
     - 'straddled': Matching call and put options with no underlying stock
       - ... straddles are for stocks having earnings declaration within naked time horizon
+
     - 'covering': Short calls or puts with underlying stock
     - 'protecting': Long calls or puts with underlying stock
     - 'sowed': Short options without matching stock positions
@@ -53,9 +55,9 @@
 
 * Get `portfolio` and `openorders`. Classify them
 * Build `unds` with price and volatility (vy)
-* Update `unds` states based on portfolio and open orders 
-
+* Update `unds` states based on portfolio and open orders
 * Get `chains`
+
   - **Note:** Chain generation is to be done with **IBG** (not TWS)
 
 ## Generate orders

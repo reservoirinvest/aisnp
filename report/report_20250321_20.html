@@ -1,0 +1,461 @@
+
+    <html>
+    <head>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+caption {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/* Custom row styling from style_rows() */
+.breach-row {
+    background-color: black !important;
+    color: white !important;
+}
+.und-row-positive {
+    background-color: green !important;
+    color: white !important;
+}
+.und-row-negative {
+    background-color: red !important;
+    color: white !important;
+}
+.default-row {
+    background-color: #313131 !important;
+    color: #b4b1b1 !important;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+        .msg-pad { 
+            font-family: monospace; 
+            white-space: pre-wrap; 
+            background-color: #f4f4f4; 
+            padding: 10px; 
+            margin-top: 20px; 
+            border: 1px solid #ddd; 
+        }
+    </style>
+    
+        <style>
+            .timestamp {
+                font-family: Arial, sans-serif;
+                text-align: right;
+                color: #666;
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="timestamp">Report Generated: 21-Mar-2025 20:34:20</div>
+        <div class="msg-pad">FINANCIALS
+==========
+net liquidation value: 660,915
+stocks: 43,997
+cash: 622,383
+cushion: 0.67
+initial margin: 243,709
+maintenance margin: 217,143
+unrealized pnl: -172.06
+funds available to trade: 415,463
+
+Risk Analysis
+-------------
+Our max risk is $11,621 from $43,997 stock for 28.5 days at risk premium of $6,162
+All stock positions are protected!
+
+Rewards
+-------
+Total reward this month is expected to be $19,439 Our maximum cover reward in 4.8 days is $15,909, if all covers get blown.
+
+Our cover premiums from covering options is $2,137 this week from our stock positions
+ ...this can be projected to give us $6,556 for the protected period
+
+Our sowed reward in about 24.2 dte days is $12,884
+
+SYMBOL COUNT BY STATE
+=====================
+solid: 11, unreaped: 2, virgin: 8, zen: 216
+
+COUNT OF SYMBOLS IN EACH DATAFRAME
+==================================
+df_cov: 0, df_protect: 0, df_reap: 0, df_nkd: 0</div>
+        <style type="text/css">
+#T_bdff8_row0_col0, #T_bdff8_row0_col1, #T_bdff8_row0_col2, #T_bdff8_row0_col3, #T_bdff8_row0_col4, #T_bdff8_row0_col5, #T_bdff8_row0_col6, #T_bdff8_row0_col7, #T_bdff8_row0_col8, #T_bdff8_row0_col9, #T_bdff8_row0_col10, #T_bdff8_row0_col11, #T_bdff8_row0_col12, #T_bdff8_row0_col13, #T_bdff8_row0_col16, #T_bdff8_row2_col0, #T_bdff8_row2_col1, #T_bdff8_row2_col2, #T_bdff8_row2_col3, #T_bdff8_row2_col4, #T_bdff8_row2_col5, #T_bdff8_row2_col6, #T_bdff8_row2_col7, #T_bdff8_row2_col8, #T_bdff8_row2_col9, #T_bdff8_row2_col10, #T_bdff8_row2_col11, #T_bdff8_row2_col12, #T_bdff8_row2_col13, #T_bdff8_row2_col16, #T_bdff8_row6_col0, #T_bdff8_row6_col1, #T_bdff8_row6_col2, #T_bdff8_row6_col3, #T_bdff8_row6_col4, #T_bdff8_row6_col5, #T_bdff8_row6_col6, #T_bdff8_row6_col7, #T_bdff8_row6_col8, #T_bdff8_row6_col9, #T_bdff8_row6_col10, #T_bdff8_row6_col11, #T_bdff8_row6_col12, #T_bdff8_row6_col13, #T_bdff8_row6_col16, #T_bdff8_row10_col0, #T_bdff8_row10_col1, #T_bdff8_row10_col2, #T_bdff8_row10_col3, #T_bdff8_row10_col4, #T_bdff8_row10_col5, #T_bdff8_row10_col6, #T_bdff8_row10_col7, #T_bdff8_row10_col8, #T_bdff8_row10_col9, #T_bdff8_row10_col10, #T_bdff8_row10_col11, #T_bdff8_row10_col12, #T_bdff8_row10_col13, #T_bdff8_row10_col16, #T_bdff8_row16_col0, #T_bdff8_row16_col1, #T_bdff8_row16_col2, #T_bdff8_row16_col3, #T_bdff8_row16_col4, #T_bdff8_row16_col5, #T_bdff8_row16_col6, #T_bdff8_row16_col7, #T_bdff8_row16_col8, #T_bdff8_row16_col9, #T_bdff8_row16_col10, #T_bdff8_row16_col11, #T_bdff8_row16_col12, #T_bdff8_row16_col13, #T_bdff8_row16_col16 {
+  background-color: black;
+  color: white;
+}
+#T_bdff8_row1_col0, #T_bdff8_row1_col1, #T_bdff8_row1_col2, #T_bdff8_row1_col3, #T_bdff8_row1_col4, #T_bdff8_row1_col5, #T_bdff8_row1_col6, #T_bdff8_row1_col7, #T_bdff8_row1_col8, #T_bdff8_row1_col9, #T_bdff8_row1_col10, #T_bdff8_row1_col11, #T_bdff8_row1_col12, #T_bdff8_row1_col13, #T_bdff8_row1_col16, #T_bdff8_row5_col0, #T_bdff8_row5_col1, #T_bdff8_row5_col2, #T_bdff8_row5_col3, #T_bdff8_row5_col4, #T_bdff8_row5_col5, #T_bdff8_row5_col6, #T_bdff8_row5_col7, #T_bdff8_row5_col8, #T_bdff8_row5_col9, #T_bdff8_row5_col10, #T_bdff8_row5_col11, #T_bdff8_row5_col12, #T_bdff8_row5_col13, #T_bdff8_row5_col16, #T_bdff8_row13_col0, #T_bdff8_row13_col1, #T_bdff8_row13_col2, #T_bdff8_row13_col3, #T_bdff8_row13_col4, #T_bdff8_row13_col5, #T_bdff8_row13_col6, #T_bdff8_row13_col7, #T_bdff8_row13_col8, #T_bdff8_row13_col9, #T_bdff8_row13_col10, #T_bdff8_row13_col11, #T_bdff8_row13_col12, #T_bdff8_row13_col13, #T_bdff8_row13_col16, #T_bdff8_row17_col0, #T_bdff8_row17_col1, #T_bdff8_row17_col2, #T_bdff8_row17_col3, #T_bdff8_row17_col4, #T_bdff8_row17_col5, #T_bdff8_row17_col6, #T_bdff8_row17_col7, #T_bdff8_row17_col8, #T_bdff8_row17_col9, #T_bdff8_row17_col10, #T_bdff8_row17_col11, #T_bdff8_row17_col12, #T_bdff8_row17_col13, #T_bdff8_row17_col16 {
+  background-color: red;
+  color: white;
+}
+#T_bdff8_row3_col0, #T_bdff8_row3_col1, #T_bdff8_row3_col2, #T_bdff8_row3_col3, #T_bdff8_row3_col4, #T_bdff8_row3_col5, #T_bdff8_row3_col6, #T_bdff8_row3_col7, #T_bdff8_row3_col8, #T_bdff8_row3_col9, #T_bdff8_row3_col10, #T_bdff8_row3_col11, #T_bdff8_row3_col12, #T_bdff8_row3_col13, #T_bdff8_row3_col16, #T_bdff8_row4_col0, #T_bdff8_row4_col1, #T_bdff8_row4_col2, #T_bdff8_row4_col3, #T_bdff8_row4_col4, #T_bdff8_row4_col5, #T_bdff8_row4_col6, #T_bdff8_row4_col7, #T_bdff8_row4_col8, #T_bdff8_row4_col9, #T_bdff8_row4_col10, #T_bdff8_row4_col11, #T_bdff8_row4_col12, #T_bdff8_row4_col13, #T_bdff8_row4_col16, #T_bdff8_row7_col0, #T_bdff8_row7_col1, #T_bdff8_row7_col2, #T_bdff8_row7_col3, #T_bdff8_row7_col4, #T_bdff8_row7_col5, #T_bdff8_row7_col6, #T_bdff8_row7_col7, #T_bdff8_row7_col8, #T_bdff8_row7_col9, #T_bdff8_row7_col10, #T_bdff8_row7_col11, #T_bdff8_row7_col12, #T_bdff8_row7_col13, #T_bdff8_row7_col16, #T_bdff8_row8_col0, #T_bdff8_row8_col1, #T_bdff8_row8_col2, #T_bdff8_row8_col3, #T_bdff8_row8_col4, #T_bdff8_row8_col5, #T_bdff8_row8_col6, #T_bdff8_row8_col7, #T_bdff8_row8_col8, #T_bdff8_row8_col9, #T_bdff8_row8_col10, #T_bdff8_row8_col11, #T_bdff8_row8_col12, #T_bdff8_row8_col13, #T_bdff8_row8_col16, #T_bdff8_row11_col0, #T_bdff8_row11_col1, #T_bdff8_row11_col2, #T_bdff8_row11_col3, #T_bdff8_row11_col4, #T_bdff8_row11_col5, #T_bdff8_row11_col6, #T_bdff8_row11_col7, #T_bdff8_row11_col8, #T_bdff8_row11_col9, #T_bdff8_row11_col10, #T_bdff8_row11_col11, #T_bdff8_row11_col12, #T_bdff8_row11_col13, #T_bdff8_row11_col16, #T_bdff8_row12_col0, #T_bdff8_row12_col1, #T_bdff8_row12_col2, #T_bdff8_row12_col3, #T_bdff8_row12_col4, #T_bdff8_row12_col5, #T_bdff8_row12_col6, #T_bdff8_row12_col7, #T_bdff8_row12_col8, #T_bdff8_row12_col9, #T_bdff8_row12_col10, #T_bdff8_row12_col11, #T_bdff8_row12_col12, #T_bdff8_row12_col13, #T_bdff8_row12_col16, #T_bdff8_row14_col0, #T_bdff8_row14_col1, #T_bdff8_row14_col2, #T_bdff8_row14_col3, #T_bdff8_row14_col4, #T_bdff8_row14_col5, #T_bdff8_row14_col6, #T_bdff8_row14_col7, #T_bdff8_row14_col8, #T_bdff8_row14_col9, #T_bdff8_row14_col10, #T_bdff8_row14_col11, #T_bdff8_row14_col12, #T_bdff8_row14_col13, #T_bdff8_row14_col16, #T_bdff8_row15_col0, #T_bdff8_row15_col1, #T_bdff8_row15_col2, #T_bdff8_row15_col3, #T_bdff8_row15_col4, #T_bdff8_row15_col5, #T_bdff8_row15_col6, #T_bdff8_row15_col7, #T_bdff8_row15_col8, #T_bdff8_row15_col9, #T_bdff8_row15_col10, #T_bdff8_row15_col11, #T_bdff8_row15_col12, #T_bdff8_row15_col13, #T_bdff8_row15_col16 {
+  background-color: #313131;
+  color: #b4b1b1;
+}
+#T_bdff8_row9_col0, #T_bdff8_row9_col1, #T_bdff8_row9_col2, #T_bdff8_row9_col3, #T_bdff8_row9_col4, #T_bdff8_row9_col5, #T_bdff8_row9_col6, #T_bdff8_row9_col7, #T_bdff8_row9_col8, #T_bdff8_row9_col9, #T_bdff8_row9_col10, #T_bdff8_row9_col11, #T_bdff8_row9_col12, #T_bdff8_row9_col13, #T_bdff8_row9_col16 {
+  background-color: green;
+  color: white;
+}
+</style>
+<table id="T_bdff8">
+  <caption><font size=4>Option cover breaches are generating</font><font size=4> US$-1,857</font></caption>
+  <thead>
+    <tr>
+      <th id="T_bdff8_level0_col0" class="col_heading level0 col0" >source</th>
+      <th id="T_bdff8_level0_col1" class="col_heading level0 col1" >symbol</th>
+      <th id="T_bdff8_level0_col2" class="col_heading level0 col2" >conId</th>
+      <th id="T_bdff8_level0_col3" class="col_heading level0 col3" >secType</th>
+      <th id="T_bdff8_level0_col4" class="col_heading level0 col4" >position</th>
+      <th id="T_bdff8_level0_col5" class="col_heading level0 col5" >state</th>
+      <th id="T_bdff8_level0_col6" class="col_heading level0 col6" >undPrice</th>
+      <th id="T_bdff8_level0_col7" class="col_heading level0 col7" >strike</th>
+      <th id="T_bdff8_level0_col8" class="col_heading level0 col8" >avgCost</th>
+      <th id="T_bdff8_level0_col9" class="col_heading level0 col9" >mktVal</th>
+      <th id="T_bdff8_level0_col10" class="col_heading level0 col10" >right</th>
+      <th id="T_bdff8_level0_col11" class="col_heading level0 col11" >expiry</th>
+      <th id="T_bdff8_level0_col12" class="col_heading level0 col12" >dte</th>
+      <th id="T_bdff8_level0_col13" class="col_heading level0 col13" >qty</th>
+      <th id="T_bdff8_level0_col16" class="col_heading level0 col16" >unPnL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_bdff8_row0_col0" class="data row0 col0" >pf</td>
+      <td id="T_bdff8_row0_col1" class="data row0 col1" >ACN</td>
+      <td id="T_bdff8_row0_col2" class="data row0 col2" >754684363</td>
+      <td id="T_bdff8_row0_col3" class="data row0 col3" >OPT</td>
+      <td id="T_bdff8_row0_col4" class="data row0 col4" >-1</td>
+      <td id="T_bdff8_row0_col5" class="data row0 col5" >sowed</td>
+      <td id="T_bdff8_row0_col6" class="data row0 col6" >299.50</td>
+      <td id="T_bdff8_row0_col7" class="data row0 col7" >330.00</td>
+      <td id="T_bdff8_row0_col8" class="data row0 col8" >109.93</td>
+      <td id="T_bdff8_row0_col9" class="data row0 col9" >-3020.50</td>
+      <td id="T_bdff8_row0_col10" class="data row0 col10" >P</td>
+      <td id="T_bdff8_row0_col11" class="data row0 col11" >20250321</td>
+      <td id="T_bdff8_row0_col12" class="data row0 col12" >0.14</td>
+      <td id="T_bdff8_row0_col13" class="data row0 col13" >-1</td>
+      <td id="T_bdff8_row0_col16" class="data row0 col16" >-2910.57</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row1_col0" class="data row1 col0" >und</td>
+      <td id="T_bdff8_row1_col1" class="data row1 col1" >ACN</td>
+      <td id="T_bdff8_row1_col2" class="data row1 col2" >67889930</td>
+      <td id="T_bdff8_row1_col3" class="data row1 col3" >STK</td>
+      <td id="T_bdff8_row1_col4" class="data row1 col4" >nan</td>
+      <td id="T_bdff8_row1_col5" class="data row1 col5" >unreaped</td>
+      <td id="T_bdff8_row1_col6" class="data row1 col6" >299.50</td>
+      <td id="T_bdff8_row1_col7" class="data row1 col7" >nan</td>
+      <td id="T_bdff8_row1_col8" class="data row1 col8" >nan</td>
+      <td id="T_bdff8_row1_col9" class="data row1 col9" >nan</td>
+      <td id="T_bdff8_row1_col10" class="data row1 col10" >nan</td>
+      <td id="T_bdff8_row1_col11" class="data row1 col11" >nan</td>
+      <td id="T_bdff8_row1_col12" class="data row1 col12" >nan</td>
+      <td id="T_bdff8_row1_col13" class="data row1 col13" >nan</td>
+      <td id="T_bdff8_row1_col16" class="data row1 col16" >-2910.57</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row2_col0" class="data row2 col0" >pf</td>
+      <td id="T_bdff8_row2_col1" class="data row2 col1" >DELL</td>
+      <td id="T_bdff8_row2_col2" class="data row2 col2" >722908015</td>
+      <td id="T_bdff8_row2_col3" class="data row2 col3" >OPT</td>
+      <td id="T_bdff8_row2_col4" class="data row2 col4" >1</td>
+      <td id="T_bdff8_row2_col5" class="data row2 col5" >protecting</td>
+      <td id="T_bdff8_row2_col6" class="data row2 col6" >98.69</td>
+      <td id="T_bdff8_row2_col7" class="data row2 col7" >95.00</td>
+      <td id="T_bdff8_row2_col8" class="data row2 col8" >527.93</td>
+      <td id="T_bdff8_row2_col9" class="data row2 col9" >692.37</td>
+      <td id="T_bdff8_row2_col10" class="data row2 col10" >C</td>
+      <td id="T_bdff8_row2_col11" class="data row2 col11" >20250417</td>
+      <td id="T_bdff8_row2_col12" class="data row2 col12" >27.14</td>
+      <td id="T_bdff8_row2_col13" class="data row2 col13" >1</td>
+      <td id="T_bdff8_row2_col16" class="data row2 col16" >164.44</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row3_col0" class="data row3 col0" >pf</td>
+      <td id="T_bdff8_row3_col1" class="data row3 col1" >DELL</td>
+      <td id="T_bdff8_row3_col2" class="data row3 col2" >346218218</td>
+      <td id="T_bdff8_row3_col3" class="data row3 col3" >STK</td>
+      <td id="T_bdff8_row3_col4" class="data row3 col4" >-100</td>
+      <td id="T_bdff8_row3_col5" class="data row3 col5" >solid</td>
+      <td id="T_bdff8_row3_col6" class="data row3 col6" >98.69</td>
+      <td id="T_bdff8_row3_col7" class="data row3 col7" >0.00</td>
+      <td id="T_bdff8_row3_col8" class="data row3 col8" >90.76</td>
+      <td id="T_bdff8_row3_col9" class="data row3 col9" >-9869.00</td>
+      <td id="T_bdff8_row3_col10" class="data row3 col10" >0</td>
+      <td id="T_bdff8_row3_col11" class="data row3 col11" ></td>
+      <td id="T_bdff8_row3_col12" class="data row3 col12" >nan</td>
+      <td id="T_bdff8_row3_col13" class="data row3 col13" >-1</td>
+      <td id="T_bdff8_row3_col16" class="data row3 col16" >-793.46</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row4_col0" class="data row4 col0" >pf</td>
+      <td id="T_bdff8_row4_col1" class="data row4 col1" >DELL</td>
+      <td id="T_bdff8_row4_col2" class="data row4 col2" >761430170</td>
+      <td id="T_bdff8_row4_col3" class="data row4 col3" >OPT</td>
+      <td id="T_bdff8_row4_col4" class="data row4 col4" >-1</td>
+      <td id="T_bdff8_row4_col5" class="data row4 col5" >covering</td>
+      <td id="T_bdff8_row4_col6" class="data row4 col6" >98.69</td>
+      <td id="T_bdff8_row4_col7" class="data row4 col7" >85.00</td>
+      <td id="T_bdff8_row4_col8" class="data row4 col8" >148.85</td>
+      <td id="T_bdff8_row4_col9" class="data row4 col9" >-32.25</td>
+      <td id="T_bdff8_row4_col10" class="data row4 col10" >P</td>
+      <td id="T_bdff8_row4_col11" class="data row4 col11" >20250404</td>
+      <td id="T_bdff8_row4_col12" class="data row4 col12" >14.14</td>
+      <td id="T_bdff8_row4_col13" class="data row4 col13" >-1</td>
+      <td id="T_bdff8_row4_col16" class="data row4 col16" >116.61</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row5_col0" class="data row5 col0" >und</td>
+      <td id="T_bdff8_row5_col1" class="data row5 col1" >DELL</td>
+      <td id="T_bdff8_row5_col2" class="data row5 col2" >346218218</td>
+      <td id="T_bdff8_row5_col3" class="data row5 col3" >STK</td>
+      <td id="T_bdff8_row5_col4" class="data row5 col4" >-100</td>
+      <td id="T_bdff8_row5_col5" class="data row5 col5" >solid</td>
+      <td id="T_bdff8_row5_col6" class="data row5 col6" >98.69</td>
+      <td id="T_bdff8_row5_col7" class="data row5 col7" >nan</td>
+      <td id="T_bdff8_row5_col8" class="data row5 col8" >90.76</td>
+      <td id="T_bdff8_row5_col9" class="data row5 col9" >-9869.00</td>
+      <td id="T_bdff8_row5_col10" class="data row5 col10" >nan</td>
+      <td id="T_bdff8_row5_col11" class="data row5 col11" >nan</td>
+      <td id="T_bdff8_row5_col12" class="data row5 col12" >nan</td>
+      <td id="T_bdff8_row5_col13" class="data row5 col13" >nan</td>
+      <td id="T_bdff8_row5_col16" class="data row5 col16" >-512.41</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row6_col0" class="data row6 col0" >pf</td>
+      <td id="T_bdff8_row6_col1" class="data row6 col1" >HUM</td>
+      <td id="T_bdff8_row6_col2" class="data row6 col2" >755808513</td>
+      <td id="T_bdff8_row6_col3" class="data row6 col3" >OPT</td>
+      <td id="T_bdff8_row6_col4" class="data row6 col4" >1</td>
+      <td id="T_bdff8_row6_col5" class="data row6 col5" >protecting</td>
+      <td id="T_bdff8_row6_col6" class="data row6 col6" >266.83</td>
+      <td id="T_bdff8_row6_col7" class="data row6 col7" >265.00</td>
+      <td id="T_bdff8_row6_col8" class="data row6 col8" >1582.28</td>
+      <td id="T_bdff8_row6_col9" class="data row6 col9" >2079.83</td>
+      <td id="T_bdff8_row6_col10" class="data row6 col10" >C</td>
+      <td id="T_bdff8_row6_col11" class="data row6 col11" >20250417</td>
+      <td id="T_bdff8_row6_col12" class="data row6 col12" >27.14</td>
+      <td id="T_bdff8_row6_col13" class="data row6 col13" >1</td>
+      <td id="T_bdff8_row6_col16" class="data row6 col16" >497.55</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row7_col0" class="data row7 col0" >pf</td>
+      <td id="T_bdff8_row7_col1" class="data row7 col1" >HUM</td>
+      <td id="T_bdff8_row7_col2" class="data row7 col2" >8251</td>
+      <td id="T_bdff8_row7_col3" class="data row7 col3" >STK</td>
+      <td id="T_bdff8_row7_col4" class="data row7 col4" >-100</td>
+      <td id="T_bdff8_row7_col5" class="data row7 col5" >solid</td>
+      <td id="T_bdff8_row7_col6" class="data row7 col6" >266.83</td>
+      <td id="T_bdff8_row7_col7" class="data row7 col7" >0.00</td>
+      <td id="T_bdff8_row7_col8" class="data row7 col8" >280.07</td>
+      <td id="T_bdff8_row7_col9" class="data row7 col9" >-26683.00</td>
+      <td id="T_bdff8_row7_col10" class="data row7 col10" >0</td>
+      <td id="T_bdff8_row7_col11" class="data row7 col11" ></td>
+      <td id="T_bdff8_row7_col12" class="data row7 col12" >nan</td>
+      <td id="T_bdff8_row7_col13" class="data row7 col13" >-1</td>
+      <td id="T_bdff8_row7_col16" class="data row7 col16" >1323.83</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row8_col0" class="data row8 col0" >pf</td>
+      <td id="T_bdff8_row8_col1" class="data row8 col1" >HUM</td>
+      <td id="T_bdff8_row8_col2" class="data row8 col2" >751399930</td>
+      <td id="T_bdff8_row8_col3" class="data row8 col3" >OPT</td>
+      <td id="T_bdff8_row8_col4" class="data row8 col4" >-1</td>
+      <td id="T_bdff8_row8_col5" class="data row8 col5" >covering</td>
+      <td id="T_bdff8_row8_col6" class="data row8 col6" >266.83</td>
+      <td id="T_bdff8_row8_col7" class="data row8 col7" >225.00</td>
+      <td id="T_bdff8_row8_col8" class="data row8 col8" >124.84</td>
+      <td id="T_bdff8_row8_col9" class="data row8 col9" >-0.07</td>
+      <td id="T_bdff8_row8_col10" class="data row8 col10" >P</td>
+      <td id="T_bdff8_row8_col11" class="data row8 col11" >20250321</td>
+      <td id="T_bdff8_row8_col12" class="data row8 col12" >0.14</td>
+      <td id="T_bdff8_row8_col13" class="data row8 col13" >-1</td>
+      <td id="T_bdff8_row8_col16" class="data row8 col16" >124.77</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row9_col0" class="data row9 col0" >und</td>
+      <td id="T_bdff8_row9_col1" class="data row9 col1" >HUM</td>
+      <td id="T_bdff8_row9_col2" class="data row9 col2" >8251</td>
+      <td id="T_bdff8_row9_col3" class="data row9 col3" >STK</td>
+      <td id="T_bdff8_row9_col4" class="data row9 col4" >-100</td>
+      <td id="T_bdff8_row9_col5" class="data row9 col5" >solid</td>
+      <td id="T_bdff8_row9_col6" class="data row9 col6" >266.83</td>
+      <td id="T_bdff8_row9_col7" class="data row9 col7" >nan</td>
+      <td id="T_bdff8_row9_col8" class="data row9 col8" >280.07</td>
+      <td id="T_bdff8_row9_col9" class="data row9 col9" >-26683.00</td>
+      <td id="T_bdff8_row9_col10" class="data row9 col10" >nan</td>
+      <td id="T_bdff8_row9_col11" class="data row9 col11" >nan</td>
+      <td id="T_bdff8_row9_col12" class="data row9 col12" >nan</td>
+      <td id="T_bdff8_row9_col13" class="data row9 col13" >nan</td>
+      <td id="T_bdff8_row9_col16" class="data row9 col16" >1946.15</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row10_col0" class="data row10 col0" >pf</td>
+      <td id="T_bdff8_row10_col1" class="data row10 col1" >KEY</td>
+      <td id="T_bdff8_row10_col2" class="data row10 col2" >716689832</td>
+      <td id="T_bdff8_row10_col3" class="data row10 col3" >OPT</td>
+      <td id="T_bdff8_row10_col4" class="data row10 col4" >-7</td>
+      <td id="T_bdff8_row10_col5" class="data row10 col5" >covering</td>
+      <td id="T_bdff8_row10_col6" class="data row10 col6" >16.05</td>
+      <td id="T_bdff8_row10_col7" class="data row10 col7" >16.00</td>
+      <td id="T_bdff8_row10_col8" class="data row10 col8" >13.50</td>
+      <td id="T_bdff8_row10_col9" class="data row10 col9" >-117.11</td>
+      <td id="T_bdff8_row10_col10" class="data row10 col10" >C</td>
+      <td id="T_bdff8_row10_col11" class="data row10 col11" >20250321</td>
+      <td id="T_bdff8_row10_col12" class="data row10 col12" >0.14</td>
+      <td id="T_bdff8_row10_col13" class="data row10 col13" >-7</td>
+      <td id="T_bdff8_row10_col16" class="data row10 col16" >-22.62</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row11_col0" class="data row11 col0" >pf</td>
+      <td id="T_bdff8_row11_col1" class="data row11 col1" >KEY</td>
+      <td id="T_bdff8_row11_col2" class="data row11 col2" >8809</td>
+      <td id="T_bdff8_row11_col3" class="data row11 col3" >STK</td>
+      <td id="T_bdff8_row11_col4" class="data row11 col4" >700</td>
+      <td id="T_bdff8_row11_col5" class="data row11 col5" >solid</td>
+      <td id="T_bdff8_row11_col6" class="data row11 col6" >16.05</td>
+      <td id="T_bdff8_row11_col7" class="data row11 col7" >0.00</td>
+      <td id="T_bdff8_row11_col8" class="data row11 col8" >18.01</td>
+      <td id="T_bdff8_row11_col9" class="data row11 col9" >11235.00</td>
+      <td id="T_bdff8_row11_col10" class="data row11 col10" >0</td>
+      <td id="T_bdff8_row11_col11" class="data row11 col11" ></td>
+      <td id="T_bdff8_row11_col12" class="data row11 col12" >nan</td>
+      <td id="T_bdff8_row11_col13" class="data row11 col13" >7</td>
+      <td id="T_bdff8_row11_col16" class="data row11 col16" >-1371.67</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row12_col0" class="data row12 col0" >pf</td>
+      <td id="T_bdff8_row12_col1" class="data row12 col1" >KEY</td>
+      <td id="T_bdff8_row12_col2" class="data row12 col2" >762979969</td>
+      <td id="T_bdff8_row12_col3" class="data row12 col3" >OPT</td>
+      <td id="T_bdff8_row12_col4" class="data row12 col4" >7</td>
+      <td id="T_bdff8_row12_col5" class="data row12 col5" >protecting</td>
+      <td id="T_bdff8_row12_col6" class="data row12 col6" >16.05</td>
+      <td id="T_bdff8_row12_col7" class="data row12 col7" >13.00</td>
+      <td id="T_bdff8_row12_col8" class="data row12 col8" >12.50</td>
+      <td id="T_bdff8_row12_col9" class="data row12 col9" >37.39</td>
+      <td id="T_bdff8_row12_col10" class="data row12 col10" >P</td>
+      <td id="T_bdff8_row12_col11" class="data row12 col11" >20250417</td>
+      <td id="T_bdff8_row12_col12" class="data row12 col12" >27.14</td>
+      <td id="T_bdff8_row12_col13" class="data row12 col13" >7</td>
+      <td id="T_bdff8_row12_col16" class="data row12 col16" >-50.09</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row13_col0" class="data row13 col0" >und</td>
+      <td id="T_bdff8_row13_col1" class="data row13 col1" >KEY</td>
+      <td id="T_bdff8_row13_col2" class="data row13 col2" >8809</td>
+      <td id="T_bdff8_row13_col3" class="data row13 col3" >STK</td>
+      <td id="T_bdff8_row13_col4" class="data row13 col4" >700</td>
+      <td id="T_bdff8_row13_col5" class="data row13 col5" >solid</td>
+      <td id="T_bdff8_row13_col6" class="data row13 col6" >16.05</td>
+      <td id="T_bdff8_row13_col7" class="data row13 col7" >nan</td>
+      <td id="T_bdff8_row13_col8" class="data row13 col8" >18.01</td>
+      <td id="T_bdff8_row13_col9" class="data row13 col9" >11235.00</td>
+      <td id="T_bdff8_row13_col10" class="data row13 col10" >nan</td>
+      <td id="T_bdff8_row13_col11" class="data row13 col11" >nan</td>
+      <td id="T_bdff8_row13_col12" class="data row13 col12" >nan</td>
+      <td id="T_bdff8_row13_col13" class="data row13 col13" >nan</td>
+      <td id="T_bdff8_row13_col16" class="data row13 col16" >-1444.38</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row14_col0" class="data row14 col0" >pf</td>
+      <td id="T_bdff8_row14_col1" class="data row14 col1" >NKE</td>
+      <td id="T_bdff8_row14_col2" class="data row14 col2" >694358446</td>
+      <td id="T_bdff8_row14_col3" class="data row14 col3" >OPT</td>
+      <td id="T_bdff8_row14_col4" class="data row14 col4" >-2</td>
+      <td id="T_bdff8_row14_col5" class="data row14 col5" >covering</td>
+      <td id="T_bdff8_row14_col6" class="data row14 col6" >66.61</td>
+      <td id="T_bdff8_row14_col7" class="data row14 col7" >80.00</td>
+      <td id="T_bdff8_row14_col8" class="data row14 col8" >165.49</td>
+      <td id="T_bdff8_row14_col9" class="data row14 col9" >-11.32</td>
+      <td id="T_bdff8_row14_col10" class="data row14 col10" >C</td>
+      <td id="T_bdff8_row14_col11" class="data row14 col11" >20250321</td>
+      <td id="T_bdff8_row14_col12" class="data row14 col12" >0.14</td>
+      <td id="T_bdff8_row14_col13" class="data row14 col13" >-2</td>
+      <td id="T_bdff8_row14_col16" class="data row14 col16" >319.67</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row15_col0" class="data row15 col0" >pf</td>
+      <td id="T_bdff8_row15_col1" class="data row15 col1" >NKE</td>
+      <td id="T_bdff8_row15_col2" class="data row15 col2" >10291</td>
+      <td id="T_bdff8_row15_col3" class="data row15 col3" >STK</td>
+      <td id="T_bdff8_row15_col4" class="data row15 col4" >200</td>
+      <td id="T_bdff8_row15_col5" class="data row15 col5" >solid</td>
+      <td id="T_bdff8_row15_col6" class="data row15 col6" >66.61</td>
+      <td id="T_bdff8_row15_col7" class="data row15 col7" >0.00</td>
+      <td id="T_bdff8_row15_col8" class="data row15 col8" >79.89</td>
+      <td id="T_bdff8_row15_col9" class="data row15 col9" >13328.00</td>
+      <td id="T_bdff8_row15_col10" class="data row15 col10" >0</td>
+      <td id="T_bdff8_row15_col11" class="data row15 col11" ></td>
+      <td id="T_bdff8_row15_col12" class="data row15 col12" >nan</td>
+      <td id="T_bdff8_row15_col13" class="data row15 col13" >2</td>
+      <td id="T_bdff8_row15_col16" class="data row15 col16" >-2649.54</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row16_col0" class="data row16 col0" >pf</td>
+      <td id="T_bdff8_row16_col1" class="data row16 col1" >NKE</td>
+      <td id="T_bdff8_row16_col2" class="data row16 col2" >723091243</td>
+      <td id="T_bdff8_row16_col3" class="data row16 col3" >OPT</td>
+      <td id="T_bdff8_row16_col4" class="data row16 col4" >2</td>
+      <td id="T_bdff8_row16_col5" class="data row16 col5" >protecting</td>
+      <td id="T_bdff8_row16_col6" class="data row16 col6" >66.61</td>
+      <td id="T_bdff8_row16_col7" class="data row16 col7" >70.00</td>
+      <td id="T_bdff8_row16_col8" class="data row16 col8" >280.77</td>
+      <td id="T_bdff8_row16_col9" class="data row16 col9" >1041.99</td>
+      <td id="T_bdff8_row16_col10" class="data row16 col10" >P</td>
+      <td id="T_bdff8_row16_col11" class="data row16 col11" >20250417</td>
+      <td id="T_bdff8_row16_col12" class="data row16 col12" >27.14</td>
+      <td id="T_bdff8_row16_col13" class="data row16 col13" >2</td>
+      <td id="T_bdff8_row16_col16" class="data row16 col16" >480.45</td>
+    </tr>
+    <tr>
+      <td id="T_bdff8_row17_col0" class="data row17 col0" >und</td>
+      <td id="T_bdff8_row17_col1" class="data row17 col1" >NKE</td>
+      <td id="T_bdff8_row17_col2" class="data row17 col2" >10291</td>
+      <td id="T_bdff8_row17_col3" class="data row17 col3" >STK</td>
+      <td id="T_bdff8_row17_col4" class="data row17 col4" >200</td>
+      <td id="T_bdff8_row17_col5" class="data row17 col5" >solid</td>
+      <td id="T_bdff8_row17_col6" class="data row17 col6" >66.61</td>
+      <td id="T_bdff8_row17_col7" class="data row17 col7" >nan</td>
+      <td id="T_bdff8_row17_col8" class="data row17 col8" >79.89</td>
+      <td id="T_bdff8_row17_col9" class="data row17 col9" >13322.00</td>
+      <td id="T_bdff8_row17_col10" class="data row17 col10" >nan</td>
+      <td id="T_bdff8_row17_col11" class="data row17 col11" >nan</td>
+      <td id="T_bdff8_row17_col12" class="data row17 col12" >nan</td>
+      <td id="T_bdff8_row17_col13" class="data row17 col13" >nan</td>
+      <td id="T_bdff8_row17_col16" class="data row17 col16" >-1846.68</td>
+    </tr>
+  </tbody>
+</table>
+
+    </body>
+    </html>

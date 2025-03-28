@@ -182,7 +182,7 @@ print('\n'.join(risk_msg))
 print('\nRewards')
 print('-------')
 reward_msg = (
-    f'Total reward this month is expected to be ${total_reward:,.0f} '
+    f'Total reward this month is expected to be ${total_reward:,.0f}.\n '
     f'Our maximum cover reward in {df_reward.dte.mean():.1f} days is '
     f'${df_reward.max_reward.sum():,.0f}, if all covers get blown.\n\n'
     f'Our cover premiums from covering options is ${abs(df_reward.premium.sum()):,.0f} this week from our stock positions\n'
@@ -295,7 +295,7 @@ if option_breach_index:
     # Get the breach PnL for the relevant symbols
     breach_pnl = df[(df.source == "und") &
                     (df.symbol.isin(df.loc[option_breach_index, 'symbol'].unique())) &
-                    (df.state.isin(['solid', 'unprotected', 'uncovered']))]["unPnL"]
+                    (df.state.isin(['solid', 'unprotected', 'uncovered', 'zen']))]["unPnL"]
 
     # Calculate the total breach PnL for the caption
     total_breach_pnl = format(breach_pnl.sum(), ",.0f")

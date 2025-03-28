@@ -1,0 +1,1085 @@
+﻿Statement,Header,Field Name,Field Value
+Statement,Data,BrokerName,Interactive Brokers LLC
+Statement,Data,BrokerAddress,"Two Pickwick Plaza, Greenwich, CT 06830"
+Statement,Data,Title,Activity Statement
+Statement,Data,Period,"February 15, 2018 - December 31, 2018"
+Statement,Data,WhenGenerated,"2025-02-15, 20:59:25 EST"
+Open Positions,Header,DataDiscriminator,Asset Category,Currency,Symbol,Open,Quantity,Mult,Cost Price,Cost Basis,Close Price,Value,Unrealized P/L,Code
+Open Positions,Data,Summary,Stocks,USD,ACN,-,300,1,143.84987795,43154.963385,141.01,42303,-851.963385,
+Open Positions,Data,Lot,Stocks,USD,ACN,"2018-12-21, 16:20:00",300,,143.84987795,43154.963385,141.01,42303,-851.963385,ST
+Open Positions,Data,Summary,Stocks,USD,AGN,-,200,1,138.9078773,27781.57546,133.66,26732,-1049.57546,
+Open Positions,Data,Lot,Stocks,USD,AGN,"2018-12-21, 16:20:00",200,,138.9078773,27781.57546,133.66,26732,-1049.57546,ST
+Open Positions,Data,Summary,Stocks,USD,FDX,-,300,1,195.47488939,58642.466817,161.33,48399,-10243.466817,
+Open Positions,Data,Lot,Stocks,USD,FDX,"2018-12-19, 16:20:00",300,,195.47488939,58642.466817,161.33,48399,-10243.466817,ST
+Open Positions,Data,Summary,Stocks,USD,UPS,-,500,1,98.11367457,49056.837285,97.53,48765,-291.837285,
+Open Positions,Data,Lot,Stocks,USD,UPS,"2018-12-28, 16:20:00",500,,98.11367457,49056.837285,97.53,48765,-291.837285,ST
+Open Positions,Data,Summary,Stocks,USD,UTX,-,400,1,114.02487574,45609.950296,106.48,42592,-3017.950296,
+Open Positions,Data,Lot,Stocks,USD,UTX,"2018-12-21, 16:20:00",400,,114.02487574,45609.950296,106.48,42592,-3017.950296,ST
+Open Positions,Data,Summary,Stocks,USD,XRAY,-,1000,1,49.369912553,49369.912553,37.21,37210,-12159.912553,
+Open Positions,Data,Lot,Stocks,USD,XRAY,"2018-04-20, 16:20:00",1000,,49.369912553,49369.912553,37.21,37210,-12159.912553,ST
+Open Positions,Total,,Stocks,USD,,,,,,273615.705796,,246001,-27614.705796,
+Open Positions,Header,DataDiscriminator,Asset Category,Currency,Symbol,Open,Quantity,Mult,Cost Price,Cost Basis,Close Price,Value,Unrealized P/L,Code
+Open Positions,Data,Summary,Equity and Index Options,USD,ABBV 04JAN19 80.0 P,-,-6,100,0.62632881,-375.797286,0.0116,-6.96,368.837286,
+Open Positions,Data,Lot,Equity and Index Options,USD,ABBV 04JAN19 80.0 P,"2018-12-06, 09:59:19",-6,,0.62632881,-375.797286,0.0116,-6.96,368.837286,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,ACN 04JAN19 145.0 C,-,-3,100,0.6006292,-180.18876,0.3688,-110.64,69.54876,
+Open Positions,Data,Lot,Equity and Index Options,USD,ACN 04JAN19 145.0 C,"2018-12-31, 10:02:20",-3,,0.6006292,-180.18876,0.3688,-110.64,69.54876,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,AGN 04JAN19 140.0 C,-,-2,100,0.33633258,-67.266516,0.1996,-39.92,27.346516,
+Open Positions,Data,Lot,Equity and Index Options,USD,AGN 04JAN19 140.0 C,"2018-12-31, 10:00:02",-2,,0.33633258,-67.266516,0.1996,-39.92,27.346516,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,AIG 04JAN19 35.0 P,-,-10,100,0.34633245,-346.33245,0.0422,-42.2,304.13245,
+Open Positions,Data,Lot,Equity and Index Options,USD,AIG 04JAN19 35.0 P,"2018-12-06, 09:43:58",-5,,0.34633245,-173.166225,0.0422,-21.1,152.066225,ST
+Open Positions,Data,Lot,Equity and Index Options,USD,AIG 04JAN19 35.0 P,"2018-12-06, 09:43:58",-5,,0.34633245,-173.166225,0.0422,-21.1,152.066225,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,AMGN 04JAN19 180.0 P,-,-3,100,1.4963175,-448.89525,0.158,-47.4,401.49525,
+Open Positions,Data,Lot,Equity and Index Options,USD,AMGN 04JAN19 180.0 P,"2018-12-07, 10:37:12",-3,,1.4963175,-448.89525,0.158,-47.4,401.49525,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,AMZN 04JAN19 1410.0 P,-,-1,100,8.36202819,-836.202819,4.2547,-425.47,410.732819,
+Open Positions,Data,Lot,Equity and Index Options,USD,AMZN 04JAN19 1410.0 P,"2018-12-11, 15:38:31",-1,,8.36202819,-836.202819,4.2547,-425.47,410.732819,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,AXP 04JAN19 97.5 P,-,-5,100,0.71632764,-358.16382,3.0521,-1526.05,-1167.88618,
+Open Positions,Data,Lot,Equity and Index Options,USD,AXP 04JAN19 97.5 P,"2018-12-07, 14:58:23",-5,,0.71632764,-358.16382,3.0521,-1526.05,-1167.88618,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,BA 04JAN19 290.0 P,-,-2,100,2.98629813,-597.259626,0.2692,-53.84,543.419626,
+Open Positions,Data,Lot,Equity and Index Options,USD,BA 04JAN19 290.0 P,"2018-12-07, 11:23:16",-2,,2.98629813,-597.259626,0.2692,-53.84,543.419626,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,BIIB 11JAN19 280.0 P,-,-2,100,1.86061282,-372.122564,2.1703,-434.06,-61.937436,
+Open Positions,Data,Lot,Equity and Index Options,USD,BIIB 11JAN19 280.0 P,"2018-12-11, 15:55:00",-2,,1.86061282,-372.122564,2.1703,-434.06,-61.937436,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,BK 04JAN19 43.0 P,-,-10,100,0.2963331,-296.3331,0.0378,-37.8,258.5331,
+Open Positions,Data,Lot,Equity and Index Options,USD,BK 04JAN19 43.0 P,"2018-12-06, 10:27:38",-10,,0.2963331,-296.3331,0.0378,-37.8,258.5331,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,BMY 04JAN19 48.0 P,-,-10,100,0.27633336,-276.33336,0.0585,-58.5,217.83336,
+Open Positions,Data,Lot,Equity and Index Options,USD,BMY 04JAN19 48.0 P,"2018-12-11, 15:51:13",-10,,0.27633336,-276.33336,0.0585,-58.5,217.83336,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,C 04JAN19 54.5 P,-,-9,100,0.61632894,-554.696046,2.5434,-2289.06,-1734.363954,
+Open Positions,Data,Lot,Equity and Index Options,USD,C 04JAN19 54.5 P,"2018-12-07, 10:37:44",-9,,0.61632894,-554.696046,2.5434,-2289.06,-1734.363954,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,CAT 04JAN19 110.0 P,-,-5,100,0.94632465,-473.162325,0.0187,-9.35,463.812325,
+Open Positions,Data,Lot,Equity and Index Options,USD,CAT 04JAN19 110.0 P,"2018-12-07, 10:37:56",-5,,0.94632465,-473.162325,0.0187,-9.35,463.812325,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,CELG 04JAN19 64.5 P,-,-8,100,0.47633076,-381.064608,1.2787,-1022.96,-641.895392,
+Open Positions,Data,Lot,Equity and Index Options,USD,CELG 04JAN19 64.5 P,"2018-12-07, 09:30:04",-8,,0.47633076,-381.064608,1.2787,-1022.96,-641.895392,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,CMCSA 04JAN19 34.0 P,-,-15,100,0.22633401,-339.501015,0.4744,-711.6,-372.098985,
+Open Positions,Data,Lot,Equity and Index Options,USD,CMCSA 04JAN19 34.0 P,"2018-12-11, 15:55:19",-15,,0.22633401,-339.501015,0.4744,-711.6,-372.098985,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,COF 04JAN19 75.0 P,-,-6,100,0.60632907,-363.797442,0.8755,-525.3,-161.502558,
+Open Positions,Data,Lot,Equity and Index Options,USD,COF 04JAN19 75.0 P,"2018-12-06, 10:25:04",-6,,0.60632907,-363.797442,0.8755,-525.3,-161.502558,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,COP 04JAN19 58.0 P,-,-9,100,0.32633271,-293.699439,0.0694,-62.46,231.239439,
+Open Positions,Data,Lot,Equity and Index Options,USD,COP 04JAN19 58.0 P,"2018-12-11, 15:49:58",-9,,0.32633271,-293.699439,0.0694,-62.46,231.239439,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,CVX 04JAN19 106.0 P,-,-5,100,0.54632985,-273.164925,0.4428,-221.4,51.764925,
+Open Positions,Data,Lot,Equity and Index Options,USD,CVX 04JAN19 106.0 P,"2018-12-11, 15:38:18",-5,,0.54632985,-273.164925,0.4428,-221.4,51.764925,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,FB 11JAN19 129.0 P,-,-4,100,0.88632543,-354.530172,2.8588,-1143.52,-788.989828,
+Open Positions,Data,Lot,Equity and Index Options,USD,FB 11JAN19 129.0 P,"2018-12-13, 15:36:56",-4,,0.88632543,-354.530172,2.8588,-1143.52,-788.989828,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,GOOG 04JAN19 960.0 P,-,-1,100,5.8975603,-589.75603,1.1382,-113.82,475.93603,
+Open Positions,Data,Lot,Equity and Index Options,USD,GOOG 04JAN19 960.0 P,"2018-12-11, 15:51:13",-1,,5.8975603,-589.75603,1.1382,-113.82,475.93603,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,GOOGL 04JAN19 965.0 P,-,-1,100,7.2970421,-729.70421,0.9023,-90.23,639.47421,
+Open Positions,Data,Lot,Equity and Index Options,USD,GOOGL 04JAN19 965.0 P,"2018-12-07, 10:17:23",-1,,7.2970421,-729.70421,0.9023,-90.23,639.47421,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,GS 04JAN19 160.0 P,-,-3,100,0.996324,-298.8972,0.7147,-214.41,84.4872,
+Open Positions,Data,Lot,Equity and Index Options,USD,GS 04JAN19 160.0 P,"2018-12-06, 10:52:18",-3,,0.996324,-298.8972,0.7147,-214.41,84.4872,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,HD 04JAN19 160.0 P,-,-3,100,1.24632075,-373.896225,0.1547,-46.41,327.486225,
+Open Positions,Data,Lot,Equity and Index Options,USD,HD 04JAN19 160.0 P,"2018-12-07, 11:59:54",-3,,1.24632075,-373.896225,0.1547,-46.41,327.486225,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,IBM 04JAN19 112.0 P,-,-4,100,0.8963253,-358.53012,0.7988,-319.52,39.01012,
+Open Positions,Data,Lot,Equity and Index Options,USD,IBM 04JAN19 112.0 P,"2018-12-07, 10:36:27",-4,,0.8963253,-358.53012,0.7988,-319.52,39.01012,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,INTC 04JAN19 43.0 P,-,-10,100,0.30633297,-306.33297,0.0407,-40.7,265.63297,
+Open Positions,Data,Lot,Equity and Index Options,USD,INTC 04JAN19 43.0 P,"2018-12-07, 09:30:17",-10,,0.30633297,-306.33297,0.0407,-40.7,265.63297,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,LMT 04JAN19 265.0 P,-,-2,100,1.35061945,-270.12389,4.4871,-897.42,-627.29611,
+Open Positions,Data,Lot,Equity and Index Options,USD,LMT 04JAN19 265.0 P,"2018-12-11, 15:55:07",-2,,1.35061945,-270.12389,4.4871,-897.42,-627.29611,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,LOW 04JAN19 81.0 P,-,-6,100,0.60632907,-363.797442,0.0155,-9.3,354.497442,
+Open Positions,Data,Lot,Equity and Index Options,USD,LOW 04JAN19 81.0 P,"2018-12-07, 11:24:30",-6,,0.60632907,-363.797442,0.0155,-9.3,354.497442,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,MA 04JAN19 180.0 P,-,-3,100,1.14632205,-343.896615,0.6511,-195.33,148.566615,
+Open Positions,Data,Lot,Equity and Index Options,USD,MA 04JAN19 180.0 P,"2018-12-11, 15:53:05",-3,,1.14632205,-343.896615,0.6511,-195.33,148.566615,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,MO 04JAN19 49.5 P,-,-10,100,0.35633232,-356.33232,0.7032,-703.2,-346.86768,
+Open Positions,Data,Lot,Equity and Index Options,USD,MO 04JAN19 49.5 P,"2018-12-11, 15:43:35",-10,,0.35633232,-356.33232,0.7032,-703.2,-346.86768,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,MS 04JAN19 38.0 P,-,-12,100,0.37633206,-451.598472,0.1739,-208.68,242.918472,
+Open Positions,Data,Lot,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:07:03",-8,,0.37633206,-301.065648,0.1739,-139.12,161.945648,ST
+Open Positions,Data,Lot,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:06:32",-2,,0.37633206,-75.266412,0.1739,-34.78,40.486412,ST
+Open Positions,Data,Lot,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:06:32",-2,,0.37633206,-75.266412,0.1739,-34.78,40.486412,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,NKE 04JAN19 64.5 P,-,-8,100,0.40633167,-325.065336,0.0029,-2.32,322.745336,
+Open Positions,Data,Lot,Equity and Index Options,USD,NKE 04JAN19 64.5 P,"2018-12-11, 15:40:28",-8,,0.40633167,-325.065336,0.0029,-2.32,322.745336,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,ORCL 04JAN19 41.0 P,-,-12,100,0.34633245,-415.59894,0.019,-22.8,392.79894,
+Open Positions,Data,Lot,Equity and Index Options,USD,ORCL 04JAN19 41.0 P,"2018-12-07, 09:32:03",-12,,0.34633245,-415.59894,0.019,-22.8,392.79894,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,PYPL 04JAN19 75.0 P,-,-7,100,0.61632894,-431.430258,0.06,-42,389.430258,
+Open Positions,Data,Lot,Equity and Index Options,USD,PYPL 04JAN19 75.0 P,"2018-12-07, 10:15:43",-7,,0.61632894,-431.430258,0.06,-42,389.430258,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,UNP 04JAN19 132.0 P,-,-4,100,0.92632491,-370.529964,0.4751,-190.04,180.489964,
+Open Positions,Data,Lot,Equity and Index Options,USD,UNP 04JAN19 132.0 P,"2018-12-07, 15:04:50",-4,,0.92632491,-370.529964,0.4751,-190.04,180.489964,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,UPS 04JAN19 99.5 C,-,-5,100,0.58632933,-293.164665,0.5281,-264.05,29.114665,
+Open Positions,Data,Lot,Equity and Index Options,USD,UPS 04JAN19 99.5 C,"2018-12-31, 10:01:23",-5,,0.58632933,-293.164665,0.5281,-264.05,29.114665,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,USB 04JAN19 48.0 P,-,-10,100,0.36633219,-366.33219,2.3267,-2326.7,-1960.36781,
+Open Positions,Data,Lot,Equity and Index Options,USD,USB 04JAN19 48.0 P,"2018-12-06, 10:46:47",-10,,0.36633219,-366.33219,2.3267,-2326.7,-1960.36781,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,V 04JAN19 125.0 P,-,-4,100,0.70632777,-282.531108,0.272,-108.8,173.731108,
+Open Positions,Data,Lot,Equity and Index Options,USD,V 04JAN19 125.0 P,"2018-12-11, 15:57:09",-4,,0.70632777,-282.531108,0.272,-108.8,173.731108,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,WFC 04JAN19 46.5 P,-,-10,100,0.44633115,-446.33115,0.8631,-863.1,-416.76885,
+Open Positions,Data,Lot,Equity and Index Options,USD,WFC 04JAN19 46.5 P,"2018-12-07, 14:05:26",-10,,0.44633115,-446.33115,0.8631,-863.1,-416.76885,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,WMT 04JAN19 87.0 P,-,-6,100,0.63632868,-381.797208,0.033,-19.8,361.997208,
+Open Positions,Data,Lot,Equity and Index Options,USD,WMT 04JAN19 87.0 P,"2018-12-07, 15:05:11",-6,,0.63632868,-381.797208,0.033,-19.8,361.997208,ST
+Open Positions,Data,Summary,Equity and Index Options,USD,XRAY 18JAN19 39.0 C,-,-10,100,0.8006266,-800.6266,0.513,-513,287.6266,
+Open Positions,Data,Lot,Equity and Index Options,USD,XRAY 18JAN19 39.0 C,"2018-12-28, 10:21:11",-10,,0.8006266,-800.6266,0.513,-513,287.6266,ST
+Open Positions,Total,,Equity and Index Options,USD,,,,,,-15744.784436,,-15960.12,-215.335564,
+Trades,Header,DataDiscriminator,Asset Category,Currency,Symbol,Date/Time,Exchange,Quantity,T. Price,C. Price,Proceeds,Comm/Fee,Basis,Realized P/L,MTM P/L,Code
+Trades,Data,Order,Stocks,USD,ACN,"2018-12-21, 16:20:00",-,300,145,137.2,-43500,0,43500,0,-2340,A;O
+Trades,Data,Trade,Stocks,USD,ACN,"2018-12-21, 16:20:00",--,300,145,137.2,-43500,0,43500,0,-2340,A;O
+Trades,SubTotal,,Stocks,USD,ACN,,,300,,,-43500,0,43500,0,-2340,
+Trades,Data,Order,Stocks,USD,AGN,"2018-12-21, 16:20:00",-,200,140,131.46,-28000,0,28000,0,-1708,A;O
+Trades,Data,Trade,Stocks,USD,AGN,"2018-12-21, 16:20:00",--,200,140,131.46,-28000,0,28000,0,-1708,A;O
+Trades,SubTotal,,Stocks,USD,AGN,,,200,,,-28000,0,28000,0,-1708,
+Trades,Data,Order,Stocks,USD,APA,"2018-03-23, 16:20:00",-,"-1,300",36.5,37.28,47450,-1.250795,-48353.424809,-576.950812,-1014,A;C
+Trades,Data,Trade,Stocks,USD,APA,"2018-03-23, 16:20:00",--,"-1,300",36.5,37.28,47450,-1.250795,-48353.424809,-576.950812,-1014,A;C
+Trades,Data,ClosedLot,Stocks,USD,APA,2018-02-09,,1300,37.194942161,,,,48353.424809,-576.950812,,ST
+Trades,SubTotal,,Stocks,USD,APA,,,-1300,,,47450,-1.250795,-48353.424809,-576.950812,-1014,
+Trades,Data,Order,Stocks,USD,CHTR,"2018-03-23, 16:20:00",-,200,315,312.18,-63000,0,63000,0,-564,A;O
+Trades,Data,Trade,Stocks,USD,CHTR,"2018-03-23, 16:20:00",--,200,315,312.18,-63000,0,63000,0,-564,A;O
+Trades,Data,Order,Stocks,USD,CHTR,"2018-04-20, 16:20:00",-,-200,310,310.94,62000,-1.456,-62770.084913,-33.437561,-188,A;C
+Trades,Data,Trade,Stocks,USD,CHTR,"2018-04-20, 16:20:00",--,-200,310,310.94,62000,-1.456,-62770.084913,-33.437561,-188,A;C
+Trades,Data,ClosedLot,Stocks,USD,CHTR,2018-03-23,,200,313.850424565,,,,62770.084913,-33.437561,,ST
+Trades,SubTotal,,Stocks,USD,CHTR,,,0,,,-1000,-1.456,229.915087,-33.437561,-752,
+Trades,Data,Order,Stocks,USD,CMCSA,"2018-03-29, 16:20:00",-,"1,400",35,34.17,-49000,0,49000,0,-1162,A;O
+Trades,Data,Trade,Stocks,USD,CMCSA,"2018-03-29, 16:20:00",--,"1,400",35,34.17,-49000,0,49000,0,-1162,A;O
+Trades,Data,Order,Stocks,USD,CMCSA,"2018-11-30, 16:20:00",-,"-1,400",38.5,39.15,53900,-0.8673,-48754.863021,5357.258567,-910,A;C
+Trades,Data,Trade,Stocks,USD,CMCSA,"2018-11-30, 16:20:00",--,"-1,400",38.5,39.15,53900,-0.8673,-48754.863021,5357.258567,-910,A;C
+Trades,Data,ClosedLot,Stocks,USD,CMCSA,2018-03-29,,1400,34.824902158,,,,48754.863021,5357.258567,,ST
+Trades,SubTotal,,Stocks,USD,CMCSA,,,0,,,4900,-0.8673,245.136979,5357.258567,-2072,
+Trades,Data,Order,Stocks,USD,FDX,"2018-12-19, 16:20:00",-,300,197.5,159.72,-59250,0,59250,0,-11334,A;O
+Trades,Data,Trade,Stocks,USD,FDX,"2018-12-19, 16:20:00",--,300,197.5,159.72,-59250,0,59250,0,-11334,A;O
+Trades,SubTotal,,Stocks,USD,FDX,,,300,,,-59250,0,59250,0,-11334,
+Trades,Data,Order,Stocks,USD,REGN,"2018-03-02, 16:20:00",-,-100,330,333.91,33000,-0.7742,-34481.925512,-1261.994617,-391,A;C
+Trades,Data,Trade,Stocks,USD,REGN,"2018-03-02, 16:20:00",--,-100,330,333.91,33000,-0.7742,-34481.925512,-1261.994617,-391,A;C
+Trades,Data,ClosedLot,Stocks,USD,REGN,2018-02-09,,100,344.81925512,,,,34481.925512,-1261.994617,,ST
+Trades,SubTotal,,Stocks,USD,REGN,,,-100,,,33000,-0.7742,-34481.925512,-1261.994617,-391,
+Trades,Data,Order,Stocks,USD,UPS,"2018-12-28, 16:20:00",-,500,99,97.53,-49500,0,49500,0,-735,A;O
+Trades,Data,Trade,Stocks,USD,UPS,"2018-12-28, 16:20:00",--,500,99,97.53,-49500,0,49500,0,-735,A;O
+Trades,SubTotal,,Stocks,USD,UPS,,,500,,,-49500,0,49500,0,-735,
+Trades,Data,Order,Stocks,USD,UTX,"2018-12-21, 16:20:00",-,400,115,106.18,-46000,0,46000,0,-3528,A;O
+Trades,Data,Trade,Stocks,USD,UTX,"2018-12-21, 16:20:00",--,400,115,106.18,-46000,0,46000,0,-3528,A;O
+Trades,SubTotal,,Stocks,USD,UTX,,,400,,,-46000,0,46000,0,-3528,
+Trades,Data,Order,Stocks,USD,XRAY,"2018-04-20, 16:20:00",-,"1,000",50,49.34,-50000,0,50000,0,-660,A;O
+Trades,Data,Trade,Stocks,USD,XRAY,"2018-04-20, 16:20:00",--,"1,000",50,49.34,-50000,0,50000,0,-660,A;O
+Trades,SubTotal,,Stocks,USD,XRAY,,,1000,,,-50000,0,50000,0,-660,
+Trades,Total,,Stocks,USD,,,,,,,-191900,-4.348295,193889.701745,3484.875577,-24534, 
+Trades,Header,DataDiscriminator,Asset Category,Currency,Symbol,Date/Time,Exchange,Quantity,T. Price,C. Price,Proceeds,Comm/Fee,Basis,Realized P/L,MTM P/L,Code
+Trades,Data,Order,Equity and Index Options,USD,AAOI 16FEB18 25.0 P,"2018-02-16, 16:20:00",-,15,0,0,0,0,217.592302,217.592302,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AAOI 16FEB18 25.0 P,"2018-02-16, 16:20:00",--,15,0,0,0,0,217.592302,217.592302,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AAOI 16FEB18 25.0 P,2018-01-03,,-15,0.145061535,,,,-217.592302,217.592302,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AAOI 16FEB18 25.0 P,,,15,,,0,0,217.592302,217.592302,0,
+Trades,Data,Order,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,"2018-02-22, 15:04:34",-,-3,0.19,0.1601,57,-2.3707167,-54.6292833,0,8.97,O
+Trades,Data,Trade,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,"2018-02-22, 15:04:34",PHLX,-3,0.19,0.1601,57,-2.3707167,-54.6292833,0,8.97,O
+Trades,Data,Order,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,"2018-03-09, 16:20:00",-,3,0,0,0,0,54.629283,54.629283,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,"2018-03-09, 16:20:00",--,3,0,0,0,0,54.629283,54.629283,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,2018-02-22,,-3,0.18209761,,,,-54.629283,54.629283,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AAPL 09MAR18 155.0 P,,,0,,,57,-2.3707167,-0.0000003,54.629283,8.97,
+Trades,Data,Order,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,"2018-11-27, 09:30:00",-,-2,0.75,0.5401,150,-0.97455,-149.02545,0,41.98,O
+Trades,Data,Trade,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,"2018-11-27, 09:30:00",GEMINI,-2,0.75,0.5401,150,-0.97455,-149.02545,0,41.98,O
+Trades,Data,Order,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,"2018-12-21, 16:20:00",-,2,0,0,0,0,149.02545,149.02545,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,"2018-12-21, 16:20:00",--,2,0,0,0,0,149.02545,149.02545,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,2018-11-27,,-2,0.74512725,,,,-149.02545,149.02545,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AAPL 21DEC18 150.0 P,,,0,,,150,-0.97455,0,149.02545,41.98,
+Trades,Data,Order,Equity and Index Options,USD,ABBV 04JAN19 80.0 P,"2018-12-06, 09:59:19",-,-6,0.63,0.4739,378,-2.202714,-375.797286,0,93.66,O
+Trades,Data,Trade,Equity and Index Options,USD,ABBV 04JAN19 80.0 P,"2018-12-06, 09:59:19",CBOE2,-6,0.63,0.4739,378,-2.202714,-375.797286,0,93.66,O
+Trades,SubTotal,,Equity and Index Options,USD,ABBV 04JAN19 80.0 P,,,-6,,,378,-2.202714,-375.797286,0,93.66,
+Trades,Data,Order,Equity and Index Options,USD,ABC 14DEC18 78.5 P,"2018-11-21, 10:56:45",-,-5,0.48,0.5339,240,0.06538,-240.06538,0,-26.95,O
+Trades,Data,Trade,Equity and Index Options,USD,ABC 14DEC18 78.5 P,"2018-11-21, 10:56:45",NASDAQOM,-5,0.48,0.5339,240,0.06538,-240.06538,0,-26.95,O
+Trades,Data,Order,Equity and Index Options,USD,ABC 14DEC18 78.5 P,"2018-12-14, 16:20:00",-,5,0,0,0,0,240.06538,240.06538,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ABC 14DEC18 78.5 P,"2018-12-14, 16:20:00",--,5,0,0,0,0,240.06538,240.06538,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ABC 14DEC18 78.5 P,2018-11-21,,-5,0.48013076,,,,-240.06538,240.06538,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ABC 14DEC18 78.5 P,,,0,,,240,0.06538,0,240.06538,-26.95,
+Trades,Data,Order,Equity and Index Options,USD,ACN 21DEC18 145.0 P,"2018-11-27, 09:30:03",-,-3,1.15,0.9485,345,0.036615,-345.036615,0,60.45,O
+Trades,Data,Trade,Equity and Index Options,USD,ACN 21DEC18 145.0 P,"2018-11-27, 09:30:03",NASDAQOM,-3,1.15,0.9485,345,0.036615,-345.036615,0,60.45,O
+Trades,Data,Order,Equity and Index Options,USD,ACN 21DEC18 145.0 P,"2018-12-21, 16:20:00",-,3,0,7.8,0,0,345.036615,0,2340,A;C
+Trades,Data,Trade,Equity and Index Options,USD,ACN 21DEC18 145.0 P,"2018-12-21, 16:20:00",--,3,0,7.8,0,0,345.036615,0,2340,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,ACN 21DEC18 145.0 P,2018-11-27,,-3,1.15012205,,,,-345.036615,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ACN 21DEC18 145.0 P,,,0,,,345,0.036615,0,0,2400.45,
+Trades,Data,Order,Equity and Index Options,USD,ACN 04JAN19 145.0 C,"2018-12-31, 10:02:20",-,-3,0.6,0.3688,180,0.18876,-180.18876,0,69.36,O
+Trades,Data,Trade,Equity and Index Options,USD,ACN 04JAN19 145.0 C,"2018-12-31, 10:02:20",BATS,-3,0.6,0.3688,180,0.18876,-180.18876,0,69.36,O
+Trades,SubTotal,,Equity and Index Options,USD,ACN 04JAN19 145.0 C,,,-3,,,180,0.18876,-180.18876,0,69.36,
+Trades,Data,Order,Equity and Index Options,USD,ADI 16MAR18 79.0 P,"2018-02-22, 10:33:24",-,-6,0.35,0.3768,210,-0.243651,-209.756349,0,-16.08,O;P
+Trades,Data,Trade,Equity and Index Options,USD,ADI 16MAR18 79.0 P,"2018-02-22, 10:33:24",PSE,-1,0.35,0.3768,35,-0.3406085,-34.6593915,0,-2.68,O;P
+Trades,Data,Trade,Equity and Index Options,USD,ADI 16MAR18 79.0 P,"2018-02-22, 10:33:24",PSE,-5,0.35,0.3768,175,0.0969575,-175.0969575,0,-13.4,O;P
+Trades,Data,Order,Equity and Index Options,USD,ADI 16MAR18 79.0 P,"2018-03-16, 16:20:00",-,6,0,0,0,0,209.756349,209.756349,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ADI 16MAR18 79.0 P,"2018-03-16, 16:20:00",--,6,0,0,0,0,209.756349,209.756349,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ADI 16MAR18 79.0 P,2018-02-22,,-6,0.349593915,,,,-209.756349,209.756349,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ADI 16MAR18 79.0 P,,,0,,,210,-0.243651,0,209.756349,-16.08,
+Trades,Data,Order,Equity and Index Options,USD,ADI 20APR18 75.0 P,"2018-02-22, 10:30:19",-,-7,0.43,0.5399,301,0.0644469,-301.0644469,0,-76.93,O
+Trades,Data,Trade,Equity and Index Options,USD,ADI 20APR18 75.0 P,"2018-02-22, 10:30:19",NASDAQOM,-7,0.43,0.5399,301,0.0644469,-301.0644469,0,-76.93,O
+Trades,Data,Order,Equity and Index Options,USD,ADI 20APR18 75.0 P,"2018-04-20, 16:20:00",-,7,0,0,0,0,301.064447,301.064447,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ADI 20APR18 75.0 P,"2018-04-20, 16:20:00",--,7,0,0,0,0,301.064447,301.064447,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ADI 20APR18 75.0 P,2018-02-22,,-7,0.430092067,,,,-301.064447,301.064447,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ADI 20APR18 75.0 P,,,0,,,301,0.0644469,0.0000001,301.064447,-76.93,
+Trades,Data,Order,Equity and Index Options,USD,ADM 16FEB18 37.0 P,"2018-02-16, 16:20:00",-,14,0,0,0,0,414.761298,414.761298,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ADM 16FEB18 37.0 P,"2018-02-16, 16:20:00",--,14,0,0,0,0,414.761298,414.761298,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ADM 16FEB18 37.0 P,2018-01-03,,-14,0.29625807,,,,-414.761298,414.761298,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ADM 16FEB18 37.0 P,,,14,,,0,0,414.761298,414.761298,0,
+Trades,Data,Order,Equity and Index Options,USD,ADP 07DEC18 129.0 P,"2018-11-21, 10:05:54",-,-3,0.6,0.4796,180,0.03876,-180.03876,0,36.12,O
+Trades,Data,Trade,Equity and Index Options,USD,ADP 07DEC18 129.0 P,"2018-11-21, 10:05:54",NASDAQOM,-3,0.6,0.4796,180,0.03876,-180.03876,0,36.12,O
+Trades,Data,Order,Equity and Index Options,USD,ADP 07DEC18 129.0 P,"2018-12-07, 16:20:00",-,3,0,0,0,0,180.03876,180.03876,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ADP 07DEC18 129.0 P,"2018-12-07, 16:20:00",--,3,0,0,0,0,180.03876,180.03876,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ADP 07DEC18 129.0 P,2018-11-21,,-3,0.6001292,,,,-180.03876,180.03876,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ADP 07DEC18 129.0 P,,,0,,,180,0.03876,0,180.03876,36.12,
+Trades,Data,Order,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,"2018-02-22, 10:30:37",-,-5,0.7,0.7549,350,-3.957085,-346.042915,0,-27.45,O
+Trades,Data,Trade,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,"2018-02-22, 10:30:37",AMEX,-5,0.7,0.7549,350,-3.957085,-346.042915,0,-27.45,O
+Trades,Data,Order,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,"2018-03-16, 16:20:00",-,5,0,0,0,0,346.042915,346.042915,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,"2018-03-16, 16:20:00",--,5,0,0,0,0,346.042915,346.042915,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,2018-02-22,,-5,0.69208583,,,,-346.042915,346.042915,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ADSK 16MAR18 96.0 P,,,0,,,350,-3.957085,0,346.042915,-27.45,
+Trades,Data,Order,Equity and Index Options,USD,AGN 21DEC18 140.0 P,"2018-11-27, 09:45:46",-,-2,1.1,0.989,220,-1.57546,-218.42454,0,22.2,O
+Trades,Data,Trade,Equity and Index Options,USD,AGN 21DEC18 140.0 P,"2018-11-27, 09:45:46",BOX,-2,1.1,0.989,220,-1.57546,-218.42454,0,22.2,O
+Trades,Data,Order,Equity and Index Options,USD,AGN 21DEC18 140.0 P,"2018-12-21, 16:20:00",-,2,0,8.54,0,0,218.42454,0,1708,A;C
+Trades,Data,Trade,Equity and Index Options,USD,AGN 21DEC18 140.0 P,"2018-12-21, 16:20:00",--,2,0,8.54,0,0,218.42454,0,1708,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,AGN 21DEC18 140.0 P,2018-11-27,,-2,1.0921227,,,,-218.42454,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AGN 21DEC18 140.0 P,,,0,,,220,-1.57546,0,0,1730.2,
+Trades,Data,Order,Equity and Index Options,USD,AGN 04JAN19 140.0 C,"2018-12-31, 10:00:02",-,-2,0.34,0.1996,68,-0.733484,-67.266516,0,28.08,O
+Trades,Data,Trade,Equity and Index Options,USD,AGN 04JAN19 140.0 C,"2018-12-31, 10:00:02",CBOE2,-2,0.34,0.1996,68,-0.733484,-67.266516,0,28.08,O
+Trades,SubTotal,,Equity and Index Options,USD,AGN 04JAN19 140.0 C,,,-2,,,68,-0.733484,-67.266516,0,28.08,
+Trades,Data,Order,Equity and Index Options,USD,AIG 04JAN19 35.0 P,"2018-12-06, 09:43:58",-,-10,0.35,0.4276,350,-3.66755,-346.33245,0,-77.6,O;P
+Trades,Data,Trade,Equity and Index Options,USD,AIG 04JAN19 35.0 P,"2018-12-06, 09:43:58",CBOE2,-5,0.35,0.4276,175,-1.833775,-173.166225,0,-38.8,O;P
+Trades,Data,Trade,Equity and Index Options,USD,AIG 04JAN19 35.0 P,"2018-12-06, 09:43:58",CBOE2,-5,0.35,0.4276,175,-1.833775,-173.166225,0,-38.8,O;P
+Trades,SubTotal,,Equity and Index Options,USD,AIG 04JAN19 35.0 P,,,-10,,,350,-3.66755,-346.33245,0,-77.6,
+Trades,Data,Order,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,"2018-02-22, 10:31:02",-,-3,0.34,0.385,102,-1.4717562,-100.5282438,0,-13.5,O
+Trades,Data,Trade,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,"2018-02-22, 10:31:02",NASDAQOM,-3,0.34,0.385,102,-1.4717562,-100.5282438,0,-13.5,O
+Trades,Data,Order,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,"2018-03-16, 16:20:00",-,3,0,0,0,0,100.528244,100.528244,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,"2018-03-16, 16:20:00",--,3,0,0,0,0,100.528244,100.528244,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,2018-02-22,,-3,0.335094147,,,,-100.528244,100.528244,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AMGN 16MAR18 157.5 P,,,0,,,102,-1.4717562,0.0000002,100.528244,-13.5,
+Trades,Data,Order,Equity and Index Options,USD,AMGN 04JAN19 180.0 P,"2018-12-07, 10:37:12",-,-3,1.5,2.0358,450,-1.10475,-448.89525,0,-160.74,O
+Trades,Data,Trade,Equity and Index Options,USD,AMGN 04JAN19 180.0 P,"2018-12-07, 10:37:12",CBOE2,-3,1.5,2.0358,450,-1.10475,-448.89525,0,-160.74,O
+Trades,SubTotal,,Equity and Index Options,USD,AMGN 04JAN19 180.0 P,,,-3,,,450,-1.10475,-448.89525,0,-160.74,
+Trades,Data,Order,Equity and Index Options,USD,AMZN 04JAN19 1410.0 P,"2018-12-11, 15:38:31",-,-1,8.37,8.9034,837,-0.797181,-836.202819,0,-53.34,O
+Trades,Data,Trade,Equity and Index Options,USD,AMZN 04JAN19 1410.0 P,"2018-12-11, 15:38:31",NASDAQOM,-1,8.37,8.9034,837,-0.797181,-836.202819,0,-53.34,O
+Trades,SubTotal,,Equity and Index Options,USD,AMZN 04JAN19 1410.0 P,,,-1,,,837,-0.797181,-836.202819,0,-53.34,
+Trades,Data,Order,Equity and Index Options,USD,APA 16FEB18 39.0 C,"2018-02-16, 16:20:00",-,13,0,0,0,0,812.613681,812.613681,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 16FEB18 39.0 C,"2018-02-16, 16:20:00",--,13,0,0,0,0,812.613681,812.613681,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 16FEB18 39.0 C,2018-02-12,,-13,0.625087447,,,,-812.613681,812.613681,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 16FEB18 39.0 C,,,13,,,0,0,812.613681,812.613681,0,
+Trades,Data,Order,Equity and Index Options,USD,APA 23FEB18 39.0 C,"2018-02-20, 09:55:59",-,-13,0.57,0.5775,741,-10.2845171,-730.7154829,0,-9.75,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 23FEB18 39.0 C,"2018-02-20, 09:55:59",AMEX,-13,0.57,0.5775,741,-10.2845171,-730.7154829,0,-9.75,O
+Trades,Data,Order,Equity and Index Options,USD,APA 23FEB18 39.0 C,"2018-02-23, 16:20:00",-,13,0,0,0,0,730.715483,730.715483,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 23FEB18 39.0 C,"2018-02-23, 16:20:00",--,13,0,0,0,0,730.715483,730.715483,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 23FEB18 39.0 C,2018-02-20,,-13,0.562088833,,,,-730.715483,730.715483,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 23FEB18 39.0 C,,,0,,,741,-10.2845171,0.0000001,730.715483,-9.75,
+Trades,Data,Order,Equity and Index Options,USD,APA 02MAR18 37.5 C,"2018-02-26, 09:31:47",-,-13,0.27,0.1361,351,-6.3755081,-344.6244919,0,174.07,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 02MAR18 37.5 C,"2018-02-26, 09:31:47",GEMINI,-13,0.27,0.1361,351,-6.3755081,-344.6244919,0,174.07,O
+Trades,Data,Order,Equity and Index Options,USD,APA 02MAR18 37.5 C,"2018-03-02, 16:20:00",-,13,0,0,0,0,344.624492,344.624492,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 02MAR18 37.5 C,"2018-03-02, 16:20:00",--,13,0,0,0,0,344.624492,344.624492,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 02MAR18 37.5 C,2018-02-26,,-13,0.265095763,,,,-344.624492,344.624492,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 02MAR18 37.5 C,,,0,,,351,-6.3755081,0.0000001,344.624492,174.07,
+Trades,Data,Order,Equity and Index Options,USD,APA 09MAR18 36.5 C,"2018-03-05, 11:40:06",-,-13,0.28,0.2076,364,-10.2758084,-353.7241916,0,94.12,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 09MAR18 36.5 C,"2018-03-05, 11:40:06",AMEX,-13,0.28,0.2076,364,-10.2758084,-353.7241916,0,94.12,O
+Trades,Data,Order,Equity and Index Options,USD,APA 09MAR18 36.5 C,"2018-03-09, 16:20:00",-,13,0,0,0,0,353.724192,353.724192,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 09MAR18 36.5 C,"2018-03-09, 16:20:00",--,13,0,0,0,0,353.724192,353.724192,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 09MAR18 36.5 C,2018-03-05,,-13,0.272095532,,,,-353.724192,353.724192,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 09MAR18 36.5 C,,,0,,,364,-10.2758084,0.0000004,353.724192,94.12,
+Trades,Data,Order,Equity and Index Options,USD,APA 16MAR18 37.0 C,"2018-03-12, 09:31:53",-,-13,0.15,0.1086,195,-6.3719045,-188.6280955,0,53.82,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 16MAR18 37.0 C,"2018-03-12, 09:31:53",NASDAQOM,-13,0.15,0.1086,195,-6.3719045,-188.6280955,0,53.82,O
+Trades,Data,Order,Equity and Index Options,USD,APA 16MAR18 37.0 C,"2018-03-16, 16:20:00",-,13,0,0,0,0,188.628096,188.628096,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 16MAR18 37.0 C,"2018-03-16, 16:20:00",--,13,0,0,0,0,188.628096,188.628096,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 16MAR18 37.0 C,2018-03-12,,-13,0.145098535,,,,-188.628096,188.628096,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 16MAR18 37.0 C,,,0,,,195,-6.3719045,0.0000005,188.628096,53.82,
+Trades,Data,Order,Equity and Index Options,USD,APA 16MAR18 32.5 P,"2018-02-22, 09:37:29",-,-10,0.3,0.5556,300,-7.90493,-292.09507,0,-255.6,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 16MAR18 32.5 P,"2018-02-22, 09:37:29",AMEX,-10,0.3,0.5556,300,-7.90493,-292.09507,0,-255.6,O
+Trades,Data,Order,Equity and Index Options,USD,APA 16MAR18 32.5 P,"2018-03-16, 16:20:00",-,10,0,0,0,0,292.09507,292.09507,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,APA 16MAR18 32.5 P,"2018-03-16, 16:20:00",--,10,0,0,0,0,292.09507,292.09507,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 16MAR18 32.5 P,2018-02-22,,-10,0.29209507,,,,-292.09507,292.09507,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 16MAR18 32.5 P,,,0,,,300,-7.90493,0,292.09507,-255.6,
+Trades,Data,Order,Equity and Index Options,USD,APA 23MAR18 36.5 C,"2018-03-19, 11:00:16",-,-13,0.26,0.272,338,-10.2752078,-327.7247922,0,-15.6,O
+Trades,Data,Trade,Equity and Index Options,USD,APA 23MAR18 36.5 C,"2018-03-19, 11:00:16",AMEX,-13,0.26,0.272,338,-10.2752078,-327.7247922,0,-15.6,O
+Trades,Data,Order,Equity and Index Options,USD,APA 23MAR18 36.5 C,"2018-03-23, 16:20:00",-,13,0,0.51,0,0,327.724792,0,663,A;C
+Trades,Data,Trade,Equity and Index Options,USD,APA 23MAR18 36.5 C,"2018-03-23, 16:20:00",--,13,0,0.51,0,0,327.724792,0,663,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,APA 23MAR18 36.5 C,2018-03-19,,-13,0.252095994,,,,-327.724792,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,APA 23MAR18 36.5 C,,,0,,,338,-10.2752078,-0.0000002,0,647.4,
+Trades,Data,Order,Equity and Index Options,USD,ATVI 16FEB18 75.0 C,"2018-02-16, 16:20:00",-,7,0,0,0,0,305.378385,305.378385,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ATVI 16FEB18 75.0 C,"2018-02-16, 16:20:00",--,7,0,0,0,0,305.378385,305.378385,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ATVI 16FEB18 75.0 C,2018-01-03,,-7,0.436254836,,,,-305.378385,305.378385,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ATVI 16FEB18 75.0 C,,,7,,,0,0,305.378385,305.378385,0,
+Trades,Data,Order,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,"2018-02-22, 09:30:37",-,-8,0.16,0.1749,128,-3.9213568,-124.0786432,0,-11.92,O
+Trades,Data,Trade,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,"2018-02-22, 09:30:37",NASDAQOM,-8,0.16,0.1749,128,-3.9213568,-124.0786432,0,-11.92,O
+Trades,Data,Order,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,"2018-03-16, 16:20:00",-,8,0,0,0,0,124.078643,124.078643,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,"2018-03-16, 16:20:00",--,8,0,0,0,0,124.078643,124.078643,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,2018-02-22,,-8,0.155098304,,,,-124.078643,124.078643,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ATVI 16MAR18 61.0 P,,,0,,,128,-3.9213568,-0.0000002,124.078643,-11.92,
+Trades,Data,Order,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,"2018-02-22, 09:30:01",-,-8,0.19,0.21,152,-2.9619112,-149.0380888,0,-16,O
+Trades,Data,Trade,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,"2018-02-22, 09:30:01",CBOE2,-8,0.19,0.21,152,-2.9619112,-149.0380888,0,-16,O
+Trades,Data,Order,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,"2018-03-23, 16:20:00",-,8,0,0,0,0,149.038089,149.038089,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,"2018-03-23, 16:20:00",--,8,0,0,0,0,149.038089,149.038089,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,2018-02-22,,-8,0.186297611,,,,-149.038089,149.038089,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ATVI 23MAR18 60.0 P,,,0,,,152,-2.9619112,0.0000002,149.038089,-16,
+Trades,Data,Order,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,"2018-02-22, 10:31:38",-,-2,1.04,1.154,208,0.0155952,-208.0155952,0,-22.8,O
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,"2018-02-22, 10:31:38",NASDAQOM,-2,1.04,1.154,208,0.0155952,-208.0155952,0,-22.8,O
+Trades,Data,Order,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,"2018-03-16, 16:20:00",-,2,0,0,0,0,208.015595,208.015595,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,"2018-03-16, 16:20:00",--,2,0,0,0,0,208.015595,208.015595,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,2018-02-22,,-2,1.040077975,,,,-208.015595,208.015595,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AVGO 16MAR18 220.0 P,,,0,,,208,0.0155952,-0.0000002,208.015595,-22.8,
+Trades,Data,Order,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,"2018-02-22, 13:50:23",-,-2,0.78,0.9501,156,0.0167964,-156.0167964,0,-34.02,O
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,"2018-02-22, 13:50:23",NASDAQOM,-2,0.78,0.9501,156,0.0167964,-156.0167964,0,-34.02,O
+Trades,Data,Order,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,"2018-03-23, 16:20:00",-,2,0,0,0,0,156.016796,156.016796,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,"2018-03-23, 16:20:00",--,2,0,0,0,0,156.016796,156.016796,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,2018-02-22,,-2,0.78008398,,,,-156.016796,156.016796,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AVGO 23MAR18 210.0 P,,,0,,,156,0.0167964,-0.0000004,156.016796,-34.02,
+Trades,Data,Order,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,"2018-11-21, 09:34:12",-,-1,3.2,3.1358,320,-0.34046,-319.65954,0,6.42,O
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,"2018-11-21, 09:34:12",PSE,-1,3.2,3.1358,320,-0.34046,-319.65954,0,6.42,O
+Trades,Data,Order,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,"2018-12-21, 16:20:00",-,1,0,0,0,0,319.65954,319.65954,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,"2018-12-21, 16:20:00",--,1,0,0,0,0,319.65954,319.65954,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,2018-11-21,,-1,3.1965954,,,,-319.65954,319.65954,,ST
+Trades,SubTotal,,Equity and Index Options,USD,AVGO 21DEC18 200.0 P,,,0,,,320,-0.34046,0,319.65954,6.42,
+Trades,Data,Order,Equity and Index Options,USD,AXP 04JAN19 97.5 P,"2018-12-07, 14:58:23",-,-5,0.72,0.6325,360,-1.83618,-358.16382,0,43.75,O
+Trades,Data,Trade,Equity and Index Options,USD,AXP 04JAN19 97.5 P,"2018-12-07, 14:58:23",CBOE2,-5,0.72,0.6325,360,-1.83618,-358.16382,0,43.75,O
+Trades,SubTotal,,Equity and Index Options,USD,AXP 04JAN19 97.5 P,,,-5,,,360,-1.83618,-358.16382,0,43.75,
+Trades,Data,Order,Equity and Index Options,USD,BA 04JAN19 290.0 P,"2018-12-07, 11:23:16",-,-2,2.99,3.5283,598,-0.740374,-597.259626,0,-107.66,O
+Trades,Data,Trade,Equity and Index Options,USD,BA 04JAN19 290.0 P,"2018-12-07, 11:23:16",CBOE2,-2,2.99,3.5283,598,-0.740374,-597.259626,0,-107.66,O
+Trades,SubTotal,,Equity and Index Options,USD,BA 04JAN19 290.0 P,,,-2,,,598,-0.740374,-597.259626,0,-107.66,
+Trades,Data,Order,Equity and Index Options,USD,BAC 28DEC18 23.5 P,"2018-12-06, 10:54:12",-,-15,0.2,0.139,300,-5.4984,-294.5016,0,91.5,O;P
+Trades,Data,Trade,Equity and Index Options,USD,BAC 28DEC18 23.5 P,"2018-12-06, 10:54:12",CBOE2,-6,0.2,0.139,120,-2.19936,-117.80064,0,36.6,O;P
+Trades,Data,Trade,Equity and Index Options,USD,BAC 28DEC18 23.5 P,"2018-12-06, 10:54:12",CBOE2,-9,0.2,0.139,180,-3.29904,-176.70096,0,54.9,O;P
+Trades,Data,Order,Equity and Index Options,USD,BAC 28DEC18 23.5 P,"2018-12-28, 16:20:00",-,15,0,0,0,0,294.5016,294.5016,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,BAC 28DEC18 23.5 P,"2018-12-28, 16:20:00",--,15,0,0,0,0,294.5016,294.5016,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,BAC 28DEC18 23.5 P,2018-12-06,,-15,0.1963344,,,,-294.5016,294.5016,,ST
+Trades,SubTotal,,Equity and Index Options,USD,BAC 28DEC18 23.5 P,,,0,,,300,-5.4984,0,294.5016,91.5,
+Trades,Data,Order,Equity and Index Options,USD,BIIB 11JAN19 280.0 P,"2018-12-11, 15:55:00",-,-2,1.86,1.6984,372,0.122564,-372.122564,0,32.32,O
+Trades,Data,Trade,Equity and Index Options,USD,BIIB 11JAN19 280.0 P,"2018-12-11, 15:55:00",BATS,-2,1.86,1.6984,372,0.122564,-372.122564,0,32.32,O
+Trades,SubTotal,,Equity and Index Options,USD,BIIB 11JAN19 280.0 P,,,-2,,,372,0.122564,-372.122564,0,32.32,
+Trades,Data,Order,Equity and Index Options,USD,BK 04JAN19 43.0 P,"2018-12-06, 10:27:38",-,-10,0.3,0.2447,300,-3.6669,-296.3331,0,55.3,O
+Trades,Data,Trade,Equity and Index Options,USD,BK 04JAN19 43.0 P,"2018-12-06, 10:27:38",CBOE2,-10,0.3,0.2447,300,-3.6669,-296.3331,0,55.3,O
+Trades,SubTotal,,Equity and Index Options,USD,BK 04JAN19 43.0 P,,,-10,,,300,-3.6669,-296.3331,0,55.3,
+Trades,Data,Order,Equity and Index Options,USD,BMY 04JAN19 48.0 P,"2018-12-11, 15:51:13",-,-10,0.28,0.2812,280,-3.66664,-276.33336,0,-1.2,O
+Trades,Data,Trade,Equity and Index Options,USD,BMY 04JAN19 48.0 P,"2018-12-11, 15:51:13",CBOE2,-10,0.28,0.2812,280,-3.66664,-276.33336,0,-1.2,O
+Trades,SubTotal,,Equity and Index Options,USD,BMY 04JAN19 48.0 P,,,-10,,,280,-3.66664,-276.33336,0,-1.2,
+Trades,Data,Order,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,"2018-02-22, 09:54:55",-,-3,0.5,0.5633,150,-1.622865,-148.377135,0,-18.99,O
+Trades,Data,Trade,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,"2018-02-22, 09:54:55",PEARL,-3,0.5,0.5633,150,-1.622865,-148.377135,0,-18.99,O
+Trades,Data,Order,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,"2018-03-16, 16:20:00",-,3,0,0,0,0,148.377135,148.377135,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,"2018-03-16, 16:20:00",--,3,0,0,0,0,148.377135,148.377135,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,2018-02-22,,-3,0.49459045,,,,-148.377135,148.377135,,ST
+Trades,SubTotal,,Equity and Index Options,USD,BRK B 16MAR18 185.0 P,,,0,,,150,-1.622865,0,148.377135,-18.99,
+Trades,Data,Order,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,"2018-12-06, 10:57:20",-,-3,0.93,0.4693,279,-1.462527,-277.537473,0,138.21,O
+Trades,Data,Trade,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,"2018-12-06, 10:57:20",BATS,-3,0.93,0.4693,279,-1.462527,-277.537473,0,138.21,O
+Trades,Data,Order,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,"2018-12-28, 16:20:00",-,3,0,0,0,0,277.537473,277.537473,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,"2018-12-28, 16:20:00",--,3,0,0,0,0,277.537473,277.537473,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,2018-12-06,,-3,0.92512491,,,,-277.537473,277.537473,,ST
+Trades,SubTotal,,Equity and Index Options,USD,BRK B 28DEC18 185.0 P,,,0,,,279,-1.462527,0,277.537473,138.21,
+Trades,Data,Order,Equity and Index Options,USD,C 16FEB18 65.0 P,"2018-02-16, 16:20:00",-,8,0,0,0,0,129.648858,129.648858,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,C 16FEB18 65.0 P,"2018-02-16, 16:20:00",--,8,0,0,0,0,129.648858,129.648858,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,C 16FEB18 65.0 P,2018-01-03,,-8,0.162061072,,,,-129.648858,129.648858,,ST
+Trades,SubTotal,,Equity and Index Options,USD,C 16FEB18 65.0 P,,,8,,,0,0,129.648858,129.648858,0,
+Trades,Data,Order,Equity and Index Options,USD,C 04JAN19 54.5 P,"2018-12-07, 10:37:44",-,-9,0.62,0.8198,558,-3.303954,-554.696046,0,-179.82,O
+Trades,Data,Trade,Equity and Index Options,USD,C 04JAN19 54.5 P,"2018-12-07, 10:37:44",CBOE2,-9,0.62,0.8198,558,-3.303954,-554.696046,0,-179.82,O
+Trades,SubTotal,,Equity and Index Options,USD,C 04JAN19 54.5 P,,,-9,,,558,-3.303954,-554.696046,0,-179.82,
+Trades,Data,Order,Equity and Index Options,USD,CAH 16FEB18 55.0 P,"2018-02-16, 16:20:00",-,9,0,0,0,0,342.5006,342.5006,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CAH 16FEB18 55.0 P,"2018-02-16, 16:20:00",--,9,0,0,0,0,342.5006,342.5006,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CAH 16FEB18 55.0 P,2018-01-03,,-9,0.380556222,,,,-342.5006,342.5006,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CAH 16FEB18 55.0 P,,,9,,,0,0,342.5006,342.5006,0,
+Trades,Data,Order,Equity and Index Options,USD,CAT 04JAN19 110.0 P,"2018-12-07, 10:37:56",-,-5,0.95,1.4665,475,-1.837675,-473.162325,0,-258.25,O
+Trades,Data,Trade,Equity and Index Options,USD,CAT 04JAN19 110.0 P,"2018-12-07, 10:37:56",CBOE2,-5,0.95,1.4665,475,-1.837675,-473.162325,0,-258.25,O
+Trades,SubTotal,,Equity and Index Options,USD,CAT 04JAN19 110.0 P,,,-5,,,475,-1.837675,-473.162325,0,-258.25,
+Trades,Data,Order,Equity and Index Options,USD,CBS 16FEB18 52.5 P,"2018-02-16, 16:20:00",-,10,0,0,0,0,346.256915,346.256915,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CBS 16FEB18 52.5 P,"2018-02-16, 16:20:00",--,10,0,0,0,0,346.256915,346.256915,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CBS 16FEB18 52.5 P,2018-01-03,,-10,0.346256915,,,,-346.256915,346.256915,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CBS 16FEB18 52.5 P,,,10,,,0,0,346.256915,346.256915,0,
+Trades,Data,Order,Equity and Index Options,USD,CCL 16MAR18 63.0 P,"2018-02-22, 09:41:30",-,-8,0.25,0.2498,200,0.47698,-200.47698,0,0.16,O
+Trades,Data,Trade,Equity and Index Options,USD,CCL 16MAR18 63.0 P,"2018-02-22, 09:41:30",PEARL,-8,0.25,0.2498,200,0.47698,-200.47698,0,0.16,O
+Trades,Data,Order,Equity and Index Options,USD,CCL 16MAR18 63.0 P,"2018-03-16, 16:20:00",-,8,0,0,0,0,200.47698,200.47698,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CCL 16MAR18 63.0 P,"2018-03-16, 16:20:00",--,8,0,0,0,0,200.47698,200.47698,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CCL 16MAR18 63.0 P,2018-02-22,,-8,0.250596225,,,,-200.47698,200.47698,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CCL 16MAR18 63.0 P,,,0,,,200,0.47698,0,200.47698,0.16,
+Trades,Data,Order,Equity and Index Options,USD,CCL 23MAR18 62.5 P,"2018-02-22, 09:43:04",-,-8,0.3,0.3588,240,-0.323944,-239.676056,0,-47.04,O
+Trades,Data,Trade,Equity and Index Options,USD,CCL 23MAR18 62.5 P,"2018-02-22, 09:43:04",GEMINI,-8,0.3,0.3588,240,-0.323944,-239.676056,0,-47.04,O
+Trades,Data,Order,Equity and Index Options,USD,CCL 23MAR18 62.5 P,"2018-03-23, 16:20:00",-,8,0,0,0,0,239.676056,239.676056,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CCL 23MAR18 62.5 P,"2018-03-23, 16:20:00",--,8,0,0,0,0,239.676056,239.676056,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CCL 23MAR18 62.5 P,2018-02-22,,-8,0.29959507,,,,-239.676056,239.676056,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CCL 23MAR18 62.5 P,,,0,,,240,-0.323944,0,239.676056,-47.04,
+Trades,Data,Order,Equity and Index Options,USD,CELG 04MAY18 75.0 P,"2018-03-23, 15:37:35",-,-7,0.75,0.6675,525,-3.4407275,-521.5592725,0,57.75,O
+Trades,Data,Trade,Equity and Index Options,USD,CELG 04MAY18 75.0 P,"2018-03-23, 15:37:35",PSE,-7,0.75,0.6675,525,-3.4407275,-521.5592725,0,57.75,O
+Trades,Data,Order,Equity and Index Options,USD,CELG 04MAY18 75.0 P,"2018-05-04, 16:20:00",-,7,0,0,0,0,521.559273,521.559273,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CELG 04MAY18 75.0 P,"2018-05-04, 16:20:00",--,7,0,0,0,0,521.559273,521.559273,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CELG 04MAY18 75.0 P,2018-03-23,,-7,0.745084676,,,,-521.559273,521.559273,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CELG 04MAY18 75.0 P,,,0,,,525,-3.4407275,0.0000005,521.559273,57.75,
+Trades,Data,Order,Equity and Index Options,USD,CELG 04JAN19 64.5 P,"2018-12-07, 09:30:04",-,-8,0.48,0.8592,384,-2.935392,-381.064608,0,-303.36,O
+Trades,Data,Trade,Equity and Index Options,USD,CELG 04JAN19 64.5 P,"2018-12-07, 09:30:04",CBOE2,-8,0.48,0.8592,384,-2.935392,-381.064608,0,-303.36,O
+Trades,SubTotal,,Equity and Index Options,USD,CELG 04JAN19 64.5 P,,,-8,,,384,-2.935392,-381.064608,0,-303.36,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 16FEB18 305.0 P,"2018-02-16, 16:20:00",-,2,0,0,0,0,430.103067,430.103067,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 16FEB18 305.0 P,"2018-02-16, 16:20:00",--,2,0,0,0,0,430.103067,430.103067,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 16FEB18 305.0 P,2018-01-03,,-2,2.150515335,,,,-430.103067,430.103067,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 16FEB18 305.0 P,,,2,,,0,0,430.103067,430.103067,0,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,"2018-02-22, 09:59:12",-,-2,0.65,0.5875,130,-0.082603,-129.917397,0,12.5,O
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,"2018-02-22, 09:59:12",PSE,-2,0.65,0.5875,130,-0.082603,-129.917397,0,12.5,O
+Trades,Data,Order,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,"2018-03-16, 16:20:00",-,2,0,0,0,0,129.917397,129.917397,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,"2018-03-16, 16:20:00",--,2,0,0,0,0,129.917397,129.917397,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,2018-02-22,,-2,0.649586985,,,,-129.917397,129.917397,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 16MAR18 315.0 P,,,0,,,130,-0.082603,0,129.917397,12.5,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,"2018-02-22, 10:33:16",-,-2,1.15,1.1656,230,-0.084913,-229.915087,0,-3.12,O
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,"2018-02-22, 10:33:16",PSE,-2,1.15,1.1656,230,-0.084913,-229.915087,0,-3.12,O
+Trades,Data,Order,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,"2018-03-23, 16:20:00",-,2,0,2.61,0,0,229.915087,0,522,A;C
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,"2018-03-23, 16:20:00",--,2,0,2.61,0,0,229.915087,0,522,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,2018-02-22,,-2,1.149575435,,,,-229.915087,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 23MAR18 315.0 P,,,0,,,230,-0.084913,0,0,518.88,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,"2018-03-27, 09:40:12",-,-2,1.05,1.0418,210,-0.084451,-209.915549,0,1.64,O
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,"2018-03-27, 09:40:12",PSE,-2,1.05,1.0418,210,-0.084451,-209.915549,0,1.64,O
+Trades,Data,Order,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,"2018-03-29, 16:20:00",-,2,0,0,0,0,209.915549,209.915549,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,"2018-03-29, 16:20:00",--,2,0,0,0,0,209.915549,209.915549,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,2018-03-27,,-2,1.049577745,,,,-209.915549,209.915549,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 29MAR18 317.5 C,,,0,,,210,-0.084451,0,209.915549,1.64,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 13APR18 315.0 C,"2018-04-09, 13:07:15",-,-2,7.15,5.456,1430,0.087367,-1430.087367,0,338.8,O
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 13APR18 315.0 C,"2018-04-09, 13:07:15",BATS,-2,7.15,5.456,1430,0.087367,-1430.087367,0,338.8,O
+Trades,Data,Order,Equity and Index Options,USD,CHTR 13APR18 315.0 C,"2018-04-13, 16:20:00",-,2,0,0,0,0,1430.087367,1430.087367,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 13APR18 315.0 C,"2018-04-13, 16:20:00",--,2,0,0,0,0,1430.087367,1430.087367,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 13APR18 315.0 C,2018-04-09,,-2,7.150436835,,,,-1430.087367,1430.087367,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 13APR18 315.0 C,,,0,,,1430,0.087367,0,1430.087367,338.8,
+Trades,Data,Order,Equity and Index Options,USD,CHTR 20APR18 310.0 C,"2018-04-16, 10:18:49",-,-2,3.69,5.6663,738,0.1033522,-738.1033522,0,-395.26,O
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 20APR18 310.0 C,"2018-04-16, 10:18:49",BATS,-2,3.69,5.6663,738,0.1033522,-738.1033522,0,-395.26,O
+Trades,Data,Order,Equity and Index Options,USD,CHTR 20APR18 310.0 C,"2018-04-20, 16:20:00",-,2,0,0.94,0,0,738.103352,0,188,A;C
+Trades,Data,Trade,Equity and Index Options,USD,CHTR 20APR18 310.0 C,"2018-04-20, 16:20:00",--,2,0,0.94,0,0,738.103352,0,188,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,CHTR 20APR18 310.0 C,2018-04-16,,-2,3.69051676,,,,-738.103352,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CHTR 20APR18 310.0 C,,,0,,,738,0.1033522,-0.0000002,0,-207.26,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,"2018-02-22, 15:50:00",-,-14,0.11,0.1105,154,-11.0607574,-142.9392426,0,-0.7,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,"2018-02-22, 15:50:00",MERCURY,-14,0.11,0.1105,154,-11.0607574,-142.9392426,0,-0.7,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,"2018-03-16, 16:20:00",-,14,0,0,0,0,142.939243,142.939243,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,"2018-03-16, 16:20:00",--,14,0,0,0,0,142.939243,142.939243,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,2018-02-22,,-14,0.102099459,,,,-142.939243,142.939243,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 16MAR18 35.0 P,,,0,,,154,-11.0607574,0.0000004,142.939243,-0.7,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,"2018-02-22, 09:53:10",-,-14,0.18,0.2,252,-6.8630212,-245.1369788,0,-28,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,"2018-02-22, 09:53:10",NASDAQOM,-14,0.18,0.2,252,-6.8630212,-245.1369788,0,-28,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,"2018-03-29, 16:20:00",-,14,0,0.83,0,0,245.136979,0,1162,A;C
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,"2018-03-29, 16:20:00",--,14,0,0.83,0,0,245.136979,0,1162,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,2018-02-22,,-14,0.175097842,,,,-245.136979,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 29MAR18 35.0 P,,,0,,,252,-6.8630212,0.0000002,0,1134,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,"2018-04-09, 09:30:00",-,-14,0.42,0.2223,588,-11.0707828,-576.9292172,0,276.78,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,"2018-04-09, 09:30:00",PHLX,-14,0.42,0.2223,588,-11.0707828,-576.9292172,0,276.78,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,"2018-04-13, 16:20:00",-,14,0,0,0,0,576.929217,576.929217,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,"2018-04-13, 16:20:00",--,14,0,0,0,0,576.929217,576.929217,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,2018-04-09,,-14,0.412092298,,,,-576.929217,576.929217,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 13APR18 34.5 C,,,0,,,588,-11.0707828,-0.0000002,576.929217,276.78,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-16, 09:30:10",-,-14,0.193571429,0.375,271,-10.7934601,-260.2065399,0,-254,O;P
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-16, 09:30:10",EDGX,-2,0.26,0.375,52,-1.5608012,-50.4391988,0,-23,O;P
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-16, 09:30:10",PEARL,-1,0.21,0.375,21,-0.5402851,-20.4597149,0,-16.5,O;P
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-16, 09:30:10",PHLX,-11,0.18,0.375,198,-8.6923738,-189.3076262,0,-214.5,O;P
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-20, 16:20:00",-,14,0,0,0,0,260.20654,260.20654,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,"2018-04-20, 16:20:00",--,14,0,0,0,0,260.20654,260.20654,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,2018-04-16,,-14,0.185861814,,,,-260.20654,260.20654,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 20APR18 33.5 C,,,0,,,271,-10.7934601,0.0000001,260.20654,-254,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,"2018-04-23, 09:44:03",-,-14,0.12,0.2224,168,-6.8610808,-161.1389192,0,-143.36,O;P
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,"2018-04-23, 09:44:03",NASDAQOM,-1,0.12,0.2224,12,-0.7900772,-11.2099228,0,-10.24,O;P
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,"2018-04-23, 09:44:03",NASDAQOM,-13,0.12,0.2224,156,-6.0710036,-149.9289964,0,-133.12,O;P
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,"2018-04-27, 16:20:00",-,14,0,0,0,0,161.138919,161.138919,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,"2018-04-27, 16:20:00",--,14,0,0,0,0,161.138919,161.138919,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,2018-04-23,,-14,0.115099228,,,,-161.138919,161.138919,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 27APR18 35.0 C,,,0,,,168,-6.8610808,-0.0000002,161.138919,-143.36,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,"2018-04-30, 11:26:26",-,-14,0.12,0.0751,168,-6.8610808,-161.1389192,0,62.86,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,"2018-04-30, 11:26:26",GEMINI,-14,0.12,0.0751,168,-6.8610808,-161.1389192,0,62.86,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,"2018-05-04, 16:20:00",-,14,0,0,0,0,161.138919,161.138919,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,"2018-05-04, 16:20:00",--,14,0,0,0,0,161.138919,161.138919,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,2018-04-30,,-14,0.115099228,,,,-161.138919,161.138919,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 04MAY18 32.5 C,,,0,,,168,-6.8610808,-0.0000002,161.138919,62.86,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,"2018-11-21, 09:46:12",-,-14,0.15,0.1742,210,-11.01093,-198.98907,0,-33.88,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,"2018-11-21, 09:46:12",PHLX,-14,0.15,0.1742,210,-11.01093,-198.98907,0,-33.88,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,"2018-11-23, 16:20:00",-,14,0,0,0,0,198.98907,198.98907,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,"2018-11-23, 16:20:00",--,14,0,0,0,0,198.98907,198.98907,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,2018-11-21,,-14,0.14213505,,,,-198.98907,198.98907,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 23NOV18 37.5 C,,,0,,,210,-11.01093,0,198.98907,-33.88,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,"2018-11-27, 09:46:18",-,-14,0.16,0.2888,224,-11.011112,-212.988888,0,-180.32,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,"2018-11-27, 09:46:18",AMEX,-14,0.16,0.2888,224,-11.011112,-212.988888,0,-180.32,O
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,"2018-11-30, 16:20:00",-,14,0,0.51,0,0,212.988888,0,714,A;C
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,"2018-11-30, 16:20:00",--,14,0,0.51,0,0,212.988888,0,714,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,2018-11-27,,-14,0.15213492,,,,-212.988888,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 30NOV18 38.5 C,,,0,,,224,-11.011112,0,0,533.68,
+Trades,Data,Order,Equity and Index Options,USD,CMCSA 04JAN19 34.0 P,"2018-12-11, 15:55:19",-,-15,0.23,0.2432,345,-5.498985,-339.501015,0,-19.8,O
+Trades,Data,Trade,Equity and Index Options,USD,CMCSA 04JAN19 34.0 P,"2018-12-11, 15:55:19",CBOE2,-15,0.23,0.2432,345,-5.498985,-339.501015,0,-19.8,O
+Trades,SubTotal,,Equity and Index Options,USD,CMCSA 04JAN19 34.0 P,,,-15,,,345,-5.498985,-339.501015,0,-19.8,
+Trades,Data,Order,Equity and Index Options,USD,CMI 23MAR18 140.0 P,"2018-03-02, 11:18:22",-,-4,0.9,0.4505,360,-3.167516,-356.832484,0,179.8,O
+Trades,Data,Trade,Equity and Index Options,USD,CMI 23MAR18 140.0 P,"2018-03-02, 11:18:22",CBOE,-4,0.9,0.4505,360,-3.167516,-356.832484,0,179.8,O
+Trades,Data,Order,Equity and Index Options,USD,CMI 23MAR18 140.0 P,"2018-03-23, 16:20:00",-,4,0,0,0,0,356.832484,356.832484,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CMI 23MAR18 140.0 P,"2018-03-23, 16:20:00",--,4,0,0,0,0,356.832484,356.832484,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CMI 23MAR18 140.0 P,2018-03-02,,-4,0.89208121,,,,-356.832484,356.832484,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CMI 23MAR18 140.0 P,,,0,,,360,-3.167516,0,356.832484,179.8,
+Trades,Data,Order,Equity and Index Options,USD,COF 04JAN19 75.0 P,"2018-12-06, 10:25:04",-,-6,0.61,0.4644,366,-2.202558,-363.797442,0,87.36,O
+Trades,Data,Trade,Equity and Index Options,USD,COF 04JAN19 75.0 P,"2018-12-06, 10:25:04",CBOE2,-6,0.61,0.4644,366,-2.202558,-363.797442,0,87.36,O
+Trades,SubTotal,,Equity and Index Options,USD,COF 04JAN19 75.0 P,,,-6,,,366,-2.202558,-363.797442,0,87.36,
+Trades,Data,Order,Equity and Index Options,USD,COP 04JAN19 58.0 P,"2018-12-11, 15:49:58",-,-9,0.33,0.3528,297,-3.300561,-293.699439,0,-20.52,O
+Trades,Data,Trade,Equity and Index Options,USD,COP 04JAN19 58.0 P,"2018-12-11, 15:49:58",CBOE2,-9,0.33,0.3528,297,-3.300561,-293.699439,0,-20.52,O
+Trades,SubTotal,,Equity and Index Options,USD,COP 04JAN19 58.0 P,,,-9,,,297,-3.300561,-293.699439,0,-20.52,
+Trades,Data,Order,Equity and Index Options,USD,CVS 16FEB18 65.0 P,"2018-02-16, 16:20:00",-,8,0,0,0,0,341.004054,341.004054,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,CVS 16FEB18 65.0 P,"2018-02-16, 16:20:00",--,8,0,0,0,0,341.004054,341.004054,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,CVS 16FEB18 65.0 P,2018-01-03,,-8,0.426255067,,,,-341.004054,341.004054,,ST
+Trades,SubTotal,,Equity and Index Options,USD,CVS 16FEB18 65.0 P,,,8,,,0,0,341.004054,341.004054,0,
+Trades,Data,Order,Equity and Index Options,USD,CVX 04JAN19 106.0 P,"2018-12-11, 15:38:18",-,-5,0.55,0.5896,275,-1.835075,-273.164925,0,-19.8,O
+Trades,Data,Trade,Equity and Index Options,USD,CVX 04JAN19 106.0 P,"2018-12-11, 15:38:18",CBOE2,-5,0.55,0.5896,275,-1.835075,-273.164925,0,-19.8,O
+Trades,SubTotal,,Equity and Index Options,USD,CVX 04JAN19 106.0 P,,,-5,,,275,-1.835075,-273.164925,0,-19.8,
+Trades,Data,Order,Equity and Index Options,USD,DDD 16FEB18 6.0 P,"2018-02-16, 16:20:00",-,40,0,0,0,0,163.056304,163.056304,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,DDD 16FEB18 6.0 P,"2018-02-16, 16:20:00",--,40,0,0,0,0,163.056304,163.056304,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,DDD 16FEB18 6.0 P,2018-01-03,,-40,0.040764076,,,,-163.056304,163.056304,,ST
+Trades,SubTotal,,Equity and Index Options,USD,DDD 16FEB18 6.0 P,,,40,,,0,0,163.056304,163.056304,0,
+Trades,Data,Order,Equity and Index Options,USD,DG 14DEC18 90.0 P,"2018-11-21, 10:35:17",-,-6,0.5,0.5038,300,-0.2217,-299.7783,0,-2.28,O
+Trades,Data,Trade,Equity and Index Options,USD,DG 14DEC18 90.0 P,"2018-11-21, 10:35:17",PSE,-6,0.5,0.5038,300,-0.2217,-299.7783,0,-2.28,O
+Trades,Data,Order,Equity and Index Options,USD,DG 14DEC18 90.0 P,"2018-12-14, 16:20:00",-,6,0,0,0,0,299.7783,299.7783,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,DG 14DEC18 90.0 P,"2018-12-14, 16:20:00",--,6,0,0,0,0,299.7783,299.7783,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,DG 14DEC18 90.0 P,2018-11-21,,-6,0.4996305,,,,-299.7783,299.7783,,ST
+Trades,SubTotal,,Equity and Index Options,USD,DG 14DEC18 90.0 P,,,0,,,300,-0.2217,0,299.7783,-2.28,
+Trades,Data,Order,Equity and Index Options,USD,DHI 23MAR18 35.0 P,"2018-03-02, 10:46:22",-,-14,0.12,0.1143,168,-11.0610808,-156.9389192,0,7.98,O
+Trades,Data,Trade,Equity and Index Options,USD,DHI 23MAR18 35.0 P,"2018-03-02, 10:46:22",PHLX,-14,0.12,0.1143,168,-11.0610808,-156.9389192,0,7.98,O
+Trades,Data,Order,Equity and Index Options,USD,DHI 23MAR18 35.0 P,"2018-03-23, 16:20:00",-,14,0,0,0,0,156.938919,156.938919,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,DHI 23MAR18 35.0 P,"2018-03-23, 16:20:00",--,14,0,0,0,0,156.938919,156.938919,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,DHI 23MAR18 35.0 P,2018-03-02,,-14,0.112099228,,,,-156.938919,156.938919,,ST
+Trades,SubTotal,,Equity and Index Options,USD,DHI 23MAR18 35.0 P,,,0,,,168,-11.0610808,-0.0000002,156.938919,7.98,
+Trades,Data,Order,Equity and Index Options,USD,DIS 16MAR18 97.0 P,"2018-02-22, 14:58:48",-,-5,0.24,0.235,120,-2.451772,-117.548228,0,2.5,O
+Trades,Data,Trade,Equity and Index Options,USD,DIS 16MAR18 97.0 P,"2018-02-22, 14:58:48",GEMINI,-5,0.24,0.235,120,-2.451772,-117.548228,0,2.5,O
+Trades,Data,Order,Equity and Index Options,USD,DIS 16MAR18 97.0 P,"2018-03-16, 16:20:00",-,5,0,0,0,0,117.548228,117.548228,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,DIS 16MAR18 97.0 P,"2018-03-16, 16:20:00",--,5,0,0,0,0,117.548228,117.548228,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,DIS 16MAR18 97.0 P,2018-02-22,,-5,0.235096456,,,,-117.548228,117.548228,,ST
+Trades,SubTotal,,Equity and Index Options,USD,DIS 16MAR18 97.0 P,,,0,,,120,-2.451772,0,117.548228,2.5,
+Trades,Data,Order,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,"2018-03-01, 09:32:11",-,-6,0.8,0.6466,480,-4.749888,-475.250112,0,92.04,O
+Trades,Data,Trade,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,"2018-03-01, 09:32:11",CBOE,-6,0.8,0.6466,480,-4.749888,-475.250112,0,92.04,O
+Trades,Data,Order,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,"2018-03-23, 16:20:00",-,6,0,0,0,0,475.250112,475.250112,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,"2018-03-23, 16:20:00",--,6,0,0,0,0,475.250112,475.250112,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,2018-03-01,,-6,0.79208352,,,,-475.250112,475.250112,,ST
+Trades,SubTotal,,Equity and Index Options,USD,DLTR 23MAR18 90.0 P,,,0,,,480,-4.749888,0,475.250112,92.04,
+Trades,Data,Order,Equity and Index Options,USD,EA 16FEB18 95.0 P,"2018-02-16, 16:20:00",-,5,0,0,0,0,453.121989,453.121989,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,EA 16FEB18 95.0 P,"2018-02-16, 16:20:00",--,5,0,0,0,0,453.121989,453.121989,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,EA 16FEB18 95.0 P,2018-01-03,,-5,0.906243978,,,,-453.121989,453.121989,,ST
+Trades,SubTotal,,Equity and Index Options,USD,EA 16FEB18 95.0 P,,,5,,,0,0,453.121989,453.121989,0,
+Trades,Data,Order,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,"2018-02-27, 09:55:22",-,-5,0.82,0.9823,410,0.041529,-410.041529,0,-81.15,O
+Trades,Data,Trade,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,"2018-02-27, 09:55:22",NASDAQOM,-5,0.82,0.9823,410,0.041529,-410.041529,0,-81.15,O
+Trades,Data,Order,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,"2018-03-23, 16:20:00",-,5,0,0,0,0,410.041529,410.041529,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,"2018-03-23, 16:20:00",--,5,0,0,0,0,410.041529,410.041529,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,2018-02-27,,-5,0.820083058,,,,-410.041529,410.041529,,ST
+Trades,SubTotal,,Equity and Index Options,USD,EXPE 23MAR18 97.5 P,,,0,,,410,0.041529,0,410.041529,-81.15,
+Trades,Data,Order,Equity and Index Options,USD,FB 27APR18 137.0 P,"2018-03-23, 14:51:10",-,-4,1.15,1.5258,460,-3.169826,-456.830174,0,-150.32,O
+Trades,Data,Trade,Equity and Index Options,USD,FB 27APR18 137.0 P,"2018-03-23, 14:51:10",PHLX,-4,1.15,1.5258,460,-3.169826,-456.830174,0,-150.32,O
+Trades,Data,Order,Equity and Index Options,USD,FB 27APR18 137.0 P,"2018-04-27, 16:20:00",-,4,0,0,0,0,456.830174,456.830174,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,FB 27APR18 137.0 P,"2018-04-27, 16:20:00",--,4,0,0,0,0,456.830174,456.830174,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,FB 27APR18 137.0 P,2018-03-23,,-4,1.142075435,,,,-456.830174,456.830174,,ST
+Trades,SubTotal,,Equity and Index Options,USD,FB 27APR18 137.0 P,,,0,,,460,-3.169826,0,456.830174,-150.32,
+Trades,Data,Order,Equity and Index Options,USD,FB 11JAN19 129.0 P,"2018-12-13, 15:36:56",-,-4,0.89,0.8093,356,-1.469828,-354.530172,0,32.28,O
+Trades,Data,Trade,Equity and Index Options,USD,FB 11JAN19 129.0 P,"2018-12-13, 15:36:56",CBOE2,-4,0.89,0.8093,356,-1.469828,-354.530172,0,32.28,O
+Trades,SubTotal,,Equity and Index Options,USD,FB 11JAN19 129.0 P,,,-4,,,356,-1.469828,-354.530172,0,32.28,
+Trades,Data,Order,Equity and Index Options,USD,FDX 28DEC18 197.5 P,"2018-11-21, 10:53:28",-,-3,2.03,2.0259,609,-1.466817,-607.533183,0,1.23,O
+Trades,Data,Trade,Equity and Index Options,USD,FDX 28DEC18 197.5 P,"2018-11-21, 10:53:28",NASDAQOM,-3,2.03,2.0259,609,-1.466817,-607.533183,0,1.23,O
+Trades,Data,Order,Equity and Index Options,USD,FDX 28DEC18 197.5 P,"2018-12-19, 16:20:00",-,3,0,37.78,0,0,607.533183,0,11334,A;C
+Trades,Data,Trade,Equity and Index Options,USD,FDX 28DEC18 197.5 P,"2018-12-19, 16:20:00",--,3,0,37.78,0,0,607.533183,0,11334,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,FDX 28DEC18 197.5 P,2018-11-21,,-3,2.02511061,,,,-607.533183,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,FDX 28DEC18 197.5 P,,,0,,,609,-1.466817,0,0,11335.23,
+Trades,Data,Order,Equity and Index Options,USD,GE 16MAR18 13.0 P,"2018-02-22, 10:35:37",-,-38,0.05,0.09,190,-9.496789,-180.503211,0,-152,O
+Trades,Data,Trade,Equity and Index Options,USD,GE 16MAR18 13.0 P,"2018-02-22, 10:35:37",BOX,-38,0.05,0.09,190,-9.496789,-180.503211,0,-152,O
+Trades,Data,Order,Equity and Index Options,USD,GE 16MAR18 13.0 P,"2018-03-16, 16:20:00",-,38,0,0,0,0,180.503211,180.503211,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GE 16MAR18 13.0 P,"2018-03-16, 16:20:00",--,38,0,0,0,0,180.503211,180.503211,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GE 16MAR18 13.0 P,2018-02-22,,-38,0.047500845,,,,-180.503211,180.503211,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GE 16MAR18 13.0 P,,,0,,,190,-9.496789,0,180.503211,-152,
+Trades,Data,Order,Equity and Index Options,USD,GILD 21DEC18 60.0 P,"2018-11-27, 09:34:18",-,-8,0.46,0.2855,368,-6.295184,-361.704816,0,139.6,O
+Trades,Data,Trade,Equity and Index Options,USD,GILD 21DEC18 60.0 P,"2018-11-27, 09:34:18",AMEX,-8,0.46,0.2855,368,-6.295184,-361.704816,0,139.6,O
+Trades,Data,Order,Equity and Index Options,USD,GILD 21DEC18 60.0 P,"2018-12-21, 16:20:00",-,8,0,0,0,0,361.704816,361.704816,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GILD 21DEC18 60.0 P,"2018-12-21, 16:20:00",--,8,0,0,0,0,361.704816,361.704816,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GILD 21DEC18 60.0 P,2018-11-27,,-8,0.45213102,,,,-361.704816,361.704816,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GILD 21DEC18 60.0 P,,,0,,,368,-6.295184,0,361.704816,139.6,
+Trades,Data,Order,Equity and Index Options,USD,GM 23MAR18 32.5 P,"2018-03-02, 11:18:18",-,-15,0.17,0.1114,255,-11.8528905,-243.1471095,0,87.9,O;P
+Trades,Data,Trade,Equity and Index Options,USD,GM 23MAR18 32.5 P,"2018-03-02, 11:18:18",AMEX,-1,0.17,0.1114,17,-1.0901927,-15.9098073,0,5.86,O;P
+Trades,Data,Trade,Equity and Index Options,USD,GM 23MAR18 32.5 P,"2018-03-02, 11:18:20",AMEX,-14,0.17,0.1114,238,-10.7626978,-227.2373022,0,82.04,O;P
+Trades,Data,Order,Equity and Index Options,USD,GM 23MAR18 32.5 P,"2018-03-23, 16:20:00",-,15,0,0,0,0,243.147109,243.147109,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GM 23MAR18 32.5 P,"2018-03-23, 16:20:00",--,15,0,0,0,0,243.147109,243.147109,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GM 23MAR18 32.5 P,2018-03-02,,-15,0.162098073,,,,-243.147109,243.147109,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GM 23MAR18 32.5 P,,,0,,,255,-11.8528905,-0.0000005,243.147109,87.9,
+Trades,Data,Order,Equity and Index Options,USD,GM 04MAY18 31.0 P,"2018-03-23, 14:56:56",-,-16,0.28,0.3075,448,-12.6471488,-435.3528512,0,-44,O
+Trades,Data,Trade,Equity and Index Options,USD,GM 04MAY18 31.0 P,"2018-03-23, 14:56:56",AMEX,-16,0.28,0.3075,448,-12.6471488,-435.3528512,0,-44,O
+Trades,Data,Order,Equity and Index Options,USD,GM 04MAY18 31.0 P,"2018-05-04, 16:20:00",-,16,0,0,0,0,435.352851,435.352851,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GM 04MAY18 31.0 P,"2018-05-04, 16:20:00",--,16,0,0,0,0,435.352851,435.352851,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GM 04MAY18 31.0 P,2018-03-23,,-16,0.272095532,,,,-435.352851,435.352851,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GM 04MAY18 31.0 P,,,0,,,448,-12.6471488,-0.0000002,435.352851,-44,
+Trades,Data,Order,Equity and Index Options,USD,GOOG 04JAN19 960.0 P,"2018-12-11, 15:51:13",-,-1,5.9,6.0947,590,-0.24397,-589.75603,0,-19.47,O
+Trades,Data,Trade,Equity and Index Options,USD,GOOG 04JAN19 960.0 P,"2018-12-11, 15:51:13",BATS,-1,5.9,6.0947,590,-0.24397,-589.75603,0,-19.47,O
+Trades,SubTotal,,Equity and Index Options,USD,GOOG 04JAN19 960.0 P,,,-1,,,590,-0.24397,-589.75603,0,-19.47,
+Trades,Data,Order,Equity and Index Options,USD,GOOGL 04JAN19 965.0 P,"2018-12-07, 10:17:23",-,-1,7.3,10.4066,730,-0.29579,-729.70421,0,-310.66,O
+Trades,Data,Trade,Equity and Index Options,USD,GOOGL 04JAN19 965.0 P,"2018-12-07, 10:17:23",CBOE2,-1,7.3,10.4066,730,-0.29579,-729.70421,0,-310.66,O
+Trades,SubTotal,,Equity and Index Options,USD,GOOGL 04JAN19 965.0 P,,,-1,,,730,-0.29579,-729.70421,0,-310.66,
+Trades,Data,Order,Equity and Index Options,USD,GPRO 16FEB18 5.0 P,"2018-02-16, 16:20:00",-,40,0,0,0,0,189.615378,189.615378,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GPRO 16FEB18 5.0 P,"2018-02-16, 16:20:00",--,40,0,0,0,0,189.615378,189.615378,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GPRO 16FEB18 5.0 P,2018-01-03,,-40,0.047403845,,,,-189.615378,189.615378,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GPRO 16FEB18 5.0 P,,,40,,,0,0,189.615378,189.615378,0,
+Trades,Data,Order,Equity and Index Options,USD,GPS 16MAR18 26.5 P,"2018-02-22, 10:35:51",-,-19,0.14,0.1454,266,-15.0123446,-250.9876554,0,-10.26,O
+Trades,Data,Trade,Equity and Index Options,USD,GPS 16MAR18 26.5 P,"2018-02-22, 10:35:51",AMEX,-19,0.14,0.1454,266,-15.0123446,-250.9876554,0,-10.26,O
+Trades,Data,Order,Equity and Index Options,USD,GPS 16MAR18 26.5 P,"2018-03-16, 16:20:00",-,19,0,0,0,0,250.987655,250.987655,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GPS 16MAR18 26.5 P,"2018-03-16, 16:20:00",--,19,0,0,0,0,250.987655,250.987655,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GPS 16MAR18 26.5 P,2018-02-22,,-19,0.132098766,,,,-250.987655,250.987655,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GPS 16MAR18 26.5 P,,,0,,,266,-15.0123446,-0.0000004,250.987655,-10.26,
+Trades,Data,Order,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,"2018-02-28, 15:03:42",-,-9,0.29,0.3915,261,-7.1142291,-253.8857709,0,-91.35,O
+Trades,Data,Trade,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,"2018-02-28, 15:03:42",PHLX,-9,0.29,0.3915,261,-7.1142291,-253.8857709,0,-91.35,O
+Trades,Data,Order,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,"2018-03-16, 16:20:00",-,9,0,0,0,0,253.885771,253.885771,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,"2018-03-16, 16:20:00",--,9,0,0,0,0,253.885771,253.885771,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,2018-02-28,,-9,0.282095301,,,,-253.885771,253.885771,,ST
+Trades,SubTotal,,Equity and Index Options,USD,GRMN 16MAR18 56.5 P,,,0,,,261,-7.1142291,0.0000001,253.885771,-91.35,
+Trades,Data,Order,Equity and Index Options,USD,GS 04JAN19 160.0 P,"2018-12-06, 10:52:18",-,-3,1,0.82,300,-1.1028,-298.8972,0,54,O
+Trades,Data,Trade,Equity and Index Options,USD,GS 04JAN19 160.0 P,"2018-12-06, 10:52:18",CBOE2,-3,1,0.82,300,-1.1028,-298.8972,0,54,O
+Trades,SubTotal,,Equity and Index Options,USD,GS 04JAN19 160.0 P,,,-3,,,300,-1.1028,-298.8972,0,54,
+Trades,Data,Order,Equity and Index Options,USD,HAL 28DEC18 25.5 P,"2018-12-06, 13:07:48",-,-17,0.16,0.17,272,-6.230636,-265.769364,0,-17,O
+Trades,Data,Trade,Equity and Index Options,USD,HAL 28DEC18 25.5 P,"2018-12-06, 13:07:48",CBOE2,-17,0.16,0.17,272,-6.230636,-265.769364,0,-17,O
+Trades,Data,Order,Equity and Index Options,USD,HAL 28DEC18 25.5 P,"2018-12-28, 16:20:00",-,17,0,0,0,0,265.769364,265.769364,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,HAL 28DEC18 25.5 P,"2018-12-28, 16:20:00",--,17,0,0,0,0,265.769364,265.769364,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,HAL 28DEC18 25.5 P,2018-12-06,,-17,0.15633492,,,,-265.769364,265.769364,,ST
+Trades,SubTotal,,Equity and Index Options,USD,HAL 28DEC18 25.5 P,,,0,,,272,-6.230636,0,265.769364,-17,
+Trades,Data,Order,Equity and Index Options,USD,HD 04JAN19 160.0 P,"2018-12-07, 11:59:54",-,-3,1.25,1.3957,375,-1.103775,-373.896225,0,-43.71,O
+Trades,Data,Trade,Equity and Index Options,USD,HD 04JAN19 160.0 P,"2018-12-07, 11:59:54",CBOE2,-3,1.25,1.3957,375,-1.103775,-373.896225,0,-43.71,O
+Trades,SubTotal,,Equity and Index Options,USD,HD 04JAN19 160.0 P,,,-3,,,375,-1.103775,-373.896225,0,-43.71,
+Trades,Data,Order,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,"2018-02-22, 10:37:54",-,-26,0.09,0.063,234,-15.3402054,-218.6597946,0,70.2,O
+Trades,Data,Trade,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,"2018-02-22, 10:37:54",AMEX,-26,0.09,0.063,234,-15.3402054,-218.6597946,0,70.2,O
+Trades,Data,Order,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,"2018-02-23, 16:20:00",-,26,0,0,0,0,218.659795,218.659795,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,"2018-02-23, 16:20:00",--,26,0,0,0,0,218.659795,218.659795,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,2018-02-22,,-26,0.084099921,,,,-218.659795,218.659795,,ST
+Trades,SubTotal,,Equity and Index Options,USD,HPQ 23FEB18 19.5 P,,,0,,,234,-15.3402054,0.0000004,218.659795,70.2,
+Trades,Data,Order,Equity and Index Options,USD,IBM 04JAN19 112.0 P,"2018-12-07, 10:36:27",-,-4,0.9,1.5974,360,-1.46988,-358.53012,0,-278.96,O
+Trades,Data,Trade,Equity and Index Options,USD,IBM 04JAN19 112.0 P,"2018-12-07, 10:36:27",CBOE2,-4,0.9,1.5974,360,-1.46988,-358.53012,0,-278.96,O
+Trades,SubTotal,,Equity and Index Options,USD,IBM 04JAN19 112.0 P,,,-4,,,360,-1.46988,-358.53012,0,-278.96,
+Trades,Data,Order,Equity and Index Options,USD,INTC 04JAN19 43.0 P,"2018-12-07, 09:30:17",-,-10,0.31,0.5992,310,-3.66703,-306.33297,0,-289.2,O
+Trades,Data,Trade,Equity and Index Options,USD,INTC 04JAN19 43.0 P,"2018-12-07, 09:30:17",CBOE2,-10,0.31,0.5992,310,-3.66703,-306.33297,0,-289.2,O
+Trades,SubTotal,,Equity and Index Options,USD,INTC 04JAN19 43.0 P,,,-10,,,310,-3.66703,-306.33297,0,-289.2,
+Trades,Data,Order,Equity and Index Options,USD,ITW 06APR18 145.0 P,"2018-03-01, 13:59:53",-,-3,1.43,1.3529,429,0.0206901,-429.0206901,0,23.13,O
+Trades,Data,Trade,Equity and Index Options,USD,ITW 06APR18 145.0 P,"2018-03-01, 13:59:53",NASDAQOM,-3,1.43,1.3529,429,0.0206901,-429.0206901,0,23.13,O
+Trades,Data,Order,Equity and Index Options,USD,ITW 06APR18 145.0 P,"2018-04-06, 16:20:00",-,3,0,0,0,0,429.02069,429.02069,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ITW 06APR18 145.0 P,"2018-04-06, 16:20:00",--,3,0,0,0,0,429.02069,429.02069,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ITW 06APR18 145.0 P,2018-03-01,,-3,1.430068967,,,,-429.02069,429.02069,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ITW 06APR18 145.0 P,,,0,,,429,0.0206901,-0.0000001,429.02069,23.13,
+Trades,Data,Order,Equity and Index Options,USD,JPM 28DEC18 95.0 P,"2018-12-06, 09:54:14",-,-5,0.78,0.4425,390,-1.83657,-388.16343,0,168.75,O
+Trades,Data,Trade,Equity and Index Options,USD,JPM 28DEC18 95.0 P,"2018-12-06, 09:54:14",CBOE2,-5,0.78,0.4425,390,-1.83657,-388.16343,0,168.75,O
+Trades,Data,Order,Equity and Index Options,USD,JPM 28DEC18 95.0 P,"2018-12-28, 16:20:00",-,5,0,0,0,0,388.16343,388.16343,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,JPM 28DEC18 95.0 P,"2018-12-28, 16:20:00",--,5,0,0,0,0,388.16343,388.16343,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,JPM 28DEC18 95.0 P,2018-12-06,,-5,0.77632686,,,,-388.16343,388.16343,,ST
+Trades,SubTotal,,Equity and Index Options,USD,JPM 28DEC18 95.0 P,,,0,,,390,-1.83657,0,388.16343,168.75,
+Trades,Data,Order,Equity and Index Options,USD,KMI 21DEC18 15.0 P,"2018-12-06, 10:50:30",-,-25,0.08,0.0682,200,-4.1601,-195.8399,0,29.5,O
+Trades,Data,Trade,Equity and Index Options,USD,KMI 21DEC18 15.0 P,"2018-12-06, 10:50:30",CBOE2,-25,0.08,0.0682,200,-4.1601,-195.8399,0,29.5,O
+Trades,Data,Order,Equity and Index Options,USD,KMI 21DEC18 15.0 P,"2018-12-21, 16:20:00",-,25,0,0,0,0,195.8399,195.8399,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,KMI 21DEC18 15.0 P,"2018-12-21, 16:20:00",--,25,0,0,0,0,195.8399,195.8399,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,KMI 21DEC18 15.0 P,2018-12-06,,-25,0.07833596,,,,-195.8399,195.8399,,ST
+Trades,SubTotal,,Equity and Index Options,USD,KMI 21DEC18 15.0 P,,,0,,,200,-4.1601,0,195.8399,29.5,
+Trades,Data,Order,Equity and Index Options,USD,KMX 16MAR18 55.0 P,"2018-03-01, 14:04:06",-,-9,0.25,0.2243,225,-7.1133975,-217.8866025,0,23.13,O
+Trades,Data,Trade,Equity and Index Options,USD,KMX 16MAR18 55.0 P,"2018-03-01, 14:04:06",PHLX,-9,0.25,0.2243,225,-7.1133975,-217.8866025,0,23.13,O
+Trades,Data,Order,Equity and Index Options,USD,KMX 16MAR18 55.0 P,"2018-03-16, 16:20:00",-,9,0,0,0,0,217.886603,217.886603,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,KMX 16MAR18 55.0 P,"2018-03-16, 16:20:00",--,9,0,0,0,0,217.886603,217.886603,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,KMX 16MAR18 55.0 P,2018-03-01,,-9,0.242096226,,,,-217.886603,217.886603,,ST
+Trades,SubTotal,,Equity and Index Options,USD,KMX 16MAR18 55.0 P,,,0,,,225,-7.1133975,0.0000005,217.886603,23.13,
+Trades,Data,Order,Equity and Index Options,USD,KO 16MAR18 41.0 P,"2018-02-22, 09:31:42",-,-12,0.19,0.1584,228,-5.8828668,-222.1171332,0,37.92,O
+Trades,Data,Trade,Equity and Index Options,USD,KO 16MAR18 41.0 P,"2018-02-22, 09:31:42",NASDAQOM,-12,0.19,0.1584,228,-5.8828668,-222.1171332,0,37.92,O
+Trades,Data,Order,Equity and Index Options,USD,KO 16MAR18 41.0 P,"2018-03-16, 16:20:00",-,12,0,0,0,0,222.117133,222.117133,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,KO 16MAR18 41.0 P,"2018-03-16, 16:20:00",--,12,0,0,0,0,222.117133,222.117133,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,KO 16MAR18 41.0 P,2018-02-22,,-12,0.185097611,,,,-222.117133,222.117133,,ST
+Trades,SubTotal,,Equity and Index Options,USD,KO 16MAR18 41.0 P,,,0,,,228,-5.8828668,-0.0000002,222.117133,37.92,
+Trades,Data,Order,Equity and Index Options,USD,LITE 16FEB18 37.5 P,"2018-02-16, 16:20:00",-,13,0,0,0,0,520.072488,520.072488,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,LITE 16FEB18 37.5 P,"2018-02-16, 16:20:00",--,13,0,0,0,0,520.072488,520.072488,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,LITE 16FEB18 37.5 P,2018-01-03,,-13,0.40005576,,,,-520.072488,520.072488,,ST
+Trades,SubTotal,,Equity and Index Options,USD,LITE 16FEB18 37.5 P,,,13,,,0,0,520.072488,520.072488,0,
+Trades,Data,Order,Equity and Index Options,USD,LMT 04JAN19 265.0 P,"2018-12-11, 15:55:07",-,-2,1.35,1.3495,270,0.12389,-270.12389,0,0.1,O
+Trades,Data,Trade,Equity and Index Options,USD,LMT 04JAN19 265.0 P,"2018-12-11, 15:55:07",BATS,-2,1.35,1.3495,270,0.12389,-270.12389,0,0.1,O
+Trades,SubTotal,,Equity and Index Options,USD,LMT 04JAN19 265.0 P,,,-2,,,270,0.12389,-270.12389,0,0.1,
+Trades,Data,Order,Equity and Index Options,USD,LOW 04JAN19 81.0 P,"2018-12-07, 11:24:30",-,-6,0.61,0.6964,366,-2.202558,-363.797442,0,-51.84,O
+Trades,Data,Trade,Equity and Index Options,USD,LOW 04JAN19 81.0 P,"2018-12-07, 11:24:30",CBOE2,-6,0.61,0.6964,366,-2.202558,-363.797442,0,-51.84,O
+Trades,SubTotal,,Equity and Index Options,USD,LOW 04JAN19 81.0 P,,,-6,,,366,-2.202558,-363.797442,0,-51.84,
+Trades,Data,Order,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",-,-24,0.19,0.1949,456,-27.3057336,-428.6942664,0,-11.76,O;P
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",EDGX,-2,0.19,0.1949,38,-1.5604778,-36.4395222,0,-0.98,O;P
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",PEARL,-4,0.19,0.1949,76,-4.8409556,-71.1590444,0,-1.96,O;P
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",GEMINI,-9,0.19,0.1949,171,-11.4321501,-159.5678499,0,-4.41,O;P
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",EDGX,-4,0.19,0.1949,76,-3.1209556,-72.8790444,0,-1.96,O;P
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-02-22, 10:36:51",GEMINI,-5,0.19,0.1949,95,-6.3511945,-88.6488055,0,-2.45,O;P
+Trades,Data,Order,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-03-16, 16:20:00",-,24,0,0,0,0,428.694265,428.694265,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,M 16MAR18 21.0 P,"2018-03-16, 16:20:00",--,24,0,0,0,0,428.694265,428.694265,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,M 16MAR18 21.0 P,2018-02-22,,-24,0.17862261,,,,-428.694265,428.694265,,ST
+Trades,SubTotal,,Equity and Index Options,USD,M 16MAR18 21.0 P,,,0,,,456,-27.3057336,-0.0000014,428.694265,-11.76,
+Trades,Data,Order,Equity and Index Options,USD,MA 04JAN19 180.0 P,"2018-12-11, 15:53:05",-,-3,1.15,1.1849,345,-1.103385,-343.896615,0,-10.47,O
+Trades,Data,Trade,Equity and Index Options,USD,MA 04JAN19 180.0 P,"2018-12-11, 15:53:05",CBOE2,-3,1.15,1.1849,345,-1.103385,-343.896615,0,-10.47,O
+Trades,SubTotal,,Equity and Index Options,USD,MA 04JAN19 180.0 P,,,-3,,,345,-1.103385,-343.896615,0,-10.47,
+Trades,Data,Order,Equity and Index Options,USD,MBI 16FEB18 5.0 P,"2018-02-16, 16:20:00",-,50,0,0,0,0,203.82038,203.82038,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MBI 16FEB18 5.0 P,"2018-02-16, 16:20:00",--,50,0,0,0,0,203.82038,203.82038,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MBI 16FEB18 5.0 P,2018-01-03,,-50,0.040764076,,,,-203.82038,203.82038,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MBI 16FEB18 5.0 P,,,50,,,0,0,203.82038,203.82038,0,
+Trades,Data,Order,Equity and Index Options,USD,MDT 16MAR18 75.0 P,"2018-02-22, 13:45:29",-,-7,0.22,0.2665,154,-5.5321574,-148.4678426,0,-32.55,O
+Trades,Data,Trade,Equity and Index Options,USD,MDT 16MAR18 75.0 P,"2018-02-22, 13:45:29",AMEX,-7,0.22,0.2665,154,-5.5321574,-148.4678426,0,-32.55,O
+Trades,Data,Order,Equity and Index Options,USD,MDT 16MAR18 75.0 P,"2018-03-16, 16:20:00",-,7,0,0,0,0,148.467843,148.467843,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MDT 16MAR18 75.0 P,"2018-03-16, 16:20:00",--,7,0,0,0,0,148.467843,148.467843,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MDT 16MAR18 75.0 P,2018-02-22,,-7,0.212096919,,,,-148.467843,148.467843,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MDT 16MAR18 75.0 P,,,0,,,154,-5.5321574,0.0000004,148.467843,-32.55,
+Trades,Data,Order,Equity and Index Options,USD,MET 21DEC18 38.0 P,"2018-12-07, 10:18:53",-,-10,0.29,0.4137,290,-3.66677,-286.33323,0,-123.7,O
+Trades,Data,Trade,Equity and Index Options,USD,MET 21DEC18 38.0 P,"2018-12-07, 10:18:53",CBOE2,-10,0.29,0.4137,290,-3.66677,-286.33323,0,-123.7,O
+Trades,Data,Order,Equity and Index Options,USD,MET 21DEC18 38.0 P,"2018-12-21, 16:20:00",-,10,0,0,0,0,286.33323,286.33323,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MET 21DEC18 38.0 P,"2018-12-21, 16:20:00",--,10,0,0,0,0,286.33323,286.33323,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MET 21DEC18 38.0 P,2018-12-07,,-10,0.28633323,,,,-286.33323,286.33323,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MET 21DEC18 38.0 P,,,0,,,290,-3.66677,0,286.33323,-123.7,
+Trades,Data,Order,Equity and Index Options,USD,MMM 28DEC18 182.5 P,"2018-12-07, 14:06:23",-,-3,0.98,0.9407,294,-1.102722,-292.897278,0,11.79,O
+Trades,Data,Trade,Equity and Index Options,USD,MMM 28DEC18 182.5 P,"2018-12-07, 14:06:23",CBOE2,-3,0.98,0.9407,294,-1.102722,-292.897278,0,11.79,O
+Trades,Data,Order,Equity and Index Options,USD,MMM 28DEC18 182.5 P,"2018-12-28, 16:20:00",-,3,0,0,0,0,292.897278,292.897278,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MMM 28DEC18 182.5 P,"2018-12-28, 16:20:00",--,3,0,0,0,0,292.897278,292.897278,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MMM 28DEC18 182.5 P,2018-12-07,,-3,0.97632426,,,,-292.897278,292.897278,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MMM 28DEC18 182.5 P,,,0,,,294,-1.102722,-0,292.897278,11.79,
+Trades,Data,Order,Equity and Index Options,USD,MO 04JAN19 49.5 P,"2018-12-11, 15:43:35",-,-10,0.36,0.3507,360,-3.66768,-356.33232,0,9.3,O
+Trades,Data,Trade,Equity and Index Options,USD,MO 04JAN19 49.5 P,"2018-12-11, 15:43:35",CBOE2,-10,0.36,0.3507,360,-3.66768,-356.33232,0,9.3,O
+Trades,SubTotal,,Equity and Index Options,USD,MO 04JAN19 49.5 P,,,-10,,,360,-3.66768,-356.33232,0,9.3,
+Trades,Data,Order,Equity and Index Options,USD,MON 20APR18 110.0 P,"2018-02-26, 09:30:10",-,-5,1.55,0.9049,775,-1.8669025,-773.1330975,0,322.55,O
+Trades,Data,Trade,Equity and Index Options,USD,MON 20APR18 110.0 P,"2018-02-26, 09:30:10",CBOE2,-5,1.55,0.9049,775,-1.8669025,-773.1330975,0,322.55,O
+Trades,Data,Order,Equity and Index Options,USD,MON 20APR18 110.0 P,"2018-04-20, 16:20:00",-,5,0,0,0,0,773.133097,773.133097,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MON 20APR18 110.0 P,"2018-04-20, 16:20:00",--,5,0,0,0,0,773.133097,773.133097,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MON 20APR18 110.0 P,2018-02-26,,-5,1.546266194,,,,-773.133097,773.133097,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MON 20APR18 110.0 P,,,0,,,775,-1.8669025,-0.0000005,773.133097,322.55,
+Trades,Data,Order,Equity and Index Options,USD,MRK 14DEC18 67.0 P,"2018-11-21, 09:54:34",-,-5,0.18,0.1654,90,-2.43267,-87.56733,0,7.3,O
+Trades,Data,Trade,Equity and Index Options,USD,MRK 14DEC18 67.0 P,"2018-11-21, 09:54:34",GEMINI,-5,0.18,0.1654,90,-2.43267,-87.56733,0,7.3,O
+Trades,Data,Order,Equity and Index Options,USD,MRK 14DEC18 67.0 P,"2018-12-14, 16:20:00",-,5,0,0,0,0,87.56733,87.56733,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MRK 14DEC18 67.0 P,"2018-12-14, 16:20:00",--,5,0,0,0,0,87.56733,87.56733,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MRK 14DEC18 67.0 P,2018-11-21,,-5,0.17513466,,,,-87.56733,87.56733,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MRK 14DEC18 67.0 P,,,0,,,90,-2.43267,0,87.56733,7.3,
+Trades,Data,Order,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:06:32",-,-12,0.38,0.5202,456,-4.401528,-451.598472,0,-168.24,O;P
+Trades,Data,Trade,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:06:32",CBOE2,-2,0.38,0.5202,76,-0.733588,-75.266412,0,-28.04,O;P
+Trades,Data,Trade,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:06:32",CBOE2,-2,0.38,0.5202,76,-0.733588,-75.266412,0,-28.04,O;P
+Trades,Data,Trade,Equity and Index Options,USD,MS 04JAN19 38.0 P,"2018-12-07, 11:07:03",CBOE2,-8,0.38,0.5202,304,-2.934352,-301.065648,0,-112.16,O;P
+Trades,SubTotal,,Equity and Index Options,USD,MS 04JAN19 38.0 P,,,-12,,,456,-4.401528,-451.598472,0,-168.24,
+Trades,Data,Order,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,"2018-11-21, 11:28:46",-,-6,0.45,0.5687,270,-2.92131,-267.07869,0,-71.22,O
+Trades,Data,Trade,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,"2018-11-21, 11:28:46",BATS,-6,0.45,0.5687,270,-2.92131,-267.07869,0,-71.22,O
+Trades,Data,Order,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,"2018-12-14, 16:20:00",-,6,0,0,0,0,267.07869,267.07869,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,"2018-12-14, 16:20:00",--,6,0,0,0,0,267.07869,267.07869,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,2018-11-21,,-6,0.44513115,,,,-267.07869,267.07869,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MSFT 14DEC18 90.0 P,,,0,,,270,-2.92131,0,267.07869,-71.22,
+Trades,Data,Order,Equity and Index Options,USD,MU 16MAR18 37.0 P,"2018-02-22, 09:31:01",-,-14,0.15,0.14,210,-6.862051,-203.137949,0,14,O
+Trades,Data,Trade,Equity and Index Options,USD,MU 16MAR18 37.0 P,"2018-02-22, 09:31:01",NASDAQOM,-14,0.15,0.14,210,-6.862051,-203.137949,0,14,O
+Trades,Data,Order,Equity and Index Options,USD,MU 16MAR18 37.0 P,"2018-03-16, 16:20:00",-,14,0,0,0,0,203.137949,203.137949,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,MU 16MAR18 37.0 P,"2018-03-16, 16:20:00",--,14,0,0,0,0,203.137949,203.137949,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,MU 16MAR18 37.0 P,2018-02-22,,-14,0.145098535,,,,-203.137949,203.137949,,ST
+Trades,SubTotal,,Equity and Index Options,USD,MU 16MAR18 37.0 P,,,0,,,210,-6.862051,0,203.137949,14,
+Trades,Data,Order,Equity and Index Options,USD,NEM 16MAR18 34.5 P,"2018-03-01, 13:01:19",-,-14,0.15,0.0889,210,-11.062051,-198.937949,0,85.54,O
+Trades,Data,Trade,Equity and Index Options,USD,NEM 16MAR18 34.5 P,"2018-03-01, 13:01:19",AMEX,-14,0.15,0.0889,210,-11.062051,-198.937949,0,85.54,O
+Trades,Data,Order,Equity and Index Options,USD,NEM 16MAR18 34.5 P,"2018-03-16, 16:20:00",-,14,0,0,0,0,198.937949,198.937949,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,NEM 16MAR18 34.5 P,"2018-03-16, 16:20:00",--,14,0,0,0,0,198.937949,198.937949,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,NEM 16MAR18 34.5 P,2018-03-01,,-14,0.142098535,,,,-198.937949,198.937949,,ST
+Trades,SubTotal,,Equity and Index Options,USD,NEM 16MAR18 34.5 P,,,0,,,210,-11.062051,0,198.937949,85.54,
+Trades,Data,Order,Equity and Index Options,USD,NKE 04JAN19 64.5 P,"2018-12-11, 15:40:28",-,-8,0.41,0.4265,328,-2.934664,-325.065336,0,-13.2,O
+Trades,Data,Trade,Equity and Index Options,USD,NKE 04JAN19 64.5 P,"2018-12-11, 15:40:28",CBOE2,-8,0.41,0.4265,328,-2.934664,-325.065336,0,-13.2,O
+Trades,SubTotal,,Equity and Index Options,USD,NKE 04JAN19 64.5 P,,,-8,,,328,-2.934664,-325.065336,0,-13.2,
+Trades,Data,Order,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,"2018-11-21, 10:43:20",-,-5,1.52,1.2455,760,-2.44138,-757.55862,0,137.25,O
+Trades,Data,Trade,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,"2018-11-21, 10:43:20",NASDAQOM,-5,1.52,1.2455,760,-2.44138,-757.55862,0,137.25,O
+Trades,Data,Order,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,"2018-12-21, 16:20:00",-,5,0,0,0,0,757.55862,757.55862,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,"2018-12-21, 16:20:00",--,5,0,0,0,0,757.55862,757.55862,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,2018-11-21,,-5,1.51511724,,,,-757.55862,757.55862,,ST
+Trades,SubTotal,,Equity and Index Options,USD,NVDA 21DEC18 110.0 P,,,0,,,760,-2.44138,0,757.55862,137.25,
+Trades,Data,Order,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,"2018-02-22, 10:38:37",-,-11,0.12,0.1296,132,-8.6908492,-123.3091508,0,-10.56,O
+Trades,Data,Trade,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,"2018-02-22, 10:38:37",AMEX,-11,0.12,0.1296,132,-8.6908492,-123.3091508,0,-10.56,O
+Trades,Data,Order,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,"2018-03-16, 16:20:00",-,11,0,0,0,0,123.309151,123.309151,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,"2018-03-16, 16:20:00",--,11,0,0,0,0,123.309151,123.309151,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,2018-02-22,,-11,0.112099228,,,,-123.309151,123.309151,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ORCL 16MAR18 44.5 P,,,0,,,132,-8.6908492,0.0000002,123.309151,-10.56,
+Trades,Data,Order,Equity and Index Options,USD,ORCL 04JAN19 41.0 P,"2018-12-07, 09:32:03",-,-12,0.35,0.4806,420,-4.40106,-415.59894,0,-156.72,O
+Trades,Data,Trade,Equity and Index Options,USD,ORCL 04JAN19 41.0 P,"2018-12-07, 09:32:03",CBOE2,-12,0.35,0.4806,420,-4.40106,-415.59894,0,-156.72,O
+Trades,SubTotal,,Equity and Index Options,USD,ORCL 04JAN19 41.0 P,,,-12,,,420,-4.40106,-415.59894,0,-156.72,
+Trades,Data,Order,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,"2018-02-22, 10:39:54",-,-7,0.4,0.4251,280,-5.535068,-274.464932,0,-17.57,O
+Trades,Data,Trade,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,"2018-02-22, 10:39:54",CBOE,-7,0.4,0.4251,280,-5.535068,-274.464932,0,-17.57,O
+Trades,Data,Order,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,"2018-03-16, 16:20:00",-,7,0,0,0,0,274.464932,274.464932,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,"2018-03-16, 16:20:00",--,7,0,0,0,0,274.464932,274.464932,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,2018-02-22,,-7,0.39209276,,,,-274.464932,274.464932,,ST
+Trades,SubTotal,,Equity and Index Options,USD,PRGO 16MAR18 75.0 P,,,0,,,280,-5.535068,0,274.464932,-17.57,
+Trades,Data,Order,Equity and Index Options,USD,PYPL 04JAN19 75.0 P,"2018-12-07, 10:15:43",-,-7,0.62,0.9518,434,-2.569742,-431.430258,0,-232.26,O
+Trades,Data,Trade,Equity and Index Options,USD,PYPL 04JAN19 75.0 P,"2018-12-07, 10:15:43",CBOE2,-7,0.62,0.9518,434,-2.569742,-431.430258,0,-232.26,O
+Trades,SubTotal,,Equity and Index Options,USD,PYPL 04JAN19 75.0 P,,,-7,,,434,-2.569742,-431.430258,0,-232.26,
+Trades,Data,Order,Equity and Index Options,USD,REGN 16FEB18 347.5 C,"2018-02-16, 16:20:00",-,1,0,0,0,0,644.695301,644.695301,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,REGN 16FEB18 347.5 C,"2018-02-16, 16:20:00",--,1,0,0,0,0,644.695301,644.695301,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,REGN 16FEB18 347.5 C,2018-02-12,,-1,6.44695301,,,,-644.695301,644.695301,,ST
+Trades,SubTotal,,Equity and Index Options,USD,REGN 16FEB18 347.5 C,,,1,,,0,0,644.695301,644.695301,0,
+Trades,Data,Order,Equity and Index Options,USD,REGN 23FEB18 335.0 C,"2018-02-20, 09:56:11",-,-1,3.1,0.9883,310,-0.346961,-309.653039,0,211.17,O
+Trades,Data,Trade,Equity and Index Options,USD,REGN 23FEB18 335.0 C,"2018-02-20, 09:56:11",GEMINI,-1,3.1,0.9883,310,-0.346961,-309.653039,0,211.17,O
+Trades,Data,Order,Equity and Index Options,USD,REGN 23FEB18 335.0 C,"2018-02-23, 16:20:00",-,1,0,0,0,0,309.653039,309.653039,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,REGN 23FEB18 335.0 C,"2018-02-23, 16:20:00",--,1,0,0,0,0,309.653039,309.653039,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,REGN 23FEB18 335.0 C,2018-02-20,,-1,3.09653039,,,,-309.653039,309.653039,,ST
+Trades,SubTotal,,Equity and Index Options,USD,REGN 23FEB18 335.0 C,,,0,,,310,-0.346961,0,309.653039,211.17,
+Trades,Data,Order,Equity and Index Options,USD,REGN 02MAR18 330.0 C,"2018-02-26, 09:31:32",-,-1,2.21,2.3493,221,-0.2949051,-220.7050949,0,-13.93,O
+Trades,Data,Trade,Equity and Index Options,USD,REGN 02MAR18 330.0 C,"2018-02-26, 09:31:32",NASDAQOM,-1,2.21,2.3493,221,-0.2949051,-220.7050949,0,-13.93,O
+Trades,Data,Order,Equity and Index Options,USD,REGN 02MAR18 330.0 C,"2018-03-02, 16:20:00",-,1,0,0.47,0,0,220.705095,0,47,A;C
+Trades,Data,Trade,Equity and Index Options,USD,REGN 02MAR18 330.0 C,"2018-03-02, 16:20:00",--,1,0,0.47,0,0,220.705095,0,47,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,REGN 02MAR18 330.0 C,2018-02-26,,-1,2.20705095,,,,-220.705095,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,REGN 02MAR18 330.0 C,,,0,,,221,-0.2949051,0.0000001,0,33.07,
+Trades,Data,Order,Equity and Index Options,USD,RH 21DEC18 75.0 P,"2018-11-30, 11:11:51",-,-6,0.58,0.6502,348,0.377676,-348.377676,0,-42.12,O
+Trades,Data,Trade,Equity and Index Options,USD,RH 21DEC18 75.0 P,"2018-11-30, 11:11:51",BATS,-6,0.58,0.6502,348,0.377676,-348.377676,0,-42.12,O
+Trades,Data,Order,Equity and Index Options,USD,RH 21DEC18 75.0 P,"2018-12-21, 16:20:00",-,6,0,0,0,0,348.377676,348.377676,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,RH 21DEC18 75.0 P,"2018-12-21, 16:20:00",--,6,0,0,0,0,348.377676,348.377676,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,RH 21DEC18 75.0 P,2018-11-30,,-6,0.58062946,,,,-348.377676,348.377676,,ST
+Trades,SubTotal,,Equity and Index Options,USD,RH 21DEC18 75.0 P,,,0,,,348,0.377676,0,348.377676,-42.12,
+Trades,Data,Order,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:17",-,-8,0.25,0.27,200,-6.32302,-193.67698,0,-16,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:17",AMEX,-1,0.25,0.27,25,-1.0903775,-23.9096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:19",AMEX,-1,0.25,0.27,25,-0.4903775,-24.5096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:38",AMEX,-1,0.25,0.27,25,-0.7903775,-24.2096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:40",AMEX,-1,0.25,0.27,25,-0.7903775,-24.2096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:42",AMEX,-1,0.25,0.27,25,-0.7903775,-24.2096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:43",AMEX,-1,0.25,0.27,25,-0.7903775,-24.2096225,0,-2,O;P
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-02-22, 10:57:53",AMEX,-2,0.25,0.27,50,-1.580755,-48.419245,0,-4,O;P
+Trades,Data,Order,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-03-16, 16:20:00",-,8,0,0,0,0,193.676982,193.676982,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,SLB 16MAR18 59.5 P,"2018-03-16, 16:20:00",--,8,0,0,0,0,193.676982,193.676982,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,SLB 16MAR18 59.5 P,2018-02-22,,-8,0.242096227,,,,-193.676982,193.676982,,ST
+Trades,SubTotal,,Equity and Index Options,USD,SLB 16MAR18 59.5 P,,,0,,,200,-6.32302,0.000002,193.676982,-16,
+Trades,Data,Order,Equity and Index Options,USD,SO 28DEC18 42.0 P,"2018-11-21, 14:04:50",-,-8,0.13,0.1319,104,-3.891752,-100.108248,0,-1.52,O
+Trades,Data,Trade,Equity and Index Options,USD,SO 28DEC18 42.0 P,"2018-11-21, 14:04:50",NASDAQOM,-8,0.13,0.1319,104,-3.891752,-100.108248,0,-1.52,O
+Trades,Data,Order,Equity and Index Options,USD,SO 28DEC18 42.0 P,"2018-12-28, 16:20:00",-,8,0,0,0,0,100.108248,100.108248,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,SO 28DEC18 42.0 P,"2018-12-28, 16:20:00",--,8,0,0,0,0,100.108248,100.108248,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,SO 28DEC18 42.0 P,2018-11-21,,-8,0.12513531,,,,-100.108248,100.108248,,ST
+Trades,SubTotal,,Equity and Index Options,USD,SO 28DEC18 42.0 P,,,0,,,104,-3.891752,0,100.108248,-1.52,
+Trades,Data,Order,Equity and Index Options,USD,SWK 23MAR18 142.0 P,"2018-03-01, 14:02:44",-,-4,0.81,0.9196,324,0.0333156,-324.0333156,0,-43.84,O
+Trades,Data,Trade,Equity and Index Options,USD,SWK 23MAR18 142.0 P,"2018-03-01, 14:02:44",NASDAQOM,-4,0.81,0.9196,324,0.0333156,-324.0333156,0,-43.84,O
+Trades,Data,Order,Equity and Index Options,USD,SWK 23MAR18 142.0 P,"2018-03-23, 16:20:00",-,4,0,0,0,0,324.033316,324.033316,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,SWK 23MAR18 142.0 P,"2018-03-23, 16:20:00",--,4,0,0,0,0,324.033316,324.033316,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,SWK 23MAR18 142.0 P,2018-03-01,,-4,0.81008329,,,,-324.033316,324.033316,,ST
+Trades,SubTotal,,Equity and Index Options,USD,SWK 23MAR18 142.0 P,,,0,,,324,0.0333156,0.0000004,324.033316,-43.84,
+Trades,Data,Order,Equity and Index Options,USD,SYMC 16FEB18 25.0 P,"2018-02-16, 16:20:00",-,20,0,0,0,0,344.121684,344.121684,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,SYMC 16FEB18 25.0 P,"2018-02-16, 16:20:00",--,20,0,0,0,0,344.121684,344.121684,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,SYMC 16FEB18 25.0 P,2018-01-03,,-20,0.172060842,,,,-344.121684,344.121684,,ST
+Trades,SubTotal,,Equity and Index Options,USD,SYMC 16FEB18 25.0 P,,,20,,,0,0,344.121684,344.121684,0,
+Trades,Data,Order,Equity and Index Options,USD,T 16MAR18 34.0 P,"2018-02-22, 13:50:52",-,-15,0.1,0.1261,150,-11.850465,-138.149535,0,-39.15,O
+Trades,Data,Trade,Equity and Index Options,USD,T 16MAR18 34.0 P,"2018-02-22, 13:50:52",AMEX,-15,0.1,0.1261,150,-11.850465,-138.149535,0,-39.15,O
+Trades,Data,Order,Equity and Index Options,USD,T 16MAR18 34.0 P,"2018-03-16, 16:20:00",-,15,0,0,0,0,138.149535,138.149535,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,T 16MAR18 34.0 P,"2018-03-16, 16:20:00",--,15,0,0,0,0,138.149535,138.149535,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,T 16MAR18 34.0 P,2018-02-22,,-15,0.09209969,,,,-138.149535,138.149535,,ST
+Trades,SubTotal,,Equity and Index Options,USD,T 16MAR18 34.0 P,,,0,,,150,-11.850465,-0,138.149535,-39.15,
+Trades,Data,Order,Equity and Index Options,USD,TAP 16FEB18 75.0 P,"2018-02-16, 16:20:00",-,7,0,0,0,0,371.38693,371.38693,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TAP 16FEB18 75.0 P,"2018-02-16, 16:20:00",--,7,0,0,0,0,371.38693,371.38693,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TAP 16FEB18 75.0 P,2018-01-03,,-7,0.530552757,,,,-371.38693,371.38693,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TAP 16FEB18 75.0 P,,,7,,,0,0,371.38693,371.38693,0,
+Trades,Data,Order,Equity and Index Options,USD,TGT 23MAR18 60.0 P,"2018-02-22, 10:41:45",-,-8,0.18,0.2148,144,-3.9217264,-140.0782736,0,-27.84,O
+Trades,Data,Trade,Equity and Index Options,USD,TGT 23MAR18 60.0 P,"2018-02-22, 10:41:45",NASDAQOM,-8,0.18,0.2148,144,-3.9217264,-140.0782736,0,-27.84,O
+Trades,Data,Order,Equity and Index Options,USD,TGT 23MAR18 60.0 P,"2018-03-23, 16:20:00",-,8,0,0,0,0,140.078274,140.078274,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TGT 23MAR18 60.0 P,"2018-03-23, 16:20:00",--,8,0,0,0,0,140.078274,140.078274,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TGT 23MAR18 60.0 P,2018-02-22,,-8,0.175097842,,,,-140.078274,140.078274,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TGT 23MAR18 60.0 P,,,0,,,144,-3.9217264,0.0000004,140.078274,-27.84,
+Trades,Data,Order,Equity and Index Options,USD,TIF 16MAR18 90.0 P,"2018-03-01, 09:43:08",-,-6,0.42,0.2753,252,-4.7446212,-247.2553788,0,86.82,O
+Trades,Data,Trade,Equity and Index Options,USD,TIF 16MAR18 90.0 P,"2018-03-01, 09:43:08",MIAX,-6,0.42,0.2753,252,-4.7446212,-247.2553788,0,86.82,O
+Trades,Data,Order,Equity and Index Options,USD,TIF 16MAR18 90.0 P,"2018-03-16, 16:20:00",-,6,0,0,0,0,247.255379,247.255379,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TIF 16MAR18 90.0 P,"2018-03-16, 16:20:00",--,6,0,0,0,0,247.255379,247.255379,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TIF 16MAR18 90.0 P,2018-03-01,,-6,0.412092298,,,,-247.255379,247.255379,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TIF 16MAR18 90.0 P,,,0,,,252,-4.7446212,0.0000002,247.255379,86.82,
+Trades,Data,Order,Equity and Index Options,USD,TRIP 16FEB18 28.0 P,"2018-02-16, 16:20:00",-,18,0,0,0,0,471.705774,471.705774,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TRIP 16FEB18 28.0 P,"2018-02-16, 16:20:00",--,18,0,0,0,0,471.705774,471.705774,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TRIP 16FEB18 28.0 P,2018-01-03,,-18,0.262058763,,,,-471.705774,471.705774,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TRIP 16FEB18 28.0 P,,,18,,,0,0,471.705774,471.705774,0,
+Trades,Data,Order,Equity and Index Options,USD,TWLO 16FEB18 20.0 P,"2018-02-16, 16:20:00",-,25,0,0,0,0,465.651527,465.651527,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TWLO 16FEB18 20.0 P,"2018-02-16, 16:20:00",--,25,0,0,0,0,465.651527,465.651527,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TWLO 16FEB18 20.0 P,2018-01-03,,-25,0.186260611,,,,-465.651527,465.651527,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TWLO 16FEB18 20.0 P,,,25,,,0,0,465.651527,465.651527,0,
+Trades,Data,Order,Equity and Index Options,USD,TXN 28DEC18 87.5 P,"2018-12-07, 10:24:04",-,-6,0.63,1.2719,378,-2.202714,-375.797286,0,-385.14,O
+Trades,Data,Trade,Equity and Index Options,USD,TXN 28DEC18 87.5 P,"2018-12-07, 10:24:04",CBOE2,-6,0.63,1.2719,378,-2.202714,-375.797286,0,-385.14,O
+Trades,Data,Order,Equity and Index Options,USD,TXN 28DEC18 87.5 P,"2018-12-28, 16:20:00",-,6,0,0,0,0,375.797286,375.797286,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,TXN 28DEC18 87.5 P,"2018-12-28, 16:20:00",--,6,0,0,0,0,375.797286,375.797286,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,TXN 28DEC18 87.5 P,2018-12-07,,-6,0.62632881,,,,-375.797286,375.797286,,ST
+Trades,SubTotal,,Equity and Index Options,USD,TXN 28DEC18 87.5 P,,,0,,,378,-2.202714,0,375.797286,-385.14,
+Trades,Data,Order,Equity and Index Options,USD,ULTA 06APR18 172.5 P,"2018-02-28, 11:47:10",-,-3,1.81,1.925,543,0.0180567,-543.0180567,0,-34.5,O
+Trades,Data,Trade,Equity and Index Options,USD,ULTA 06APR18 172.5 P,"2018-02-28, 11:47:10",NASDAQOM,-3,1.81,1.925,543,0.0180567,-543.0180567,0,-34.5,O
+Trades,Data,Order,Equity and Index Options,USD,ULTA 06APR18 172.5 P,"2018-04-06, 16:20:00",-,3,0,0,0,0,543.018057,543.018057,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,ULTA 06APR18 172.5 P,"2018-04-06, 16:20:00",--,3,0,0,0,0,543.018057,543.018057,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,ULTA 06APR18 172.5 P,2018-02-28,,-3,1.81006019,,,,-543.018057,543.018057,,ST
+Trades,SubTotal,,Equity and Index Options,USD,ULTA 06APR18 172.5 P,,,0,,,543,0.0180567,0.0000003,543.018057,-34.5,
+Trades,Data,Order,Equity and Index Options,USD,UNP 16MAR18 116.0 P,"2018-02-22, 09:58:00",-,-4,0.47,0.3604,188,-3.1635428,-184.8364572,0,43.84,O
+Trades,Data,Trade,Equity and Index Options,USD,UNP 16MAR18 116.0 P,"2018-02-22, 09:58:00",AMEX,-4,0.47,0.3604,188,-3.1635428,-184.8364572,0,43.84,O
+Trades,Data,Order,Equity and Index Options,USD,UNP 16MAR18 116.0 P,"2018-03-16, 16:20:00",-,4,0,0,0,0,184.836457,184.836457,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,UNP 16MAR18 116.0 P,"2018-03-16, 16:20:00",--,4,0,0,0,0,184.836457,184.836457,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,UNP 16MAR18 116.0 P,2018-02-22,,-4,0.462091142,,,,-184.836457,184.836457,,ST
+Trades,SubTotal,,Equity and Index Options,USD,UNP 16MAR18 116.0 P,,,0,,,188,-3.1635428,-0.0000002,184.836457,43.84,
+Trades,Data,Order,Equity and Index Options,USD,UNP 04JAN19 132.0 P,"2018-12-07, 15:04:50",-,-4,0.93,1.3487,372,-1.470036,-370.529964,0,-167.48,O
+Trades,Data,Trade,Equity and Index Options,USD,UNP 04JAN19 132.0 P,"2018-12-07, 15:04:50",CBOE2,-4,0.93,1.3487,372,-1.470036,-370.529964,0,-167.48,O
+Trades,SubTotal,,Equity and Index Options,USD,UNP 04JAN19 132.0 P,,,-4,,,372,-1.470036,-370.529964,0,-167.48,
+Trades,Data,Order,Equity and Index Options,USD,UPS 16MAR18 93.0 P,"2018-02-22, 10:59:33",-,-5,0.18,0.1901,90,-2.451079,-87.548921,0,-5.05,O
+Trades,Data,Trade,Equity and Index Options,USD,UPS 16MAR18 93.0 P,"2018-02-22, 10:59:33",PSE,-5,0.18,0.1901,90,-2.451079,-87.548921,0,-5.05,O
+Trades,Data,Order,Equity and Index Options,USD,UPS 16MAR18 93.0 P,"2018-03-16, 16:20:00",-,5,0,0,0,0,87.548921,87.548921,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,UPS 16MAR18 93.0 P,"2018-03-16, 16:20:00",--,5,0,0,0,0,87.548921,87.548921,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,UPS 16MAR18 93.0 P,2018-02-22,,-5,0.175097842,,,,-87.548921,87.548921,,ST
+Trades,SubTotal,,Equity and Index Options,USD,UPS 16MAR18 93.0 P,,,0,,,90,-2.451079,0,87.548921,-5.05,
+Trades,Data,Order,Equity and Index Options,USD,UPS 28DEC18 99.0 P,"2018-12-06, 10:45:12",-,-5,0.89,0.7472,445,-1.837285,-443.162715,0,71.4,O
+Trades,Data,Trade,Equity and Index Options,USD,UPS 28DEC18 99.0 P,"2018-12-06, 10:45:12",CBOE2,-5,0.89,0.7472,445,-1.837285,-443.162715,0,71.4,O
+Trades,Data,Order,Equity and Index Options,USD,UPS 28DEC18 99.0 P,"2018-12-28, 16:20:00",-,5,0,2.47,0,0,443.162715,0,1235,A;C
+Trades,Data,Trade,Equity and Index Options,USD,UPS 28DEC18 99.0 P,"2018-12-28, 16:20:00",--,5,0,2.47,0,0,443.162715,0,1235,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,UPS 28DEC18 99.0 P,2018-12-06,,-5,0.88632543,,,,-443.162715,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,UPS 28DEC18 99.0 P,,,0,,,445,-1.837285,0,0,1306.4,
+Trades,Data,Order,Equity and Index Options,USD,UPS 04JAN19 99.5 C,"2018-12-31, 10:01:23",-,-5,0.59,0.5281,295,-1.835335,-293.164665,0,30.95,O
+Trades,Data,Trade,Equity and Index Options,USD,UPS 04JAN19 99.5 C,"2018-12-31, 10:01:23",CBOE2,-5,0.59,0.5281,295,-1.835335,-293.164665,0,30.95,O
+Trades,SubTotal,,Equity and Index Options,USD,UPS 04JAN19 99.5 C,,,-5,,,295,-1.835335,-293.164665,0,30.95,
+Trades,Data,Order,Equity and Index Options,USD,USB 27APR18 45.0 P,"2018-03-23, 15:01:03",-,-11,0.35,0.4362,385,-8.6966935,-376.3033065,0,-94.82,O
+Trades,Data,Trade,Equity and Index Options,USD,USB 27APR18 45.0 P,"2018-03-23, 15:01:03",MIAX,-11,0.35,0.4362,385,-8.6966935,-376.3033065,0,-94.82,O
+Trades,Data,Order,Equity and Index Options,USD,USB 27APR18 45.0 P,"2018-04-27, 16:20:00",-,11,0,0,0,0,376.303307,376.303307,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,USB 27APR18 45.0 P,"2018-04-27, 16:20:00",--,11,0,0,0,0,376.303307,376.303307,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,USB 27APR18 45.0 P,2018-03-23,,-11,0.342093915,,,,-376.303307,376.303307,,ST
+Trades,SubTotal,,Equity and Index Options,USD,USB 27APR18 45.0 P,,,0,,,385,-8.6966935,0.0000005,376.303307,-94.82,
+Trades,Data,Order,Equity and Index Options,USD,USB 04JAN19 48.0 P,"2018-12-06, 10:46:47",-,-10,0.37,0.269,370,-3.66781,-366.33219,0,101,O
+Trades,Data,Trade,Equity and Index Options,USD,USB 04JAN19 48.0 P,"2018-12-06, 10:46:47",CBOE2,-10,0.37,0.269,370,-3.66781,-366.33219,0,101,O
+Trades,SubTotal,,Equity and Index Options,USD,USB 04JAN19 48.0 P,,,-10,,,370,-3.66781,-366.33219,0,101,
+Trades,Data,Order,Equity and Index Options,USD,UTX 21DEC18 115.0 P,"2018-11-27, 09:30:21",-,-4,0.98,0.97,392,-1.950296,-390.049704,0,4,O
+Trades,Data,Trade,Equity and Index Options,USD,UTX 21DEC18 115.0 P,"2018-11-27, 09:30:21",GEMINI,-4,0.98,0.97,392,-1.950296,-390.049704,0,4,O
+Trades,Data,Order,Equity and Index Options,USD,UTX 21DEC18 115.0 P,"2018-12-21, 16:20:00",-,4,0,8.82,0,0,390.049704,0,3528,A;C
+Trades,Data,Trade,Equity and Index Options,USD,UTX 21DEC18 115.0 P,"2018-12-21, 16:20:00",--,4,0,8.82,0,0,390.049704,0,3528,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,UTX 21DEC18 115.0 P,2018-11-27,,-4,0.97512426,,,,-390.049704,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,UTX 21DEC18 115.0 P,,,0,,,392,-1.950296,0,0,3532,
+Trades,Data,Order,Equity and Index Options,USD,V 04JAN19 125.0 P,"2018-12-11, 15:57:09",-,-4,0.71,0.6983,284,-1.468892,-282.531108,0,4.68,O
+Trades,Data,Trade,Equity and Index Options,USD,V 04JAN19 125.0 P,"2018-12-11, 15:57:09",CBOE2,-4,0.71,0.6983,284,-1.468892,-282.531108,0,4.68,O
+Trades,SubTotal,,Equity and Index Options,USD,V 04JAN19 125.0 P,,,-4,,,284,-1.468892,-282.531108,0,4.68,
+Trades,Data,Order,Equity and Index Options,USD,VFC 23MAR18 68.5 P,"2018-03-01, 14:12:39",-,-7,0.45,0.39,315,-5.5358765,-309.4641235,0,42,O
+Trades,Data,Trade,Equity and Index Options,USD,VFC 23MAR18 68.5 P,"2018-03-01, 14:12:39",CBOE,-7,0.45,0.39,315,-5.5358765,-309.4641235,0,42,O
+Trades,Data,Order,Equity and Index Options,USD,VFC 23MAR18 68.5 P,"2018-03-23, 16:20:00",-,7,0,0,0,0,309.464124,309.464124,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,VFC 23MAR18 68.5 P,"2018-03-23, 16:20:00",--,7,0,0,0,0,309.464124,309.464124,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,VFC 23MAR18 68.5 P,2018-03-01,,-7,0.442091606,,,,-309.464124,309.464124,,ST
+Trades,SubTotal,,Equity and Index Options,USD,VFC 23MAR18 68.5 P,,,0,,,315,-5.5358765,0.0000005,309.464124,42,
+Trades,Data,Order,Equity and Index Options,USD,VZ 16MAR18 44.0 P,"2018-02-22, 10:40:57",-,-11,0.13,0.1517,143,-8.6911033,-134.3088967,0,-23.87,O
+Trades,Data,Trade,Equity and Index Options,USD,VZ 16MAR18 44.0 P,"2018-02-22, 10:40:57",AMEX,-11,0.13,0.1517,143,-8.6911033,-134.3088967,0,-23.87,O
+Trades,Data,Order,Equity and Index Options,USD,VZ 16MAR18 44.0 P,"2018-03-16, 16:20:00",-,11,0,0,0,0,134.308897,134.308897,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,VZ 16MAR18 44.0 P,"2018-03-16, 16:20:00",--,11,0,0,0,0,134.308897,134.308897,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,VZ 16MAR18 44.0 P,2018-02-22,,-11,0.122098997,,,,-134.308897,134.308897,,ST
+Trades,SubTotal,,Equity and Index Options,USD,VZ 16MAR18 44.0 P,,,0,,,143,-8.6911033,0.0000003,134.308897,-23.87,
+Trades,Data,Order,Equity and Index Options,USD,WFC 04MAY18 45.0 P,"2018-03-23, 15:45:05",-,-11,0.44,0.4431,484,-8.6989804,-475.3010196,0,-3.41,O
+Trades,Data,Trade,Equity and Index Options,USD,WFC 04MAY18 45.0 P,"2018-03-23, 15:45:05",AMEX,-11,0.44,0.4431,484,-8.6989804,-475.3010196,0,-3.41,O
+Trades,Data,Order,Equity and Index Options,USD,WFC 04MAY18 45.0 P,"2018-05-04, 16:20:00",-,11,0,0,0,0,475.30102,475.30102,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,WFC 04MAY18 45.0 P,"2018-05-04, 16:20:00",--,11,0,0,0,0,475.30102,475.30102,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,WFC 04MAY18 45.0 P,2018-03-23,,-11,0.432091836,,,,-475.30102,475.30102,,ST
+Trades,SubTotal,,Equity and Index Options,USD,WFC 04MAY18 45.0 P,,,0,,,484,-8.6989804,0.0000004,475.30102,-3.41,
+Trades,Data,Order,Equity and Index Options,USD,WFC 04JAN19 46.5 P,"2018-12-07, 14:05:26",-,-10,0.45,0.4887,450,-3.66885,-446.33115,0,-38.7,O
+Trades,Data,Trade,Equity and Index Options,USD,WFC 04JAN19 46.5 P,"2018-12-07, 14:05:26",CBOE2,-10,0.45,0.4887,450,-3.66885,-446.33115,0,-38.7,O
+Trades,SubTotal,,Equity and Index Options,USD,WFC 04JAN19 46.5 P,,,-10,,,450,-3.66885,-446.33115,0,-38.7,
+Trades,Data,Order,Equity and Index Options,USD,WHR 16FEB18 150.0 P,"2018-02-16, 16:20:00",-,3,0,0,0,0,367.870976,367.870976,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,WHR 16FEB18 150.0 P,"2018-02-16, 16:20:00",--,3,0,0,0,0,367.870976,367.870976,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,WHR 16FEB18 150.0 P,2018-01-03,,-3,1.226236587,,,,-367.870976,367.870976,,ST
+Trades,SubTotal,,Equity and Index Options,USD,WHR 16FEB18 150.0 P,,,3,,,0,0,367.870976,367.870976,0,
+Trades,Data,Order,Equity and Index Options,USD,WHR 23MAR18 146.0 P,"2018-03-01, 09:30:05",-,-3,0.71,0.6771,213,-1.1143203,-211.8856797,0,9.87,O
+Trades,Data,Trade,Equity and Index Options,USD,WHR 23MAR18 146.0 P,"2018-03-01, 09:30:05",CBOE2,-3,0.71,0.6771,213,-1.1143203,-211.8856797,0,9.87,O
+Trades,Data,Order,Equity and Index Options,USD,WHR 23MAR18 146.0 P,"2018-03-23, 16:20:00",-,3,0,0,0,0,211.88568,211.88568,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,WHR 23MAR18 146.0 P,"2018-03-23, 16:20:00",--,3,0,0,0,0,211.88568,211.88568,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,WHR 23MAR18 146.0 P,2018-03-01,,-3,0.7062856,,,,-211.88568,211.88568,,ST
+Trades,SubTotal,,Equity and Index Options,USD,WHR 23MAR18 146.0 P,,,0,,,213,-1.1143203,0.0000003,211.88568,9.87,
+Trades,Data,Order,Equity and Index Options,USD,WMT 04JAN19 87.0 P,"2018-12-07, 15:05:11",-,-6,0.64,0.5562,384,-2.202792,-381.797208,0,50.28,O
+Trades,Data,Trade,Equity and Index Options,USD,WMT 04JAN19 87.0 P,"2018-12-07, 15:05:11",CBOE2,-6,0.64,0.5562,384,-2.202792,-381.797208,0,50.28,O
+Trades,SubTotal,,Equity and Index Options,USD,WMT 04JAN19 87.0 P,,,-6,,,384,-2.202792,-381.797208,0,50.28,
+Trades,Data,Order,Equity and Index Options,USD,XLNX 16FEB18 60.0 P,"2018-02-16, 16:20:00",-,8,0,0,0,0,357.003684,357.003684,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,XLNX 16FEB18 60.0 P,"2018-02-16, 16:20:00",--,8,0,0,0,0,357.003684,357.003684,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,XLNX 16FEB18 60.0 P,2018-01-03,,-8,0.446254605,,,,-357.003684,357.003684,,ST
+Trades,SubTotal,,Equity and Index Options,USD,XLNX 16FEB18 60.0 P,,,8,,,0,0,357.003684,357.003684,0,
+Trades,Data,Order,Equity and Index Options,USD,XRAY 20APR18 50.0 P,"2018-02-28, 12:41:58",-,-10,0.63,0.7058,630,0.087447,-630.087447,0,-75.8,O
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 20APR18 50.0 P,"2018-02-28, 12:41:58",NASDAQOM,-10,0.63,0.7058,630,0.087447,-630.087447,0,-75.8,O
+Trades,Data,Order,Equity and Index Options,USD,XRAY 20APR18 50.0 P,"2018-04-20, 16:20:00",-,10,0,0.66,0,0,630.087447,0,660,A;C
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 20APR18 50.0 P,"2018-04-20, 16:20:00",--,10,0,0.66,0,0,630.087447,0,660,A;C
+Trades,Data,ClosedLot,Equity and Index Options,USD,XRAY 20APR18 50.0 P,2018-02-28,,-10,0.630087447,,,,-630.087447,0,,ST
+Trades,SubTotal,,Equity and Index Options,USD,XRAY 20APR18 50.0 P,,,0,,,630,0.087447,0,0,584.2,
+Trades,Data,Order,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,"2018-04-23, 09:51:01",-,-10,1.73,1.6388,1730,0.062037,-1730.062037,0,91.2,O
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,"2018-04-23, 09:51:01",NASDAQOM,-10,1.73,1.6388,1730,0.062037,-1730.062037,0,91.2,O
+Trades,Data,Order,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,"2018-05-18, 16:20:00",-,10,0,0,0,0,1730.062037,1730.062037,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,"2018-05-18, 16:20:00",--,10,0,0,0,0,1730.062037,1730.062037,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,2018-04-23,,-10,1.730062037,,,,-1730.062037,1730.062037,,ST
+Trades,SubTotal,,Equity and Index Options,USD,XRAY 18MAY18 50.0 C,,,0,,,1730,0.062037,0,1730.062037,91.2,
+Trades,Data,Order,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,"2018-11-21, 11:10:00",-,-10,0.56,0.5191,560,0.12972,-560.12972,0,40.9,O
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,"2018-11-21, 11:10:00",NASDAQOM,-10,0.56,0.5191,560,0.12972,-560.12972,0,40.9,O
+Trades,Data,Order,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,"2018-12-21, 16:20:00",-,10,0,0,0,0,560.12972,560.12972,0,C;Ep
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,"2018-12-21, 16:20:00",--,10,0,0,0,0,560.12972,560.12972,0,C;Ep
+Trades,Data,ClosedLot,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,2018-11-21,,-10,0.56012972,,,,-560.12972,560.12972,,ST
+Trades,SubTotal,,Equity and Index Options,USD,XRAY 21DEC18 39.0 C,,,0,,,560,0.12972,0,560.12972,40.9,
+Trades,Data,Order,Equity and Index Options,USD,XRAY 18JAN19 39.0 C,"2018-12-28, 10:21:11",-,-10,0.8,0.6572,800,0.6266,-800.6266,0,142.8,O
+Trades,Data,Trade,Equity and Index Options,USD,XRAY 18JAN19 39.0 C,"2018-12-28, 10:21:11",BATS,-10,0.8,0.6572,800,0.6266,-800.6266,0,142.8,O
+Trades,SubTotal,,Equity and Index Options,USD,XRAY 18JAN19 39.0 C,,,-10,,,800,0.6266,-800.6266,0,142.8,
+Trades,Total,,Equity and Index Options,USD,,,,,,,46846,-523.383246,-7852.802857,33860.9455,22220.9, 
+"Option Exercises, Assignments and Expirations",Headers,Type,Currency,Symbol,Date,Transaction Type,Quantity,T. Price,C. Price,Proceeds,Comm/Fee,Basis,Realized P/L,MTM P/L,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,REGN 02MAR18 330.0 C,2018-03-02,Assignment,1,0,0,0,0,220.705095,0,47,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,REGN,2018-03-02,Sell,-100,330,333.91,33000,-0.7742,-34481.925512,-1261.994617,-391,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,APA 23MAR18 36.5 C,2018-03-23,Assignment,13,0,0,0,0,327.724792,0,663,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,APA,2018-03-23,Sell,-1300,36.5,37.28,47450,-1.250795,-48353.424809,-576.950812,-1014,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CHTR 23MAR18 315.0 P,2018-03-23,Assignment,2,0,0,0,0,229.915087,0,522,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CHTR,2018-03-23,Buy,200,315,312.18,-63000,0,63000,0,-564,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CMCSA 29MAR18 35.0 P,2018-03-29,Assignment,14,0,0,0,0,245.136979,0,1162,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CMCSA,2018-03-29,Buy,1400,35,34.17,-49000,0,49000,0,-1162,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CHTR 20APR18 310.0 C,2018-04-20,Assignment,2,0,0,0,0,738.103352,0,188,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CHTR,2018-04-20,Sell,-200,310,310.94,62000,-1.456,-62770.084913,-33.437561,-188,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,XRAY 20APR18 50.0 P,2018-04-20,Assignment,10,0,0,0,0,630.087447,0,660,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,XRAY,2018-04-20,Buy,1000,50,49.34,-50000,0,50000,0,-660,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CMCSA 30NOV18 38.5 C,2018-11-30,Assignment,14,0,0,0,0,212.988888,0,714,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,CMCSA,2018-11-30,Sell,-1400,38.5,39.15,53900,-0.8673,-48754.863021,5357.258567,-910,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,FDX 28DEC18 197.5 P,2018-12-19,Assignment,3,0,37.78,0,0,607.533183,0,11334,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,FDX,2018-12-19,Buy,300,197.5,159.72,-59250,0,59250,0,-11334,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,ACN 21DEC18 145.0 P,2018-12-21,Assignment,3,0,0,0,0,345.036615,0,2340,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,ACN,2018-12-21,Buy,300,145,137.2,-43500,0,43500,0,-2340,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,AGN 21DEC18 140.0 P,2018-12-21,Assignment,2,0,0,0,0,218.42454,0,1708,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,AGN,2018-12-21,Buy,200,140,131.46,-28000,0,28000,0,-1708,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,UTX 21DEC18 115.0 P,2018-12-21,Assignment,4,0,8.82,0,0,390.049704,0,3528,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,UTX,2018-12-21,Buy,400,115,106.18,-46000,0,46000,0,-3528,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,UPS 28DEC18 99.0 P,2018-12-28,Assignment,5,0,0,0,0,443.162715,0,1235,
+"Option Exercises, Assignments and Expirations",Data,Assignments,USD,UPS,2018-12-28,Buy,500,99,97.53,-49500,0,49500,0,-735,
+"Option Exercises, Assignments and Expirations",Data,Total,,,,,,,,-191900,-4.348295,,3484.875577,-433,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AAOI 16FEB18 25.0 P,2018-02-16,Expiration,15,0,0,0,0,217.592302,217.592302,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ADM 16FEB18 37.0 P,2018-02-16,Expiration,14,0,0,0,0,414.761298,414.761298,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 16FEB18 39.0 C,2018-02-16,Expiration,13,0,0,0,0,812.613681,812.613681,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ATVI 16FEB18 75.0 C,2018-02-16,Expiration,7,0,0,0,0,305.378385,305.378385,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,C 16FEB18 65.0 P,2018-02-16,Expiration,8,0,0,0,0,129.648858,129.648858,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CAH 16FEB18 55.0 P,2018-02-16,Expiration,9,0,0,0,0,342.5006,342.5006,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CBS 16FEB18 52.5 P,2018-02-16,Expiration,10,0,0,0,0,346.256915,346.256915,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CHTR 16FEB18 305.0 P,2018-02-16,Expiration,2,0,0,0,0,430.103067,430.103067,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CVS 16FEB18 65.0 P,2018-02-16,Expiration,8,0,0,0,0,341.004054,341.004054,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,DDD 16FEB18 6.0 P,2018-02-16,Expiration,40,0,0,0,0,163.056304,163.056304,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,EA 16FEB18 95.0 P,2018-02-16,Expiration,5,0,0,0,0,453.121989,453.121989,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GPRO 16FEB18 5.0 P,2018-02-16,Expiration,40,0,0,0,0,189.615378,189.615378,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,LITE 16FEB18 37.5 P,2018-02-16,Expiration,13,0,0,0,0,520.072488,520.072488,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MBI 16FEB18 5.0 P,2018-02-16,Expiration,50,0,0,0,0,203.82038,203.82038,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,REGN 16FEB18 347.5 C,2018-02-16,Expiration,1,0,0,0,0,644.695301,644.695301,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,SYMC 16FEB18 25.0 P,2018-02-16,Expiration,20,0,0,0,0,344.121684,344.121684,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TAP 16FEB18 75.0 P,2018-02-16,Expiration,7,0,0,0,0,371.38693,371.38693,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TRIP 16FEB18 28.0 P,2018-02-16,Expiration,18,0,0,0,0,471.705774,471.705774,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TWLO 16FEB18 20.0 P,2018-02-16,Expiration,25,0,0,0,0,465.651527,465.651527,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,WHR 16FEB18 150.0 P,2018-02-16,Expiration,3,0,0,0,0,367.870976,367.870976,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,XLNX 16FEB18 60.0 P,2018-02-16,Expiration,8,0,0,0,0,357.003684,357.003684,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 23FEB18 39.0 C,2018-02-23,Expiration,13,0,0,0,0,730.715483,730.715483,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,HPQ 23FEB18 19.5 P,2018-02-23,Expiration,26,0,0,0,0,218.659795,218.659795,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,REGN 23FEB18 335.0 C,2018-02-23,Expiration,1,0,0,0,0,309.653039,309.653039,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 02MAR18 37.5 C,2018-03-02,Expiration,13,0,0,0,0,344.624492,344.624492,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AAPL 09MAR18 155.0 P,2018-03-09,Expiration,3,0,0,0,0,54.629283,54.629283,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 09MAR18 36.5 C,2018-03-09,Expiration,13,0,0,0,0,353.724192,353.724192,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ADI 16MAR18 79.0 P,2018-03-16,Expiration,6,0,0,0,0,209.756349,209.756349,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ADSK 16MAR18 96.0 P,2018-03-16,Expiration,5,0,0,0,0,346.042915,346.042915,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AMGN 16MAR18 157.5 P,2018-03-16,Expiration,3,0,0,0,0,100.528244,100.528244,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 16MAR18 32.5 P,2018-03-16,Expiration,10,0,0,0,0,292.09507,292.09507,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,APA 16MAR18 37.0 C,2018-03-16,Expiration,13,0,0,0,0,188.628096,188.628096,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ATVI 16MAR18 61.0 P,2018-03-16,Expiration,8,0,0,0,0,124.078643,124.078643,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AVGO 16MAR18 220.0 P,2018-03-16,Expiration,2,0,0,0,0,208.015595,208.015595,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,BRK B 16MAR18 185.0 P,2018-03-16,Expiration,3,0,0,0,0,148.377135,148.377135,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CCL 16MAR18 63.0 P,2018-03-16,Expiration,8,0,0,0,0,200.47698,200.47698,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CHTR 16MAR18 315.0 P,2018-03-16,Expiration,2,0,0,0,0,129.917397,129.917397,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 16MAR18 35.0 P,2018-03-16,Expiration,14,0,0,0,0,142.939243,142.939243,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,DIS 16MAR18 97.0 P,2018-03-16,Expiration,5,0,0,0,0,117.548228,117.548228,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GE 16MAR18 13.0 P,2018-03-16,Expiration,38,0,0,0,0,180.503211,180.503211,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GPS 16MAR18 26.5 P,2018-03-16,Expiration,19,0,0,0,0,250.987655,250.987655,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GRMN 16MAR18 56.5 P,2018-03-16,Expiration,9,0,0,0,0,253.885771,253.885771,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,KMX 16MAR18 55.0 P,2018-03-16,Expiration,9,0,0,0,0,217.886603,217.886603,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,KO 16MAR18 41.0 P,2018-03-16,Expiration,12,0,0,0,0,222.117133,222.117133,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,M 16MAR18 21.0 P,2018-03-16,Expiration,24,0,0,0,0,428.694265,428.694265,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MDT 16MAR18 75.0 P,2018-03-16,Expiration,7,0,0,0,0,148.467843,148.467843,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MU 16MAR18 37.0 P,2018-03-16,Expiration,14,0,0,0,0,203.137949,203.137949,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,NEM 16MAR18 34.5 P,2018-03-16,Expiration,14,0,0,0,0,198.937949,198.937949,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ORCL 16MAR18 44.5 P,2018-03-16,Expiration,11,0,0,0,0,123.309151,123.309151,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,PRGO 16MAR18 75.0 P,2018-03-16,Expiration,7,0,0,0,0,274.464932,274.464932,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,SLB 16MAR18 59.5 P,2018-03-16,Expiration,8,0,0,0,0,193.676982,193.676982,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,T 16MAR18 34.0 P,2018-03-16,Expiration,15,0,0,0,0,138.149535,138.149535,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TIF 16MAR18 90.0 P,2018-03-16,Expiration,6,0,0,0,0,247.255379,247.255379,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,UNP 16MAR18 116.0 P,2018-03-16,Expiration,4,0,0,0,0,184.836457,184.836457,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,UPS 16MAR18 93.0 P,2018-03-16,Expiration,5,0,0,0,0,87.548921,87.548921,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,VZ 16MAR18 44.0 P,2018-03-16,Expiration,11,0,0,0,0,134.308897,134.308897,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ATVI 23MAR18 60.0 P,2018-03-23,Expiration,8,0,0,0,0,149.038089,149.038089,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AVGO 23MAR18 210.0 P,2018-03-23,Expiration,2,0,0,0,0,156.016796,156.016796,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CCL 23MAR18 62.5 P,2018-03-23,Expiration,8,0,0,0,0,239.676056,239.676056,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMI 23MAR18 140.0 P,2018-03-23,Expiration,4,0,0,0,0,356.832484,356.832484,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,DHI 23MAR18 35.0 P,2018-03-23,Expiration,14,0,0,0,0,156.938919,156.938919,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,DLTR 23MAR18 90.0 P,2018-03-23,Expiration,6,0,0,0,0,475.250112,475.250112,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,EXPE 23MAR18 97.5 P,2018-03-23,Expiration,5,0,0,0,0,410.041529,410.041529,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GM 23MAR18 32.5 P,2018-03-23,Expiration,15,0,0,0,0,243.147109,243.147109,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,SWK 23MAR18 142.0 P,2018-03-23,Expiration,4,0,0,0,0,324.033316,324.033316,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TGT 23MAR18 60.0 P,2018-03-23,Expiration,8,0,0,0,0,140.078274,140.078274,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,VFC 23MAR18 68.5 P,2018-03-23,Expiration,7,0,0,0,0,309.464124,309.464124,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,WHR 23MAR18 146.0 P,2018-03-23,Expiration,3,0,0,0,0,211.88568,211.88568,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CHTR 29MAR18 317.5 C,2018-03-29,Expiration,2,0,0,0,0,209.915549,209.915549,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ITW 06APR18 145.0 P,2018-04-06,Expiration,3,0,0,0,0,429.02069,429.02069,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ULTA 06APR18 172.5 P,2018-04-06,Expiration,3,0,0,0,0,543.018057,543.018057,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CHTR 13APR18 315.0 C,2018-04-13,Expiration,2,0,0,0,0,1430.087367,1430.087367,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 13APR18 34.5 C,2018-04-13,Expiration,14,0,0,0,0,576.929217,576.929217,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ADI 20APR18 75.0 P,2018-04-20,Expiration,7,0,0,0,0,301.064447,301.064447,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 20APR18 33.5 C,2018-04-20,Expiration,14,0,0,0,0,260.20654,260.20654,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MON 20APR18 110.0 P,2018-04-20,Expiration,5,0,0,0,0,773.133097,773.133097,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 27APR18 35.0 C,2018-04-27,Expiration,14,0,0,0,0,161.138919,161.138919,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,FB 27APR18 137.0 P,2018-04-27,Expiration,4,0,0,0,0,456.830174,456.830174,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,USB 27APR18 45.0 P,2018-04-27,Expiration,11,0,0,0,0,376.303307,376.303307,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CELG 04MAY18 75.0 P,2018-05-04,Expiration,7,0,0,0,0,521.559273,521.559273,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 04MAY18 32.5 C,2018-05-04,Expiration,14,0,0,0,0,161.138919,161.138919,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GM 04MAY18 31.0 P,2018-05-04,Expiration,16,0,0,0,0,435.352851,435.352851,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,WFC 04MAY18 45.0 P,2018-05-04,Expiration,11,0,0,0,0,475.30102,475.30102,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,XRAY 18MAY18 50.0 C,2018-05-18,Expiration,10,0,0,0,0,1730.062037,1730.062037,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,CMCSA 23NOV18 37.5 C,2018-11-23,Expiration,14,0,0,0,0,198.98907,198.98907,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ADP 07DEC18 129.0 P,2018-12-07,Expiration,3,0,0,0,0,180.03876,180.03876,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,ABC 14DEC18 78.5 P,2018-12-14,Expiration,5,0,0,0,0,240.06538,240.06538,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,DG 14DEC18 90.0 P,2018-12-14,Expiration,6,0,0,0,0,299.7783,299.7783,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MRK 14DEC18 67.0 P,2018-12-14,Expiration,5,0,0,0,0,87.56733,87.56733,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MSFT 14DEC18 90.0 P,2018-12-14,Expiration,6,0,0,0,0,267.07869,267.07869,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AAPL 21DEC18 150.0 P,2018-12-21,Expiration,2,0,0,0,0,149.02545,149.02545,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,AVGO 21DEC18 200.0 P,2018-12-21,Expiration,1,0,0,0,0,319.65954,319.65954,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,GILD 21DEC18 60.0 P,2018-12-21,Expiration,8,0,0,0,0,361.704816,361.704816,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,KMI 21DEC18 15.0 P,2018-12-21,Expiration,25,0,0,0,0,195.8399,195.8399,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MET 21DEC18 38.0 P,2018-12-21,Expiration,10,0,0,0,0,286.33323,286.33323,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,NVDA 21DEC18 110.0 P,2018-12-21,Expiration,5,0,0,0,0,757.55862,757.55862,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,RH 21DEC18 75.0 P,2018-12-21,Expiration,6,0,0,0,0,348.377676,348.377676,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,XRAY 21DEC18 39.0 C,2018-12-21,Expiration,10,0,0,0,0,560.12972,560.12972,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,BAC 28DEC18 23.5 P,2018-12-28,Expiration,15,0,0,0,0,294.5016,294.5016,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,BRK B 28DEC18 185.0 P,2018-12-28,Expiration,3,0,0,0,0,277.537473,277.537473,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,HAL 28DEC18 25.5 P,2018-12-28,Expiration,17,0,0,0,0,265.769364,265.769364,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,JPM 28DEC18 95.0 P,2018-12-28,Expiration,5,0,0,0,0,388.16343,388.16343,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,MMM 28DEC18 182.5 P,2018-12-28,Expiration,3,0,0,0,0,292.897278,292.897278,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,SO 28DEC18 42.0 P,2018-12-28,Expiration,8,0,0,0,0,100.108248,100.108248,0,
+"Option Exercises, Assignments and Expirations",Data,Expirations,USD,TXN 28DEC18 87.5 P,2018-12-28,Expiration,6,0,0,0,0,375.797286,375.797286,0,
+"Option Exercises, Assignments and Expirations",Data,Total,,,,,,,,0,0,,33860.9455,0,
+Dividends,Header,Currency,Date,Description,Amount,Code
+Dividends,Data,USD,2018-04-25,CMCSA(US20030N1019) Cash Dividend 0.19000000 USD per Share (Ordinary Dividend),266,
+Dividends,Data,USD,2018-07-13,XRAY(US24906P1093) Cash Dividend 0.08750000 USD per Share (Ordinary Dividend),87.5,
+Dividends,Data,USD,2018-07-25,CMCSA(US20030N1019) Cash Dividend 0.19000000 USD per Share (Ordinary Dividend),266,
+Dividends,Data,USD,2018-10-12,XRAY(US24906P1093) Cash Dividend 0.08750000 USD per Share (Ordinary Dividend),87.5,
+Dividends,Data,USD,2018-10-24,CMCSA(US20030N1019) Cash Dividend 0.19000000 USD per Share (Ordinary Dividend),266,
+Dividends,Data,Total,,,973,

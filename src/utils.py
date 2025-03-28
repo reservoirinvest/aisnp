@@ -769,6 +769,23 @@ def is_market_open(date: Union[None, datetime]=datetime.now()) -> bool:
     
     return result.empty is False
 
+def delete_files(files_to_delete):
+    """
+    Delete specified files from the filesystem.
+    
+    Args:
+        files_to_delete (list): List of Path objects to delete
+    """
+    for file_path in files_to_delete:
+        try:
+            if file_path.exists():
+                file_path.unlink()
+                print(f"Deleted {file_path}")
+            else:
+                print(f"File {file_path} does not exist.")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+
 def delete_pkl_files(files_to_delete, root=None):
     """
     Delete specified .pkl files from the data directory.
@@ -791,15 +808,7 @@ def delete_pkl_files(files_to_delete, root=None):
             filename += '.pkl'
         
         file_path = root / filename
-        try:
-            if file_path.exists():
-                file_path.unlink()
-                print(f"Deleted: {filename}")
-            else:
-                print(f"File not found: {filename}")
-        except Exception as e:
-            print(f"Error deleting {filename}: {e}")
-
+        delete_files([file_path])
 
 def is_running_in_regular_terminal() -> bool:
     """

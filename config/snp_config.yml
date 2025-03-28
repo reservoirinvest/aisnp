@@ -16,12 +16,14 @@ COVER_MIN_DTE: 4
 COVER_STD_MULT: 0.75
 
 VIRGIN_DTE: 35
-VIRGIN_PUT_STD_MULT: 2
-VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty of virgins
+
+VIRGIN_PUT_STD_MULT: 1.4
+VIRGIN_CALL_STD_MULT: 3
+VIRGIN_QTY_MULT: 0.018 # 1.8% of NLV divided by margin = qty of virgins
 
 PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
 
 MINEXPOPTPRICE: 0.95
-MINNAKEDOPTPRICE: 1.1
+MINNAKEDOPTPRICE: 1.5
 

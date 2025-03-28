@@ -1,0 +1,444 @@
+
+    <html>
+    <head>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+caption {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/* Custom row styling from style_rows() */
+.breach-row {
+    background-color: black !important;
+    color: white !important;
+}
+.und-row-positive {
+    background-color: green !important;
+    color: white !important;
+}
+.und-row-negative {
+    background-color: red !important;
+    color: white !important;
+}
+.default-row {
+    background-color: #313131 !important;
+    color: #b4b1b1 !important;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+        .msg-pad { 
+            font-family: monospace; 
+            white-space: pre-wrap; 
+            background-color: #f4f4f4; 
+            padding: 10px; 
+            margin-top: 20px; 
+            border: 1px solid #ddd; 
+        }
+    </style>
+    
+        <style>
+            .timestamp {
+                font-family: Arial, sans-serif;
+                text-align: right;
+                color: #666;
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="timestamp">Report Generated: 26-Mar-2025 12:03:24</div>
+        <div class="msg-pad">FINANCIALS
+==========
+net liquidation value: 667,770
+stocks: 64,037
+cash: 602,834
+cushion: 0.67
+initial margin: 252,507
+maintenance margin: 221,676
+unrealized pnl: 6,584
+funds available to trade: 413,583
+
+Risk Analysis
+-------------
+Our max risk is $12,622 from $64,037 stock for 25.1 days at risk premium of $6,381
+All stock positions are protected!
+
+Rewards
+-------
+Total reward this month is expected to be $19,547 Our maximum cover reward in 5.4 days is $11,756, if all covers get blown.
+
+Our cover premiums from covering options is $2,156 this week from our stock positions
+ ...this can be projected to give us $5,569 for the protected period
+
+Our sowed reward in about 23.6 dte days is $13,978
+
+SYMBOL COUNT BY STATE
+=====================
+orphaned: 1, solid: 11, virgin: 12, zen: 214
+
+COUNT OF SYMBOLS IN EACH DATAFRAME
+==================================
+df_cov: 0, df_protect: 0, df_reap: 0, df_nkd: 0</div>
+        <style type="text/css">
+#T_14f5a_row0_col0, #T_14f5a_row0_col1, #T_14f5a_row0_col2, #T_14f5a_row0_col3, #T_14f5a_row0_col4, #T_14f5a_row0_col5, #T_14f5a_row0_col6, #T_14f5a_row0_col7, #T_14f5a_row0_col8, #T_14f5a_row0_col9, #T_14f5a_row0_col10, #T_14f5a_row0_col11, #T_14f5a_row0_col12, #T_14f5a_row0_col13, #T_14f5a_row0_col16, #T_14f5a_row4_col0, #T_14f5a_row4_col1, #T_14f5a_row4_col2, #T_14f5a_row4_col3, #T_14f5a_row4_col4, #T_14f5a_row4_col5, #T_14f5a_row4_col6, #T_14f5a_row4_col7, #T_14f5a_row4_col8, #T_14f5a_row4_col9, #T_14f5a_row4_col10, #T_14f5a_row4_col11, #T_14f5a_row4_col12, #T_14f5a_row4_col13, #T_14f5a_row4_col16, #T_14f5a_row10_col0, #T_14f5a_row10_col1, #T_14f5a_row10_col2, #T_14f5a_row10_col3, #T_14f5a_row10_col4, #T_14f5a_row10_col5, #T_14f5a_row10_col6, #T_14f5a_row10_col7, #T_14f5a_row10_col8, #T_14f5a_row10_col9, #T_14f5a_row10_col10, #T_14f5a_row10_col11, #T_14f5a_row10_col12, #T_14f5a_row10_col13, #T_14f5a_row10_col16, #T_14f5a_row12_col0, #T_14f5a_row12_col1, #T_14f5a_row12_col2, #T_14f5a_row12_col3, #T_14f5a_row12_col4, #T_14f5a_row12_col5, #T_14f5a_row12_col6, #T_14f5a_row12_col7, #T_14f5a_row12_col8, #T_14f5a_row12_col9, #T_14f5a_row12_col10, #T_14f5a_row12_col11, #T_14f5a_row12_col12, #T_14f5a_row12_col13, #T_14f5a_row12_col16 {
+  background-color: black;
+  color: white;
+}
+#T_14f5a_row1_col0, #T_14f5a_row1_col1, #T_14f5a_row1_col2, #T_14f5a_row1_col3, #T_14f5a_row1_col4, #T_14f5a_row1_col5, #T_14f5a_row1_col6, #T_14f5a_row1_col7, #T_14f5a_row1_col8, #T_14f5a_row1_col9, #T_14f5a_row1_col10, #T_14f5a_row1_col11, #T_14f5a_row1_col12, #T_14f5a_row1_col13, #T_14f5a_row1_col16, #T_14f5a_row2_col0, #T_14f5a_row2_col1, #T_14f5a_row2_col2, #T_14f5a_row2_col3, #T_14f5a_row2_col4, #T_14f5a_row2_col5, #T_14f5a_row2_col6, #T_14f5a_row2_col7, #T_14f5a_row2_col8, #T_14f5a_row2_col9, #T_14f5a_row2_col10, #T_14f5a_row2_col11, #T_14f5a_row2_col12, #T_14f5a_row2_col13, #T_14f5a_row2_col16, #T_14f5a_row5_col0, #T_14f5a_row5_col1, #T_14f5a_row5_col2, #T_14f5a_row5_col3, #T_14f5a_row5_col4, #T_14f5a_row5_col5, #T_14f5a_row5_col6, #T_14f5a_row5_col7, #T_14f5a_row5_col8, #T_14f5a_row5_col9, #T_14f5a_row5_col10, #T_14f5a_row5_col11, #T_14f5a_row5_col12, #T_14f5a_row5_col13, #T_14f5a_row5_col16, #T_14f5a_row6_col0, #T_14f5a_row6_col1, #T_14f5a_row6_col2, #T_14f5a_row6_col3, #T_14f5a_row6_col4, #T_14f5a_row6_col5, #T_14f5a_row6_col6, #T_14f5a_row6_col7, #T_14f5a_row6_col8, #T_14f5a_row6_col9, #T_14f5a_row6_col10, #T_14f5a_row6_col11, #T_14f5a_row6_col12, #T_14f5a_row6_col13, #T_14f5a_row6_col16, #T_14f5a_row8_col0, #T_14f5a_row8_col1, #T_14f5a_row8_col2, #T_14f5a_row8_col3, #T_14f5a_row8_col4, #T_14f5a_row8_col5, #T_14f5a_row8_col6, #T_14f5a_row8_col7, #T_14f5a_row8_col8, #T_14f5a_row8_col9, #T_14f5a_row8_col10, #T_14f5a_row8_col11, #T_14f5a_row8_col12, #T_14f5a_row8_col13, #T_14f5a_row8_col16, #T_14f5a_row9_col0, #T_14f5a_row9_col1, #T_14f5a_row9_col2, #T_14f5a_row9_col3, #T_14f5a_row9_col4, #T_14f5a_row9_col5, #T_14f5a_row9_col6, #T_14f5a_row9_col7, #T_14f5a_row9_col8, #T_14f5a_row9_col9, #T_14f5a_row9_col10, #T_14f5a_row9_col11, #T_14f5a_row9_col12, #T_14f5a_row9_col13, #T_14f5a_row9_col16, #T_14f5a_row13_col0, #T_14f5a_row13_col1, #T_14f5a_row13_col2, #T_14f5a_row13_col3, #T_14f5a_row13_col4, #T_14f5a_row13_col5, #T_14f5a_row13_col6, #T_14f5a_row13_col7, #T_14f5a_row13_col8, #T_14f5a_row13_col9, #T_14f5a_row13_col10, #T_14f5a_row13_col11, #T_14f5a_row13_col12, #T_14f5a_row13_col13, #T_14f5a_row13_col16, #T_14f5a_row14_col0, #T_14f5a_row14_col1, #T_14f5a_row14_col2, #T_14f5a_row14_col3, #T_14f5a_row14_col4, #T_14f5a_row14_col5, #T_14f5a_row14_col6, #T_14f5a_row14_col7, #T_14f5a_row14_col8, #T_14f5a_row14_col9, #T_14f5a_row14_col10, #T_14f5a_row14_col11, #T_14f5a_row14_col12, #T_14f5a_row14_col13, #T_14f5a_row14_col16, #T_14f5a_row15_col0, #T_14f5a_row15_col1, #T_14f5a_row15_col2, #T_14f5a_row15_col3, #T_14f5a_row15_col4, #T_14f5a_row15_col5, #T_14f5a_row15_col6, #T_14f5a_row15_col7, #T_14f5a_row15_col8, #T_14f5a_row15_col9, #T_14f5a_row15_col10, #T_14f5a_row15_col11, #T_14f5a_row15_col12, #T_14f5a_row15_col13, #T_14f5a_row15_col16 {
+  background-color: #313131;
+  color: #b4b1b1;
+}
+#T_14f5a_row3_col0, #T_14f5a_row3_col1, #T_14f5a_row3_col2, #T_14f5a_row3_col3, #T_14f5a_row3_col4, #T_14f5a_row3_col5, #T_14f5a_row3_col6, #T_14f5a_row3_col7, #T_14f5a_row3_col8, #T_14f5a_row3_col9, #T_14f5a_row3_col10, #T_14f5a_row3_col11, #T_14f5a_row3_col12, #T_14f5a_row3_col13, #T_14f5a_row3_col16, #T_14f5a_row11_col0, #T_14f5a_row11_col1, #T_14f5a_row11_col2, #T_14f5a_row11_col3, #T_14f5a_row11_col4, #T_14f5a_row11_col5, #T_14f5a_row11_col6, #T_14f5a_row11_col7, #T_14f5a_row11_col8, #T_14f5a_row11_col9, #T_14f5a_row11_col10, #T_14f5a_row11_col11, #T_14f5a_row11_col12, #T_14f5a_row11_col13, #T_14f5a_row11_col16, #T_14f5a_row16_col0, #T_14f5a_row16_col1, #T_14f5a_row16_col2, #T_14f5a_row16_col3, #T_14f5a_row16_col4, #T_14f5a_row16_col5, #T_14f5a_row16_col6, #T_14f5a_row16_col7, #T_14f5a_row16_col8, #T_14f5a_row16_col9, #T_14f5a_row16_col10, #T_14f5a_row16_col11, #T_14f5a_row16_col12, #T_14f5a_row16_col13, #T_14f5a_row16_col16 {
+  background-color: red;
+  color: white;
+}
+#T_14f5a_row7_col0, #T_14f5a_row7_col1, #T_14f5a_row7_col2, #T_14f5a_row7_col3, #T_14f5a_row7_col4, #T_14f5a_row7_col5, #T_14f5a_row7_col6, #T_14f5a_row7_col7, #T_14f5a_row7_col8, #T_14f5a_row7_col9, #T_14f5a_row7_col10, #T_14f5a_row7_col11, #T_14f5a_row7_col12, #T_14f5a_row7_col13, #T_14f5a_row7_col16 {
+  background-color: green;
+  color: white;
+}
+</style>
+<table id="T_14f5a">
+  <caption><font size=4>Option cover breaches are generating</font><font size=4> US$-1,461</font></caption>
+  <thead>
+    <tr>
+      <th id="T_14f5a_level0_col0" class="col_heading level0 col0" >source</th>
+      <th id="T_14f5a_level0_col1" class="col_heading level0 col1" >symbol</th>
+      <th id="T_14f5a_level0_col2" class="col_heading level0 col2" >conId</th>
+      <th id="T_14f5a_level0_col3" class="col_heading level0 col3" >secType</th>
+      <th id="T_14f5a_level0_col4" class="col_heading level0 col4" >position</th>
+      <th id="T_14f5a_level0_col5" class="col_heading level0 col5" >state</th>
+      <th id="T_14f5a_level0_col6" class="col_heading level0 col6" >undPrice</th>
+      <th id="T_14f5a_level0_col7" class="col_heading level0 col7" >strike</th>
+      <th id="T_14f5a_level0_col8" class="col_heading level0 col8" >avgCost</th>
+      <th id="T_14f5a_level0_col9" class="col_heading level0 col9" >mktVal</th>
+      <th id="T_14f5a_level0_col10" class="col_heading level0 col10" >right</th>
+      <th id="T_14f5a_level0_col11" class="col_heading level0 col11" >expiry</th>
+      <th id="T_14f5a_level0_col12" class="col_heading level0 col12" >dte</th>
+      <th id="T_14f5a_level0_col13" class="col_heading level0 col13" >qty</th>
+      <th id="T_14f5a_level0_col16" class="col_heading level0 col16" >unPnL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_14f5a_row0_col0" class="data row0 col0" >pf</td>
+      <td id="T_14f5a_row0_col1" class="data row0 col1" >DELL</td>
+      <td id="T_14f5a_row0_col2" class="data row0 col2" >722908015</td>
+      <td id="T_14f5a_row0_col3" class="data row0 col3" >OPT</td>
+      <td id="T_14f5a_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_14f5a_row0_col5" class="data row0 col5" >protecting</td>
+      <td id="T_14f5a_row0_col6" class="data row0 col6" >98.91</td>
+      <td id="T_14f5a_row0_col7" class="data row0 col7" >95.00</td>
+      <td id="T_14f5a_row0_col8" class="data row0 col8" >527.93</td>
+      <td id="T_14f5a_row0_col9" class="data row0 col9" >639.06</td>
+      <td id="T_14f5a_row0_col10" class="data row0 col10" >C</td>
+      <td id="T_14f5a_row0_col11" class="data row0 col11" >20250417</td>
+      <td id="T_14f5a_row0_col12" class="data row0 col12" >22.50</td>
+      <td id="T_14f5a_row0_col13" class="data row0 col13" >1</td>
+      <td id="T_14f5a_row0_col16" class="data row0 col16" >111.12</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row1_col0" class="data row1 col0" >pf</td>
+      <td id="T_14f5a_row1_col1" class="data row1 col1" >DELL</td>
+      <td id="T_14f5a_row1_col2" class="data row1 col2" >346218218</td>
+      <td id="T_14f5a_row1_col3" class="data row1 col3" >STK</td>
+      <td id="T_14f5a_row1_col4" class="data row1 col4" >-100</td>
+      <td id="T_14f5a_row1_col5" class="data row1 col5" >solid</td>
+      <td id="T_14f5a_row1_col6" class="data row1 col6" >98.91</td>
+      <td id="T_14f5a_row1_col7" class="data row1 col7" >0.00</td>
+      <td id="T_14f5a_row1_col8" class="data row1 col8" >90.76</td>
+      <td id="T_14f5a_row1_col9" class="data row1 col9" >-9891.00</td>
+      <td id="T_14f5a_row1_col10" class="data row1 col10" >0</td>
+      <td id="T_14f5a_row1_col11" class="data row1 col11" ></td>
+      <td id="T_14f5a_row1_col12" class="data row1 col12" >nan</td>
+      <td id="T_14f5a_row1_col13" class="data row1 col13" >-1</td>
+      <td id="T_14f5a_row1_col16" class="data row1 col16" >-815.46</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row2_col0" class="data row2 col0" >pf</td>
+      <td id="T_14f5a_row2_col1" class="data row2 col1" >DELL</td>
+      <td id="T_14f5a_row2_col2" class="data row2 col2" >761430170</td>
+      <td id="T_14f5a_row2_col3" class="data row2 col3" >OPT</td>
+      <td id="T_14f5a_row2_col4" class="data row2 col4" >-1</td>
+      <td id="T_14f5a_row2_col5" class="data row2 col5" >covering</td>
+      <td id="T_14f5a_row2_col6" class="data row2 col6" >98.91</td>
+      <td id="T_14f5a_row2_col7" class="data row2 col7" >85.00</td>
+      <td id="T_14f5a_row2_col8" class="data row2 col8" >148.85</td>
+      <td id="T_14f5a_row2_col9" class="data row2 col9" >-12.58</td>
+      <td id="T_14f5a_row2_col10" class="data row2 col10" >P</td>
+      <td id="T_14f5a_row2_col11" class="data row2 col11" >20250404</td>
+      <td id="T_14f5a_row2_col12" class="data row2 col12" >9.50</td>
+      <td id="T_14f5a_row2_col13" class="data row2 col13" >-1</td>
+      <td id="T_14f5a_row2_col16" class="data row2 col16" >136.27</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row3_col0" class="data row3 col0" >und</td>
+      <td id="T_14f5a_row3_col1" class="data row3 col1" >DELL</td>
+      <td id="T_14f5a_row3_col2" class="data row3 col2" >346218218</td>
+      <td id="T_14f5a_row3_col3" class="data row3 col3" >STK</td>
+      <td id="T_14f5a_row3_col4" class="data row3 col4" >-100</td>
+      <td id="T_14f5a_row3_col5" class="data row3 col5" >solid</td>
+      <td id="T_14f5a_row3_col6" class="data row3 col6" >98.91</td>
+      <td id="T_14f5a_row3_col7" class="data row3 col7" >nan</td>
+      <td id="T_14f5a_row3_col8" class="data row3 col8" >90.76</td>
+      <td id="T_14f5a_row3_col9" class="data row3 col9" >-9891.00</td>
+      <td id="T_14f5a_row3_col10" class="data row3 col10" >nan</td>
+      <td id="T_14f5a_row3_col11" class="data row3 col11" >nan</td>
+      <td id="T_14f5a_row3_col12" class="data row3 col12" >nan</td>
+      <td id="T_14f5a_row3_col13" class="data row3 col13" >nan</td>
+      <td id="T_14f5a_row3_col16" class="data row3 col16" >-568.07</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row4_col0" class="data row4 col0" >pf</td>
+      <td id="T_14f5a_row4_col1" class="data row4 col1" >HUM</td>
+      <td id="T_14f5a_row4_col2" class="data row4 col2" >755808513</td>
+      <td id="T_14f5a_row4_col3" class="data row4 col3" >OPT</td>
+      <td id="T_14f5a_row4_col4" class="data row4 col4" >1</td>
+      <td id="T_14f5a_row4_col5" class="data row4 col5" >protecting</td>
+      <td id="T_14f5a_row4_col6" class="data row4 col6" >273.83</td>
+      <td id="T_14f5a_row4_col7" class="data row4 col7" >265.00</td>
+      <td id="T_14f5a_row4_col8" class="data row4 col8" >1582.28</td>
+      <td id="T_14f5a_row4_col9" class="data row4 col9" >2410.07</td>
+      <td id="T_14f5a_row4_col10" class="data row4 col10" >C</td>
+      <td id="T_14f5a_row4_col11" class="data row4 col11" >20250417</td>
+      <td id="T_14f5a_row4_col12" class="data row4 col12" >22.50</td>
+      <td id="T_14f5a_row4_col13" class="data row4 col13" >1</td>
+      <td id="T_14f5a_row4_col16" class="data row4 col16" >827.79</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row5_col0" class="data row5 col0" >pf</td>
+      <td id="T_14f5a_row5_col1" class="data row5 col1" >HUM</td>
+      <td id="T_14f5a_row5_col2" class="data row5 col2" >8251</td>
+      <td id="T_14f5a_row5_col3" class="data row5 col3" >STK</td>
+      <td id="T_14f5a_row5_col4" class="data row5 col4" >-100</td>
+      <td id="T_14f5a_row5_col5" class="data row5 col5" >solid</td>
+      <td id="T_14f5a_row5_col6" class="data row5 col6" >273.83</td>
+      <td id="T_14f5a_row5_col7" class="data row5 col7" >0.00</td>
+      <td id="T_14f5a_row5_col8" class="data row5 col8" >280.07</td>
+      <td id="T_14f5a_row5_col9" class="data row5 col9" >-27382.50</td>
+      <td id="T_14f5a_row5_col10" class="data row5 col10" >0</td>
+      <td id="T_14f5a_row5_col11" class="data row5 col11" ></td>
+      <td id="T_14f5a_row5_col12" class="data row5 col12" >nan</td>
+      <td id="T_14f5a_row5_col13" class="data row5 col13" >-1</td>
+      <td id="T_14f5a_row5_col16" class="data row5 col16" >624.32</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row6_col0" class="data row6 col0" >pf</td>
+      <td id="T_14f5a_row6_col1" class="data row6 col1" >HUM</td>
+      <td id="T_14f5a_row6_col2" class="data row6 col2" >768834120</td>
+      <td id="T_14f5a_row6_col3" class="data row6 col3" >OPT</td>
+      <td id="T_14f5a_row6_col4" class="data row6 col4" >-1</td>
+      <td id="T_14f5a_row6_col5" class="data row6 col5" >covering</td>
+      <td id="T_14f5a_row6_col6" class="data row6 col6" >273.83</td>
+      <td id="T_14f5a_row6_col7" class="data row6 col7" >247.50</td>
+      <td id="T_14f5a_row6_col8" class="data row6 col8" >434.70</td>
+      <td id="T_14f5a_row6_col9" class="data row6 col9" >-368.42</td>
+      <td id="T_14f5a_row6_col10" class="data row6 col10" >P</td>
+      <td id="T_14f5a_row6_col11" class="data row6 col11" >20250404</td>
+      <td id="T_14f5a_row6_col12" class="data row6 col12" >9.50</td>
+      <td id="T_14f5a_row6_col13" class="data row6 col13" >-1</td>
+      <td id="T_14f5a_row6_col16" class="data row6 col16" >66.29</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row7_col0" class="data row7 col0" >und</td>
+      <td id="T_14f5a_row7_col1" class="data row7 col1" >HUM</td>
+      <td id="T_14f5a_row7_col2" class="data row7 col2" >8251</td>
+      <td id="T_14f5a_row7_col3" class="data row7 col3" >STK</td>
+      <td id="T_14f5a_row7_col4" class="data row7 col4" >-100</td>
+      <td id="T_14f5a_row7_col5" class="data row7 col5" >solid</td>
+      <td id="T_14f5a_row7_col6" class="data row7 col6" >273.83</td>
+      <td id="T_14f5a_row7_col7" class="data row7 col7" >nan</td>
+      <td id="T_14f5a_row7_col8" class="data row7 col8" >280.07</td>
+      <td id="T_14f5a_row7_col9" class="data row7 col9" >-27382.50</td>
+      <td id="T_14f5a_row7_col10" class="data row7 col10" >nan</td>
+      <td id="T_14f5a_row7_col11" class="data row7 col11" >nan</td>
+      <td id="T_14f5a_row7_col12" class="data row7 col12" >nan</td>
+      <td id="T_14f5a_row7_col13" class="data row7 col13" >nan</td>
+      <td id="T_14f5a_row7_col16" class="data row7 col16" >1518.40</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row8_col0" class="data row8 col0" >pf</td>
+      <td id="T_14f5a_row8_col1" class="data row8 col1" >NKE</td>
+      <td id="T_14f5a_row8_col2" class="data row8 col2" >761061443</td>
+      <td id="T_14f5a_row8_col3" class="data row8 col3" >OPT</td>
+      <td id="T_14f5a_row8_col4" class="data row8 col4" >-2</td>
+      <td id="T_14f5a_row8_col5" class="data row8 col5" >covering</td>
+      <td id="T_14f5a_row8_col6" class="data row8 col6" >66.55</td>
+      <td id="T_14f5a_row8_col7" class="data row8 col7" >70.00</td>
+      <td id="T_14f5a_row8_col8" class="data row8 col8" >47.24</td>
+      <td id="T_14f5a_row8_col9" class="data row8 col9" >-46.75</td>
+      <td id="T_14f5a_row8_col10" class="data row8 col10" >C</td>
+      <td id="T_14f5a_row8_col11" class="data row8 col11" >20250404</td>
+      <td id="T_14f5a_row8_col12" class="data row8 col12" >9.50</td>
+      <td id="T_14f5a_row8_col13" class="data row8 col13" >-2</td>
+      <td id="T_14f5a_row8_col16" class="data row8 col16" >47.73</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row9_col0" class="data row9 col0" >pf</td>
+      <td id="T_14f5a_row9_col1" class="data row9 col1" >NKE</td>
+      <td id="T_14f5a_row9_col2" class="data row9 col2" >10291</td>
+      <td id="T_14f5a_row9_col3" class="data row9 col3" >STK</td>
+      <td id="T_14f5a_row9_col4" class="data row9 col4" >200</td>
+      <td id="T_14f5a_row9_col5" class="data row9 col5" >solid</td>
+      <td id="T_14f5a_row9_col6" class="data row9 col6" >66.55</td>
+      <td id="T_14f5a_row9_col7" class="data row9 col7" >0.00</td>
+      <td id="T_14f5a_row9_col8" class="data row9 col8" >79.89</td>
+      <td id="T_14f5a_row9_col9" class="data row9 col9" >13310.00</td>
+      <td id="T_14f5a_row9_col10" class="data row9 col10" >0</td>
+      <td id="T_14f5a_row9_col11" class="data row9 col11" ></td>
+      <td id="T_14f5a_row9_col12" class="data row9 col12" >nan</td>
+      <td id="T_14f5a_row9_col13" class="data row9 col13" >2</td>
+      <td id="T_14f5a_row9_col16" class="data row9 col16" >-2667.54</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row10_col0" class="data row10 col0" >pf</td>
+      <td id="T_14f5a_row10_col1" class="data row10 col1" >NKE</td>
+      <td id="T_14f5a_row10_col2" class="data row10 col2" >723091243</td>
+      <td id="T_14f5a_row10_col3" class="data row10 col3" >OPT</td>
+      <td id="T_14f5a_row10_col4" class="data row10 col4" >2</td>
+      <td id="T_14f5a_row10_col5" class="data row10 col5" >protecting</td>
+      <td id="T_14f5a_row10_col6" class="data row10 col6" >66.55</td>
+      <td id="T_14f5a_row10_col7" class="data row10 col7" >70.00</td>
+      <td id="T_14f5a_row10_col8" class="data row10 col8" >280.77</td>
+      <td id="T_14f5a_row10_col9" class="data row10 col9" >770.00</td>
+      <td id="T_14f5a_row10_col10" class="data row10 col10" >P</td>
+      <td id="T_14f5a_row10_col11" class="data row10 col11" >20250417</td>
+      <td id="T_14f5a_row10_col12" class="data row10 col12" >22.50</td>
+      <td id="T_14f5a_row10_col13" class="data row10 col13" >2</td>
+      <td id="T_14f5a_row10_col16" class="data row10 col16" >208.45</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row11_col0" class="data row11 col0" >und</td>
+      <td id="T_14f5a_row11_col1" class="data row11 col1" >NKE</td>
+      <td id="T_14f5a_row11_col2" class="data row11 col2" >10291</td>
+      <td id="T_14f5a_row11_col3" class="data row11 col3" >STK</td>
+      <td id="T_14f5a_row11_col4" class="data row11 col4" >200</td>
+      <td id="T_14f5a_row11_col5" class="data row11 col5" >solid</td>
+      <td id="T_14f5a_row11_col6" class="data row11 col6" >66.55</td>
+      <td id="T_14f5a_row11_col7" class="data row11 col7" >nan</td>
+      <td id="T_14f5a_row11_col8" class="data row11 col8" >79.89</td>
+      <td id="T_14f5a_row11_col9" class="data row11 col9" >13310.00</td>
+      <td id="T_14f5a_row11_col10" class="data row11 col10" >nan</td>
+      <td id="T_14f5a_row11_col11" class="data row11 col11" >nan</td>
+      <td id="T_14f5a_row11_col12" class="data row11 col12" >nan</td>
+      <td id="T_14f5a_row11_col13" class="data row11 col13" >nan</td>
+      <td id="T_14f5a_row11_col16" class="data row11 col16" >-2411.36</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row12_col0" class="data row12 col0" >pf</td>
+      <td id="T_14f5a_row12_col1" class="data row12 col1" >NVDA</td>
+      <td id="T_14f5a_row12_col2" class="data row12 col2" >725295157</td>
+      <td id="T_14f5a_row12_col3" class="data row12 col3" >OPT</td>
+      <td id="T_14f5a_row12_col4" class="data row12 col4" >1</td>
+      <td id="T_14f5a_row12_col5" class="data row12 col5" >orphaned</td>
+      <td id="T_14f5a_row12_col6" class="data row12 col6" >120.60</td>
+      <td id="T_14f5a_row12_col7" class="data row12 col7" >120.00</td>
+      <td id="T_14f5a_row12_col8" class="data row12 col8" >586.15</td>
+      <td id="T_14f5a_row12_col9" class="data row12 col9" >533.12</td>
+      <td id="T_14f5a_row12_col10" class="data row12 col10" >C</td>
+      <td id="T_14f5a_row12_col11" class="data row12 col11" >20250417</td>
+      <td id="T_14f5a_row12_col12" class="data row12 col12" >22.50</td>
+      <td id="T_14f5a_row12_col13" class="data row12 col13" >1</td>
+      <td id="T_14f5a_row12_col16" class="data row12 col16" >-53.03</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row13_col0" class="data row13 col0" >pf</td>
+      <td id="T_14f5a_row13_col1" class="data row13 col1" >NVDA</td>
+      <td id="T_14f5a_row13_col2" class="data row13 col2" >4815747</td>
+      <td id="T_14f5a_row13_col3" class="data row13 col3" >STK</td>
+      <td id="T_14f5a_row13_col4" class="data row13 col4" >-100</td>
+      <td id="T_14f5a_row13_col5" class="data row13 col5" >exposed</td>
+      <td id="T_14f5a_row13_col6" class="data row13 col6" >120.60</td>
+      <td id="T_14f5a_row13_col7" class="data row13 col7" >0.00</td>
+      <td id="T_14f5a_row13_col8" class="data row13 col8" >114.96</td>
+      <td id="T_14f5a_row13_col9" class="data row13 col9" >-12060.00</td>
+      <td id="T_14f5a_row13_col10" class="data row13 col10" >0</td>
+      <td id="T_14f5a_row13_col11" class="data row13 col11" ></td>
+      <td id="T_14f5a_row13_col12" class="data row13 col12" >nan</td>
+      <td id="T_14f5a_row13_col13" class="data row13 col13" >-1</td>
+      <td id="T_14f5a_row13_col16" class="data row13 col16" >-563.54</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row14_col0" class="data row14 col0" >pf</td>
+      <td id="T_14f5a_row14_col1" class="data row14 col1" >NVDA</td>
+      <td id="T_14f5a_row14_col2" class="data row14 col2" >761447893</td>
+      <td id="T_14f5a_row14_col3" class="data row14 col3" >OPT</td>
+      <td id="T_14f5a_row14_col4" class="data row14 col4" >-1</td>
+      <td id="T_14f5a_row14_col5" class="data row14 col5" >sowed</td>
+      <td id="T_14f5a_row14_col6" class="data row14 col6" >120.60</td>
+      <td id="T_14f5a_row14_col7" class="data row14 col7" >95.00</td>
+      <td id="T_14f5a_row14_col8" class="data row14 col8" >152.84</td>
+      <td id="T_14f5a_row14_col9" class="data row14 col9" >-7.26</td>
+      <td id="T_14f5a_row14_col10" class="data row14 col10" >P</td>
+      <td id="T_14f5a_row14_col11" class="data row14 col11" >20250404</td>
+      <td id="T_14f5a_row14_col12" class="data row14 col12" >9.50</td>
+      <td id="T_14f5a_row14_col13" class="data row14 col13" >-1</td>
+      <td id="T_14f5a_row14_col16" class="data row14 col16" >145.58</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row15_col0" class="data row15 col0" >pf</td>
+      <td id="T_14f5a_row15_col1" class="data row15 col1" >NVDA</td>
+      <td id="T_14f5a_row15_col2" class="data row15 col2" >761447848</td>
+      <td id="T_14f5a_row15_col3" class="data row15 col3" >OPT</td>
+      <td id="T_14f5a_row15_col4" class="data row15 col4" >-1</td>
+      <td id="T_14f5a_row15_col5" class="data row15 col5" >sowed</td>
+      <td id="T_14f5a_row15_col6" class="data row15 col6" >120.60</td>
+      <td id="T_14f5a_row15_col7" class="data row15 col7" >90.00</td>
+      <td id="T_14f5a_row15_col8" class="data row15 col8" >149.11</td>
+      <td id="T_14f5a_row15_col9" class="data row15 col9" >-5.03</td>
+      <td id="T_14f5a_row15_col10" class="data row15 col10" >P</td>
+      <td id="T_14f5a_row15_col11" class="data row15 col11" >20250404</td>
+      <td id="T_14f5a_row15_col12" class="data row15 col12" >9.50</td>
+      <td id="T_14f5a_row15_col13" class="data row15 col13" >-1</td>
+      <td id="T_14f5a_row15_col16" class="data row15 col16" >144.08</td>
+    </tr>
+    <tr>
+      <td id="T_14f5a_row16_col0" class="data row16 col0" >und</td>
+      <td id="T_14f5a_row16_col1" class="data row16 col1" >NVDA</td>
+      <td id="T_14f5a_row16_col2" class="data row16 col2" >4815747</td>
+      <td id="T_14f5a_row16_col3" class="data row16 col3" >STK</td>
+      <td id="T_14f5a_row16_col4" class="data row16 col4" >-100</td>
+      <td id="T_14f5a_row16_col5" class="data row16 col5" >orphaned</td>
+      <td id="T_14f5a_row16_col6" class="data row16 col6" >120.60</td>
+      <td id="T_14f5a_row16_col7" class="data row16 col7" >nan</td>
+      <td id="T_14f5a_row16_col8" class="data row16 col8" >114.96</td>
+      <td id="T_14f5a_row16_col9" class="data row16 col9" >-12060.00</td>
+      <td id="T_14f5a_row16_col10" class="data row16 col10" >nan</td>
+      <td id="T_14f5a_row16_col11" class="data row16 col11" >nan</td>
+      <td id="T_14f5a_row16_col12" class="data row16 col12" >nan</td>
+      <td id="T_14f5a_row16_col13" class="data row16 col13" >nan</td>
+      <td id="T_14f5a_row16_col16" class="data row16 col16" >-326.91</td>
+    </tr>
+  </tbody>
+</table>
+
+    </body>
+    </html>
