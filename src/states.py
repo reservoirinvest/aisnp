@@ -48,6 +48,7 @@ MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
 MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
 PROTECT_DTE = config.get("PROTECT_DTE")
 PROTECTION_STRIP = config.get("PROTECTION_STRIP")
+REAPRATIO = config.get("REAPRATIO")
 
 # %%
 # BUILD UNDS
@@ -516,7 +517,7 @@ if df_reap is not None and not df_reap.empty:
             reaped[c.conId] = s
     df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
     df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
-    df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost/2), 0.01)), axis=1)
+    df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost*REAPRATIO/100), 0.01)), axis=1)
 
     df_reap['qty'] = df_reap.position.abs().astype(int)
     reaps = (abs(df_reap.mktPrice - df_reap.xPrice)*df_reap.qty*100).sum()
