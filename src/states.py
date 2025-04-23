@@ -15,9 +15,25 @@ from snp import make_snp_unds
 from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
                    clean_ib_util_df, delete_files, delete_pkl_files, do_i_refresh, get_dte,
                    get_pickle, get_prec, is_market_open, load_config,
-                   pickle_me, tqdm, update_unds_status)
+                   pickle_me, tqdm, update_unds_status, how_many_days_old)
 
-delete_pkl_files(['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl'])
+# Get parameters
+config = load_config("SNP")
+COVER_MIN_DTE = config.get("COVER_MIN_DTE")
+VIRGIN_DTE = config.get("VIRGIN_DTE")
+MAX_FILE_AGE = config.get("MAX_FILE_AGE")
+VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
+MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
+MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
+PROTECT_DTE = config.get("PROTECT_DTE")
+PROTECTION_STRIP = config.get("PROTECTION_STRIP")
+REAPRATIO = config.get("REAPRATIO")
+
+# Delete pickles that are old
+for f in ['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl']:
+    f_path = ROOT / "data" / f
+    if f_path.exists() and how_many_days_old(f_path) > MAX_FILE_AGE:
+        delete_pkl_files([f_path])
 
 log_file_path = ROOT / "log" / "states.log"
 delete_files([log_file_path])
@@ -39,16 +55,7 @@ chains = get_pickle(chains_path)
 df_cov = get_pickle(cov_path)
 df_nkd = get_pickle(nkd_path)
 
-config = load_config("SNP")
-COVER_MIN_DTE = config.get("COVER_MIN_DTE")
-VIRGIN_DTE = config.get("VIRGIN_DTE")
-MAX_FILE_AGE = config.get("MAX_FILE_AGE")
-VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
-MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
-MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
-PROTECT_DTE = config.get("PROTECT_DTE")
-PROTECTION_STRIP = config.get("PROTECTION_STRIP")
-REAPRATIO = config.get("REAPRATIO")
+
 
 # %%
 # BUILD UNDS
@@ -532,7 +539,7 @@ else:
 
 # %%
 # BUILD PROTECTION RECOMMENDATIONS
-df_unprot = df_unds[df_unds.state == 'unprotected'].reset_index(drop=True)
+df_unprot = df_unds[df_unds.state.isin(['unprotected', 'exposed'])].reset_index(drop=True)
 
 # Protect longs
 df_ulong = df_unprot[df_unprot.position > 0]
