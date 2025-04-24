@@ -532,8 +532,13 @@ def classify_open_orders(df_openords, pf):
     # 'protecting' - option BUY order with underlying stock position
     protecting_mask = (
         (opt_orders.action == "BUY")
-        & (opt_orders.right == "P")
-        & (opt_orders.symbol.isin(pf[(pf.secType == "STK") & (pf.position > 0)].symbol))
+        & (
+            # Put option protecting long stock position
+            ((opt_orders.right == "P") & (opt_orders.symbol.isin(pf[(pf.secType == "STK") & (pf.position > 0)].symbol)))
+            |
+            # Call option protecting short stock position
+            ((opt_orders.right == "C") & (opt_orders.symbol.isin(pf[(pf.secType == "STK") & (pf.position < 0)].symbol)))
+        )
     )
     df.loc[protecting_mask, "state"] = "protecting"
 

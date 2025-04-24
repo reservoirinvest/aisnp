@@ -197,7 +197,7 @@ else:
 
     # Integrate position and avgCost from df_pf into df_ccf
     df_ccf = df_ccf.merge(
-        df_pf[["symbol", "position", "avgCost"]], on="symbol", how="left"
+        df_pf[df_pf.state.isin(["uncovered", "exposed"])][["symbol", "position", "avgCost"]], on="symbol", how="left"
     )
 
     # Make qty field as position/100
@@ -289,7 +289,7 @@ else:
 
     # Integrate position and avgCost from df_pf into df_cpf
     df_cpf = df_cpf.merge(
-        df_pf[["symbol", "position", "avgCost"]], on="symbol", how="left"
+        df_pf[df_pf.state.isin(["uncovered", "exposed"])][["symbol", "position", "avgCost"]], on="symbol", how="left"
     )
 
     # Make qty field as abs(position)/100
@@ -321,7 +321,6 @@ df_cov = pd.concat([df_ccf, df_cpf], ignore_index=True)
 # delete df_cov.pkl
 if cov_path.exists():
     cov_path.unlink()
-
 
 if not df_cov.empty:
     # add 'dte' column with get_dte(expiry) as the 5th column
