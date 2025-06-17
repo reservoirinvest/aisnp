@@ -480,7 +480,7 @@ def classify_pf(pf):
                 "name": "exposed",
                 "mask": (
                     (pf.secType == "STK") &
-                    (pf.position > 0) &
+                    (pf.position != 0) &  # Changed from (pf.position > 0) to include short positions
                     ~pf.symbol.isin(
                         pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
                     ) &
@@ -749,7 +749,28 @@ def update_unds_status(df_unds:pd.DataFrame,
     # Update status for orphaned symbols
     df_unds.loc[df_unds.symbol.isin(orphaned_symbols), "state"] = "orphaned"
 
+    # Classify short stock positions without covering/protecting options as 'exposed'
+    # Get all short stock positions from portfolio
+    short_stocks = df_pf[(df_pf.secType == 'STK') & (df_pf.position < 0)]['symbol']
+    
+    # Find short stocks that don't have covering or protecting options
+    exposed_short_stocks = []
+    for symbol in short_stocks:
+        # Check if there are any covering or protecting options in portfolio or open orders
+        has_covering = (df_pf.symbol == symbol) & (df_pf.state == 'covering')
+        has_protecting = (df_pf.symbol == symbol) & (df_pf.state == 'protecting')
+        has_covering_orders = (df_openords.symbol == symbol) & (df_openords.state == 'covering')
+        has_protecting_orders = (df_openords.symbol == symbol) & (df_openords.state == 'protecting')
+        
+        if not (has_covering.any() or has_protecting.any() or 
+                has_covering_orders.any() or has_protecting_orders.any()):
+            exposed_short_stocks.append(symbol)
+    
+    # Update status for exposed short stocks
+    df_unds.loc[df_unds.symbol.isin(exposed_short_stocks), "state"] = "exposed"
+
     return df_unds
+
 
 def atm_margin(strike, undPrice, dte, vy):
     """

@@ -259,8 +259,8 @@ else:
             .sort_values("diff")
             .head(no_of_options)
         )
-        .reset_index()
-        .drop(columns=["level_2", "diff"])
+        # .reset_index()
+        .drop(columns=["level_2", "diff"], errors="ignore")
     )
 
     # Make short covered put options
@@ -295,6 +295,7 @@ else:
     df_cpf = df_cpf.drop(columns=["position"])
 
     # Get covered put prices, volatilities
+    
     with get_ib("SNP") as ib:
         dfx_cp = ib.run(
             df_iv(
@@ -609,7 +610,7 @@ if make_short_protect:
     df_us = df_us.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
     df_us = df_us.groupby("symbol").apply(
         lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(PROTECTION_STRIP)
-    ).drop(columns="level_1")
+    ).drop(columns="level_1", errors='ignore')
 
     df_us['right'] = 'C'
 
