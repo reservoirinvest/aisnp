@@ -40,11 +40,10 @@ delete_files([log_file_path])
 
 unds_path = ROOT / "data" / "df_unds.pkl"
 chains_path = ROOT / "data" / "df_chains.pkl"
-
 cov_path = ROOT / "data" / "df_cov.pkl"  # covered call and put path
 nkd_path = ROOT / "data" / "df_nkd.pkl"
-
 pf_path = ROOT / "data" / "df_pf.pkl"
+reap_path = ROOT / "data" / "df_reap.pkl"
 
 util.logToFile(log_file_path, level=40) # IB ERRORs only logged.
 logger.add(log_file_path, rotation="1 week")
@@ -54,6 +53,7 @@ chains = get_pickle(chains_path)
 
 df_cov = get_pickle(cov_path)
 df_nkd = get_pickle(nkd_path)
+df_reap = get_pickle(reap_path)
 
 
 
@@ -167,10 +167,8 @@ else:
             lambda x: x[x["strike"] > x["undPrice"] + c_std * x["sdev"]]
             .assign(diff=abs(x["strike"] - (x["undPrice"] + c_std * x["sdev"])))
             .sort_values("diff")
-            .head(no_of_options),
-            include_groups=False,
+            .head(no_of_options)
         )
-        .reset_index()
         .drop(columns=["level_2", "diff"], errors="ignore")
     )
 
@@ -259,8 +257,7 @@ else:
             lambda x: x[x["strike"] < x["undPrice"] - cp_std * x["sdev"]]
             .assign(diff=abs(x["strike"] - (x["undPrice"] - cp_std * x["sdev"])))
             .sort_values("diff")
-            .head(no_of_options),
-            include_groups=False,
+            .head(no_of_options)
         )
         .reset_index()
         .drop(columns=["level_2", "diff"])
@@ -389,10 +386,8 @@ virg_short = (
         lambda x: x[x["strike"] < x["undPrice"] - v_std * x["sdev"]]
         .assign(diff=abs(x["strike"] - (x["undPrice"] - v_std * x["sdev"])))
         .sort_values("diff")
-        .head(no_of_options),
-        include_groups=False,
+        .head(no_of_options)
     )
-    .reset_index()
     .drop(columns=["level_2", "diff"], errors="ignore")
 )
 
@@ -558,9 +553,8 @@ if make_long_protect:
     df_ul = df_ul.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
     df_ul = df_ul.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
     df_ul = df_ul.groupby("symbol").apply(
-        lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
-        include_groups=False
-    ).reset_index().drop(columns="level_1", errors='ignore')
+        lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(PROTECTION_STRIP)
+    ).drop(columns="level_1", errors='ignore')
 
     df_ul['right'] = 'P'
 
@@ -591,7 +585,7 @@ if make_long_protect:
     df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
 
     # Median protection
-    df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
+    df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x)
 
 else:
     df_lprot = pd.DataFrame()
@@ -614,9 +608,8 @@ if make_short_protect:
     df_us = df_us.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, True])
     df_us = df_us.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
     df_us = df_us.groupby("symbol").apply(
-        lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(PROTECTION_STRIP),
-        include_groups=False
-    ).reset_index().drop(columns="level_1")
+        lambda x: x[x.strike >= x["undPrice"].iloc[0]].head(PROTECTION_STRIP)
+    ).drop(columns="level_1")
 
     df_us['right'] = 'C'
 
@@ -649,7 +642,7 @@ if make_short_protect:
     df_ivs["protection"] = (df_ivs["strike"] - df_ivs["undPrice"])*100*df_ivs.qty
 
     # Median protection for shorts
-    df_sprot = df_ivs.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x, include_groups=False).reset_index()
+    df_sprot = df_ivs.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x)
 
 else:
     df_sprot = pd.DataFrame()

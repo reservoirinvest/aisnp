@@ -10,7 +10,8 @@
 		"editor.defaultFormatter": "ms-python.black-formatter",
 		"python.REPL.sendToNativeREPL": true,
 		"vscode-pydata-viewer.pythonPath": "default",
-		"vscode-pydata-viewer.scriptPath": "C:\\Users\\kashi\\python\\aisnp\\.venv\\Scripts"
+		"vscode-pydata-viewer.scriptPath": "C:\\Users\\kashi\\python\\aisnp\\.venv\\Scripts",
+		"python.languageServer": "None"
 	},
 	"launch": {
 		"version": "0.2.0",

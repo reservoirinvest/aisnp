@@ -2,13 +2,24 @@
 
 ## Identifying states
 
+There are three dataframes viz: pf, df_openords and df_unds.
+Each of them have the following fields:
+
+- symbol: for name of the symbol
+- secType: with STK for stock, OPT for option
+- right: with P for put and C for call. Only secType == 'OPT' will have right.
+- action: with SELL or BUY
+- position: an integer that can be positive or negative
+
 ### Portfolio state
+
+Portfolio states are derived from dataframe 'pf'
 
 **Note**: Portfolio has 'state' field.
 
     - 'zen': Perfect. Stock with both covering and protecting option positions
 
-    - 'exposed': Stock positions without options
+    - 'exposed': Stock positions without any covering or protecting options
     - 'unprotected': Stock with only covering option position
     - 'uncovered': Stock with only protecting options position
 
@@ -21,6 +32,8 @@
     - 'orphaned': Long options without matching stock position
 
 ### Order state
+
+Order states are derifed from df_openords
 
     - 'covering' - an option order symbol with action: SELL, having an underlying stock position derived from pf dataframe
     - 'protecting' - an option order symbol with action: BUY, having an underlying stock position derived from pf dataframe
@@ -53,12 +66,10 @@
 
 ## Get the base ready
 
-* Get `portfolio` and `openorders`. Classify them
 * Build `unds` with price and volatility (vy)
 * Update `unds` states based on portfolio and open orders
 * Get `chains`
-
-  - **Note:** Chain generation is to be done with **IBG** (not TWS)
+* Get `portfolio` and `openorders`. Classify them
 
 ## Generate orders
 

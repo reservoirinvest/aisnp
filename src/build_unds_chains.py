@@ -1,6 +1,5 @@
 from contextlib import ExitStack
 import pandas as pd
-from ib_async import util
 from ibfuncs import get_ib, ib_pf, get_open_orders, get_financials, df_chains
 from utils import (
     load_config, 

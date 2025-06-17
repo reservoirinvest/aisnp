@@ -386,97 +386,118 @@ def classify_pf(pf):
     pd.DataFrame: Original DataFrame with added 'state' column containing classifications
     """
     # Create a copy to avoid modifying the original DataFrame
-    # pf = pf.copy()
-
-    # Sort by covered with protection pairs
-    right_order = {"C": 0, "0": 1, "P": 2}
-
-    pf = pf.sort_values(
-        by=["symbol", "right"],
-        key=lambda x: x.map(right_order) if x.name == "right" else x,
-    )
-
-    # Initialize status field with blank underscore
+    pf = pf.copy() # set the input
     pf["state"] = "tbd"
 
-    # Filter for options only
-    opt_pf = pf[pf.secType == "OPT"]
+    states_classification = [
+            # 1. Straddle Positions (Highest Priority)
+            {
+                "name": "straddled",
+                "mask": pf.groupby(["symbol", "expiry", "strike"]).apply(
+                    lambda x: (
+                        len(x) == 2
+                        and set(x["right"]) == {"C", "P"}
+                        and np.sign(x["position"].iloc[0]) == np.sign(x["position"].iloc[1])
+                    ),
+                    include_groups=False
+                ).reset_index()[0],
+            },
+            # 2. Option Covering Positions
+            {
+                "name": "covering",
+                "mask": (
+                    (pf.secType == "OPT") & 
+                    ((pf.right == "C") & (pf.position < 0) | ((pf.right == "P") & (pf.position < 0)))
+                ),
+            },
+            # 3. Option Protecting Positions
+            {
+                "name": "protecting",
+                "mask": (
+                    (pf.secType == "OPT") & 
+                    ((pf.right == "C") & (pf.position > 0) | ((pf.right == "P") & (pf.position > 0)))
+                ),
+            },
+            # 4. Orphaned Option Positions
+            {
+                "name": "orphaned",
+                "mask": (
+                    (pf.secType == "OPT") &
+                    (pf.position > 0) &
+                    (~pf.symbol.isin(pf[pf.secType == "STK"].symbol))
+                ),
+            },
+            # 5. Sowed Option Positions
+            {
+                "name": "sowed",
+                "mask": (
+                    (pf.secType == "OPT") &
+                    (pf.position < 0) &
+                    (~pf.symbol.isin(pf[pf.secType == "STK"].symbol))
+                ),
+            },
+            # 6. Stock Positions with Both Covering and Protecting
+            {
+                "name": "solid",
+                "mask": (
+                    (pf.secType == "STK") &
+                    pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
+                    ) &
+                    pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
+                    )
+                ),
+            },
+            # 7. Stock Positions with Covering but No Protecting
+            {
+                "name": "unprotected",
+                "mask": (
+                    (pf.secType == "STK") &
+                    pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
+                    ) &
+                    ~pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
+                    )
+                ),
+            },
+            # 8. Stock Positions with Protecting but No Covering
+            {
+                "name": "uncovered",
+                "mask": (
+                    (pf.secType == "STK") &
+                    ~pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
+                    ) &
+                    pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
+                    )
+                ),
+            },
+            # 9. Exposed Stock Positions (Lowest Priority)
+            {
+                "name": "exposed",
+                "mask": (
+                    (pf.secType == "STK") &
+                    (pf.position > 0) &
+                    ~pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
+                    ) &
+                    ~pf.symbol.isin(
+                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
+                    )
+                ),
+            },
+        ]
 
-    # Group by symbol and expiry to find matching calls and puts
-    straddled = opt_pf.groupby(["symbol", "expiry", "strike"]).filter(
-        lambda x: (
-            # Must have exactly 2 rows (call and put)
-            len(x) == 2
-            and
-            # Must have both C and P
-            set(x["right"]) == {"C", "P"}
-            and
-            # Position signs must match
-            np.sign(x["position"].iloc[0]) == np.sign(x["position"].iloc[1])
-        )
-    )
+    # Apply states in order of priority
+    for state_config in states_classification:
+        mask = state_config["mask"]
+        pf.loc[mask, "state"] = state_config["name"]
 
-    # Update status field for straddles
-    pf.loc[pf.index.isin(straddled.index), "state"] = "straddled"
-
-    # Filter for stocks and their associated options
-    solid = pf.groupby("symbol").filter(
-        lambda x: (
-            # Must have exactly one STK row
-            (x.secType == "STK").sum() == 1
-            and
-            # Must have 1 or 2 OPT rows
-            (x.secType == "OPT").sum() in [1, 2]
-        )
-    )
-
-    # Update status field for covered calls/puts
-    pf.loc[solid.index, "state"] = solid.apply(
-        lambda x: (
-            "covering"
-            if (x["right"] == "C" and x["position"] < 0)
-            or (x["right"] == "P" and x["position"] < 0)
-            else "protecting"
-        ),
-        axis=1,
-    )
-
-    # Update status field for stocks with both covering and protecting
-    stocks_with_both = pf[
-        (pf.secType == "STK")
-        & pf.symbol.isin(pf[(pf.state == "covering")].symbol)
-        & pf.symbol.isin(pf[(pf.state == "protecting")].symbol)
-    ]
-    pf.loc[stocks_with_both.index, "state"] = "solid"
-
-    # Update status field for stocks with covering but no protecting
-    stocks_covered_only = pf[
-        (pf.secType == "STK")
-        & pf.symbol.isin(pf[(pf.state == "covering")].symbol)
-        & ~pf.symbol.isin(pf[(pf.state == "protecting")].symbol)
-    ]
-    pf.loc[stocks_covered_only.index, "state"] = "unprotected"
-
-    # Update status field for stocks with protecting but no covering
-    stocks_protected_only = pf[
-        (pf.secType == "STK")
-        & ~pf.symbol.isin(pf[(pf.state == "covering")].symbol)
-        & pf.symbol.isin(pf[(pf.state == "protecting")].symbol)
-    ]
-    pf.loc[stocks_protected_only.index, "state"] = "uncovered"
-
-    # Update status field for orphaned options
-    pf.loc[(pf.state == "tbd") & (pf.secType == "OPT") & (pf.position > 0), "state"] = (
-        "orphaned"
-    )
-
-    # Update status field for sowed options
-    pf.loc[(pf.state == "tbd") & (pf.secType == "OPT") & (pf.position < 0), "state"] = (
-        "sowed"
-    )
-
-    # Update status field for exposed stock positions
-    pf.loc[(pf.state == "tbd") & (pf.secType == "STK"), "state"] = "exposed"
+    # Fallback for any remaining 'tbd' states
+    pf.loc[pf.state == "tbd", "state"] = "unclassified"
 
     return pf
 
@@ -527,7 +548,7 @@ def classify_open_orders(df_openords, pf):
         )
     )
 
-    df.loc[covering_mask, "state"] = "covering"
+    df.loc[covering_mask[covering_mask].index, "state"] = "covering"
 
     # 'protecting' - option BUY order with underlying stock position
     protecting_mask = (
@@ -540,13 +561,13 @@ def classify_open_orders(df_openords, pf):
             ((opt_orders.right == "C") & (opt_orders.symbol.isin(pf[(pf.secType == "STK") & (pf.position < 0)].symbol)))
         )
     )
-    df.loc[protecting_mask, "state"] = "protecting"
+    df.loc[protecting_mask[protecting_mask].index, "state"] = "protecting"
 
     # 'sowing' - option SELL order without underlying stock position
     sowing_mask = (opt_orders.action == "SELL") & (
         ~opt_orders.symbol.isin(pf[(pf.secType == "STK")].symbol)
     )
-    df.loc[sowing_mask, "state"] = "sowing"
+    df.loc[sowing_mask[sowing_mask].index, "state"] = "sowing"
 
     # 'reaping' - option BUY order with matching existing option position
     reaping_mask = opt_orders.apply(
@@ -561,7 +582,7 @@ def classify_open_orders(df_openords, pf):
         ),
         axis=1,
     )
-    df.loc[reaping_mask, "state"] = "reaping"
+    df.loc[reaping_mask[reaping_mask].index, "state"] = "reaping"
 
     # 'de-orphaning' - option SELL order with matching existing option position
     de_orphaning_mask = opt_orders.apply(
@@ -576,7 +597,7 @@ def classify_open_orders(df_openords, pf):
         ),
         axis=1,
     )
-    df.loc[de_orphaning_mask, "state"] = "de-orphaning"
+    df.loc[de_orphaning_mask[de_orphaning_mask].index, "state"] = "de-orphaning"
 
     # 'straddling' - two option BUY orders for same symbol not in portfolio
     # Group by symbol and count BUY actions
@@ -592,8 +613,7 @@ def classify_open_orders(df_openords, pf):
         & (opt_orders.symbol.isin(straddle_symbols))
         & (~opt_orders.symbol.isin(pf.symbol))
     )
-    df.loc[straddle_mask, "state"] = "straddling"
-
+    df.loc[straddle_mask[straddle_mask].index, "state"] = "straddling"
 
     return df
 
