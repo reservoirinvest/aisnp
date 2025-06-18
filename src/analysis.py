@@ -290,12 +290,17 @@ calls_lt_und = df[(df.right == 'C') & (df.strike < df.undPrice)].index.tolist()
 puts_gt_und = df[(df.right == 'P') & (df.strike > df.undPrice)].index.tolist()
 option_breach_index = list(set(calls_lt_und).union(set(puts_gt_und)))
 
+# Initialize variables
+opt_breached_df = pd.DataFrame()
+total_breach_pnl = "0"  # Default value if no breaches
+dfs = None  # Initialize dfs as None
+
 # Data Manipulation
 if option_breach_index:
     # Get the breach PnL for the relevant symbols
     breach_pnl = df[(df.source == "und") &
-                    (df.symbol.isin(df.loc[option_breach_index, 'symbol'].unique())) &
-                    (df.state.isin(['solid', 'unprotected', 'uncovered', 'zen']))]["unPnL"]
+                  (df.symbol.isin(df.loc[option_breach_index, 'symbol'].unique())) &
+                  (df.secType == 'STK')].undPnL
 
     # Calculate the total breach PnL for the caption
     total_breach_pnl = format(breach_pnl.sum(), ",.0f")
@@ -303,13 +308,14 @@ if option_breach_index:
     # Filter the DataFrame for display
     opt_breached_df = df[df.symbol.isin(df.loc[option_breach_index, 'symbol'])]
 
-# Show breached options for the portfolio.
-dfs = style_rows(
-    opt_breached_df, 
-    rows_index=option_breach_index, 
-    message='Option cover breaches are generating', 
-    calc=total_breach_pnl
-)
+# Only show the table if we have breached options
+if not opt_breached_df.empty:
+    dfs = style_rows(
+        opt_breached_df, 
+        rows_index=option_breach_index, 
+        message='Option cover breaches are generating', 
+        calc=total_breach_pnl
+    )
 
 def is_running_in_bare_terminal() -> bool:
     """

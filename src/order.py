@@ -108,3 +108,5 @@ else:
 # RUN ANALYSIS
 exec(open(ROOT / "src" / "analysis.py").read())
 
+
+# %%

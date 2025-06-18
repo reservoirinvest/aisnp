@@ -162,7 +162,7 @@ else:
     no_of_options = 3
 
     cc_long = (
-        df_cc.groupby(["symbol", "expiry"])
+        df_cc.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev"]]
         .apply(
             lambda x: x[x["strike"] > x["undPrice"] + c_std * x["sdev"]]
             .assign(diff=abs(x["strike"] - (x["undPrice"] + c_std * x["sdev"])))
@@ -252,7 +252,7 @@ else:
     no_of_options = 3
 
     cp_short = (
-        df_cp.groupby(["symbol", "expiry"])
+        df_cp.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev"]]
         .apply(
             lambda x: x[x["strike"] < x["undPrice"] - cp_std * x["sdev"]]
             .assign(diff=abs(x["strike"] - (x["undPrice"] - cp_std * x["sdev"])))
@@ -382,7 +382,7 @@ df_virg = df_virg.sort_values(["symbol", "expiry", "strike"], ascending=[True, T
 
 # Get put shorts for virgin symbols
 virg_short = (
-    df_virg.groupby(["symbol", "expiry"])
+    df_virg.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev"]]
     .apply(
         lambda x: x[x["strike"] < x["undPrice"] - v_std * x["sdev"]]
         .assign(diff=abs(x["strike"] - (x["undPrice"] - v_std * x["sdev"])))
@@ -553,7 +553,7 @@ if make_long_protect:
     df_ul = df_uch[df_uch.symbol.isin(df_ulong.symbol)]
     df_ul = df_ul.sort_values(["symbol", "expiry", "strike"], ascending=[True, True, False])
     df_ul = df_ul.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
-    df_ul = df_ul.groupby("symbol").apply(
+    df_ul = df_ul.groupby("symbol")[['symbol','expiry','strike','undPrice']].apply(
         lambda x: x[x.strike <= x["undPrice"].iloc[0]].head(PROTECTION_STRIP)
     ).drop(columns="level_1", errors='ignore')
 
@@ -586,7 +586,7 @@ if make_long_protect:
     df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
 
     # Median protection
-    df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x)
+    df_lprot = df_ivp.groupby('symbol')[df_ivp.columns.to_list()].apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x)
 
 else:
     df_lprot = pd.DataFrame()

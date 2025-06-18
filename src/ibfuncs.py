@@ -363,7 +363,7 @@ async def df_chains(ib: IB, stocks: list, sleep_time: int = 4, msg: str = None) 
 
         for expiry, strike in product(row["expirations"], row["strikes"]):
             expanded_rows.append(
-                {"symbol": row["tradingClass"], "expiry": expiry, "strike": strike}
+                {"symbol": index, "tradingClass": row["tradingClass"], "expiry": expiry, "strike": strike}
             )
 
     # Create a new DataFrame from the expanded rows
@@ -505,5 +505,3 @@ def get_open_orders(ib, is_active: bool = False) -> pd.DataFrame:
         dfo = dfo.assign(state="unknown")
     
     return dfo
-
-
