@@ -386,134 +386,60 @@ def classify_pf(pf):
     pd.DataFrame: Original DataFrame with added 'state' column containing classifications
     """
     # Create a copy to avoid modifying the original DataFrame
-    pf = pf.copy() # set the input
+    pf = pf.copy()
     pf["state"] = "tbd"
 
-    states_classification = [
-            # 1. Straddle Positions (Highest Priority)
-            {
-                "name": "straddled",
-                "mask": pf.groupby(["symbol", "expiry", "strike"]).apply(
-                    lambda x: (
-                        len(x) == 2
-                        and set(x["right"]) == {"C", "P"}
-                        and np.sign(x["position"].iloc[0]) == np.sign(x["position"].iloc[1])
-                    ),
-                    include_groups=False
-                ).reset_index()[0],
-            },
-            # 2. Option Covering Positions
-            {
-                "name": "covering",
-                "mask": (
-                    (pf.secType == "OPT") & 
-                    ((pf.right == "C") & (pf.position < 0) | ((pf.right == "P") & (pf.position < 0)))
-                ),
-            },
-            # 3. Option Protecting Positions
-            {
-                "name": "protecting",
-                "mask": (
-                    (pf.secType == "OPT") & 
-                    ((pf.right == "C") & (pf.position > 0) | ((pf.right == "P") & (pf.position > 0)))
-                ),
-            },
-            # 4. Orphaned Option Positions
-            {
-                "name": "orphaned",
-                "mask": (
-                    (pf.secType == "OPT") &
-                    (pf.position > 0) &
-                    (~pf.symbol.isin(pf[pf.secType == "STK"].symbol))
-                ),
-            },
-            # 5. Sowed Option Positions
-            {
-                "name": "sowed",
-                "mask": (
-                    (pf.secType == "OPT") &
-                    (pf.position < 0) &
-                    (~pf.symbol.isin(pf[pf.secType == "STK"].symbol))
-                ),
-            },
-            # 6. Stock Positions with Both Covering and Protecting
-            {
-                "name": "solid",
-                "mask": (
-                    (pf.secType == "STK") &
-                    pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
-                    ) &
-                    pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
-                    )
-                ),
-            },
-            # 7. Stock Positions with Covering but No Protecting
-            {
-                "name": "unprotected",
-                "mask": (
-                    (pf.secType == "STK") &
-                    pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
-                    ) &
-                    ~pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
-                    )
-                ),
-            },
-            # 8. Exposed Stock Positions (before uncovered to prevent overwriting)
-            {
-                "name": "exposed",
-                "mask": (
-                    (pf.secType == "STK") &
-                    (pf.position != 0) &
-                    ~pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
-                    ) &
-                    ~pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
-                    )
-                ),
-            },
-            # 9. Stock Positions with Protecting but No Covering (checked after exposed)
-            {
-                "name": "uncovered",
-                "mask": (
-                    (pf.secType == "STK") &
-                    (
-                        # Case 1: Long stock with protective put
-                        ((pf.position > 0) & 
-                         ~pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol) &
-                         pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.right == "P") & (pf.state == "protecting")].symbol)) |
-                        # Case 2: Short stock with protective call
-                        ((pf.position < 0) &
-                         ~pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol) &
-                         pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.right == "C") & (pf.state == "protecting")].symbol))
-                    )
-                ),
-            },
-        ]
-
-    # Apply states in order of priority
-    for state_config in states_classification:
-        mask = state_config["mask"]
-        pf.loc[mask, "state"] = state_config["name"]
-
-    # Check for zen state (stock with both covering and protecting options)
-    stock_with_options = pf[pf.secType == "STK"].copy()
-    for symbol in stock_with_options.symbol.unique():
-        symbol_options = pf[(pf.symbol == symbol) & (pf.secType == "OPT")]
-        if len(symbol_options) == 2:  # We have exactly 2 options
-            option_states = set(symbol_options.state)
-            if {"covering", "protecting"}.issubset(option_states):
-                # Update both the stock and options to 'zen' state
-                pf.loc[(pf.symbol == symbol) & (pf.secType == "STK"), "state"] = "zen"
-                pf.loc[(pf.symbol == symbol) & (pf.secType == "OPT"), "state"] = "zen"
-
-    # Fallback for any remaining 'tbd' states
+    # First, classify all options
+    option_mask = pf.secType == "OPT"
+    
+    # Classify protecting options (long calls or long puts)
+    protecting_mask = option_mask & (
+        ((pf.right == "C") & (pf.position > 0)) |  # Long call
+        ((pf.right == "P") & (pf.position > 0))   # Long put
+    )
+    pf.loc[protecting_mask, "state"] = "protecting"
+    
+    # Classify sowed options (short options that are not part of a spread)
+    sowed_mask = option_mask & (pf.position < 0)  # All short options
+    pf.loc[sowed_mask, "state"] = "sowed"
+    
+    # Now classify covering options (short calls that are part of a spread)
+    # These will override the 'sowed' classification
+    covering_mask = option_mask & (pf.position < 0) & (
+        ((pf.right == "C") | (pf.right == "P"))  # Short call or put
+    )
+    # Only mark as covering if there's a corresponding long position
+    has_long = pf[pf.position > 0].groupby('symbol').size()
+    covering_mask = covering_mask & pf.symbol.isin(has_long.index)
+    pf.loc[covering_mask, "state"] = "covering"
+    
+    # Now classify stocks based on their options
+    stock_mask = pf.secType == "STK"
+    
+    # Get symbols with protecting and covering options
+    symbols_with_protecting = set(pf[pf.state == "protecting"].symbol.unique())
+    symbols_with_covering = set(pf[pf.state == "covering"].symbol.unique())
+    
+    # Classify stocks
+    pf.loc[stock_mask & 
+           pf.symbol.isin(symbols_with_protecting) & 
+           ~pf.symbol.isin(symbols_with_covering), "state"] = "uncovered"
+           
+    pf.loc[stock_mask & 
+           ~pf.symbol.isin(symbols_with_protecting) & 
+           pf.symbol.isin(symbols_with_covering), "state"] = "unprotected"
+           
+    pf.loc[stock_mask & 
+           pf.symbol.isin(symbols_with_protecting) & 
+           pf.symbol.isin(symbols_with_covering), "state"] = "solid"
+           
+    pf.loc[stock_mask & 
+           (pf.state == "tbd") & 
+           (pf.position != 0), "state"] = "exposed"
+    
+    # For any remaining unclassified positions
     pf.loc[pf.state == "tbd", "state"] = "unclassified"
-
+    
     return pf
 
 
@@ -646,7 +572,6 @@ def update_unds_status(df_unds:pd.DataFrame,
     Returns:
     pd.DataFrame: Updated underlying symbols DataFrame with 'state' column
     """
-
     df_unds = df_unds.drop(columns=['mktPrice', 'state', ], errors='ignore').merge(
         df_pf[df_pf["secType"] == "STK"][["symbol", "mktPrice", 'state']],
         on="symbol",
