@@ -462,30 +462,34 @@ def classify_pf(pf):
                     )
                 ),
             },
-            # 8. Stock Positions with Protecting but No Covering
-            {
-                "name": "uncovered",
-                "mask": (
-                    (pf.secType == "STK") &
-                    ~pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
-                    ) &
-                    pf.symbol.isin(
-                        pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
-                    )
-                ),
-            },
-            # 9. Exposed Stock Positions (Lowest Priority)
+            # 8. Exposed Stock Positions (before uncovered to prevent overwriting)
             {
                 "name": "exposed",
                 "mask": (
                     (pf.secType == "STK") &
-                    (pf.position != 0) &  # Changed from (pf.position > 0) to include short positions
+                    (pf.position != 0) &
                     ~pf.symbol.isin(
                         pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol
                     ) &
                     ~pf.symbol.isin(
                         pf[(pf.secType == "OPT") & (pf.state == "protecting")].symbol
+                    )
+                ),
+            },
+            # 9. Stock Positions with Protecting but No Covering (checked after exposed)
+            {
+                "name": "uncovered",
+                "mask": (
+                    (pf.secType == "STK") &
+                    (
+                        # Case 1: Long stock with protective put
+                        ((pf.position > 0) & 
+                         ~pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol) &
+                         pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.right == "P") & (pf.state == "protecting")].symbol)) |
+                        # Case 2: Short stock with protective call
+                        ((pf.position < 0) &
+                         ~pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.state == "covering")].symbol) &
+                         pf.symbol.isin(pf[(pf.secType == "OPT") & (pf.right == "C") & (pf.state == "protecting")].symbol))
                     )
                 ),
             },
@@ -495,6 +499,17 @@ def classify_pf(pf):
     for state_config in states_classification:
         mask = state_config["mask"]
         pf.loc[mask, "state"] = state_config["name"]
+
+    # Check for zen state (stock with both covering and protecting options)
+    stock_with_options = pf[pf.secType == "STK"].copy()
+    for symbol in stock_with_options.symbol.unique():
+        symbol_options = pf[(pf.symbol == symbol) & (pf.secType == "OPT")]
+        if len(symbol_options) == 2:  # We have exactly 2 options
+            option_states = set(symbol_options.state)
+            if {"covering", "protecting"}.issubset(option_states):
+                # Update both the stock and options to 'zen' state
+                pf.loc[(pf.symbol == symbol) & (pf.secType == "STK"), "state"] = "zen"
+                pf.loc[(pf.symbol == symbol) & (pf.secType == "OPT"), "state"] = "zen"
 
     # Fallback for any remaining 'tbd' states
     pf.loc[pf.state == "tbd", "state"] = "unclassified"

@@ -16,7 +16,7 @@ MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading
 
 
 COVER_MIN_DTE: 4
-COVER_STD_MULT: 3.2
+COVER_STD_MULT: 2
 
 
 VIRGIN_DTE: 7
@@ -30,7 +30,7 @@ PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
 
 MINEXPOPTPRICE: 1.35
-MINNAKEDOPTPRICE: 2.8
+MINNAKEDOPTPRICE: 2.5
 
 REAPRATIO: 0.2 # percentage of average cost. Lower the better.
 
