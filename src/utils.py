@@ -168,8 +168,8 @@ def clean_ib_util_df(
         logger.error(f"Error creating DataFrame from contracts: {e}")
         return None
 
-    # Check if DataFrame is empty
-    if udf.empty:
+    # Check if DataFrame is None or empty
+    if udf is None or udf.empty:
         return None
 
     # Select and rename columns

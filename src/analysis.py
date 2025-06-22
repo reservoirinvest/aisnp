@@ -300,7 +300,7 @@ if option_breach_index:
     # Get the breach PnL for the relevant symbols
     breach_pnl = df[(df.source == "und") &
                   (df.symbol.isin(df.loc[option_breach_index, 'symbol'].unique())) &
-                  (df.secType == 'STK')].undPnL
+                  (df.secType == 'STK')].unPnL
 
     # Calculate the total breach PnL for the caption
     total_breach_pnl = format(breach_pnl.sum(), ",.0f")
@@ -532,3 +532,4 @@ print('\n')
 print("Symbols missing in unds from chains:", missing_in_unds['symbol'].unique())
 print("Symbols missing in chains from unds:", missing_in_chains['symbol'].unique())
 print("Symbols missing in chains from pf:", missing_in_chains_from_pf['symbol'].unique())
+# %%
