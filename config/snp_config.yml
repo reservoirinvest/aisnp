@@ -21,7 +21,7 @@ COVER_STD_MULT: 1.35
 
 VIRGIN_DTE: 7
 
-VIRGIN_PUT_STD_MULT: 1.75
+VIRGIN_PUT_STD_MULT: 1.9
 VIRGIN_CALL_STD_MULT: 3.5
 VIRGIN_MIN_DTE: 2 # minimum days to expiration for naked calls
 VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
@@ -29,8 +29,8 @@ VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
 PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
 
-MINEXPOPTPRICE: 1.35
-MINNAKEDOPTPRICE: 1.8
+MINEXPOPTPRICE: 1
+MINNAKEDOPTPRICE: 2.2
 
 REAPRATIO: 0.2 # percentage of average cost. Lower the better.
 

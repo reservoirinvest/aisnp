@@ -1,4 +1,3 @@
-from contextlib import ExitStack
 import pandas as pd
 from ibfuncs import get_ib, ib_pf, get_open_orders, get_financials, df_chains
 from utils import (
@@ -69,16 +68,14 @@ def build_data() -> dict:
     if chain_recreate:
         unds = df_unds.contract.to_list()
         
-        # Check if IBG PAPER is online for comprehensive chains. TWS chains usually get incomplete.
-        with ExitStack() as es:
-            try:
-                ib = es.enter_context(get_ib("SNP", LIVE=False))
-            except Exception:
-                logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
-                ib = get_ib("SNP", LIVE=True)
-            finally:
+        # Try to use paper trading first, fall back to live if needed
+        try:
+            with get_ib("SNP", LIVE=False) as ib:
                 chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
-                ib.disconnect()
+        except Exception:
+            logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
+            with get_ib("SNP", LIVE=True) as ib:
+                chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
         
         unds1 = clean_ib_util_df(unds)
         missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]
