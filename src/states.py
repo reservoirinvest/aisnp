@@ -130,6 +130,39 @@ if chain_recreate:
 else:
     chains = pd.read_pickle(chains_path)
 
+print('\n')
+print('BASE INTEGRITY CHECK')
+print('====================')
+
+# Count unique symbols in each DataFrame
+unique_unds_symbols = len(df_unds['symbol'].unique())
+unique_chains_symbols = chains['symbol'].nunique()
+unique_oo_symbols = df_openords['symbol'].nunique() if 'symbol' in df_openords.columns else None
+unique_pf_symbols = df_pf['symbol'].nunique() if 'symbol' in df_pf.columns else None
+
+# Display the counts
+unique_symbols_count = {
+    'No of und symbols': (unique_unds_symbols, f"{how_many_days_old(unds_path):.2f} days old."),
+    'No of chain symbols': (unique_chains_symbols, f"{how_many_days_old(chains_path):.2f} days old."),
+    'No of portfolio symbols': unique_pf_symbols,
+    'No of open order symbols': unique_oo_symbols,
+}
+
+for k, v in unique_symbols_count.items():
+    if v:
+        print(f'{k}: {v}')
+
+# Find symbols missing in unds, chains, and pf
+missing_in_unds = chains[~chains['symbol'].isin(df_unds['symbol'])]
+missing_in_chains = df_unds[~df_unds['symbol'].isin(chains['symbol'])]
+missing_in_chains_from_pf = df_pf[~df_pf['symbol'].isin(chains['symbol'])]
+
+# Display missing symbols as lists
+print('\n')
+print("Symbols missing in unds from chains:", missing_in_unds['symbol'].unique())
+print("Symbols missing in chains from unds:", missing_in_chains['symbol'].unique())
+print("Symbols missing in chains from pf:", missing_in_chains_from_pf['symbol'].unique())
+
 # %%
 # MAKE COVERS FOR EXPOSED AND UNCOVERED STOCK POSITIONS
 
@@ -181,8 +214,8 @@ else:
     with get_ib("SNP") as ib:
         cov_calls = ib.run(qualify_me(ib, cov_calls, desc="Qualifying covered calls"))
 
-    df_cc1 = clean_ib_util_df([c for c in cov_calls if c.conId > 0])
-
+        df_cc1 = clean_ib_util_df([c for c in cov_calls if c.conId > 0])
+    
     # Get the lower of the long covered call
     df_ccf = df_cc1.loc[df_cc1.groupby("symbol")["strike"].idxmin()]
 
@@ -316,6 +349,11 @@ else:
 # Integrate df_ccf and df_cpf into df_cov
 df_cov = pd.concat([df_ccf, df_cpf], ignore_index=True)
 
+# correct the option expiry
+if not df_cov.empty:
+    _ = [setattr(option, 'lastTradeDateOrContractMonth', "20" + option.localSymbol[6:12]) 
+        for option in df_cov.contract.to_list() if option.conId > 0]
+
 # delete df_cov.pkl
 if cov_path.exists():
     cov_path.unlink()
@@ -396,6 +434,7 @@ virg_short = (
 virg_puts = [
     Option(s, e, k, "P", "SMART")
     for s, e, k in zip(virg_short.symbol, virg_short.expiry, virg_short.strike)
+    if not pd.isna(k)
 ]
 
 # Check if IBG PAPER is online to qualify virigin puts.
@@ -410,19 +449,18 @@ with ExitStack() as es:
 
 if not virg_puts:
     make_virg_puts = False
-    virg_puts_dict = virg_short.groupby('symbol').agg({
-    'expiry': 'first',
-    'strike': lambda x: x.tolist()
-}).apply(
-    lambda x: {
-        'expiry': str(x['expiry']),
-        'strike': x['strike']
-    }, axis=1
-).to_dict()
 
-    print(
-        "\n".join(f"Virgin put for {k}: {v} is not available! " for k, v in virg_puts_dict.items())
-    )
+#     virg_puts_dict = virg_short.groupby('symbol').agg({
+#     'expiry': 'first',
+#     'strike': lambda x: x.tolist()
+# }).apply(
+#     lambda x: {
+#         'expiry': str(x['expiry']),
+#         'strike': x['strike']
+#     }, axis=1
+# ).to_dict()
+
+    print(f"Virgin put for {df_virg.symbol.to_list()} is not available! ")
     df_nkd = pd.DataFrame()
 else:
     make_virg_puts = True
@@ -649,7 +687,6 @@ df_reap = df_reap.merge(
     df_unds[["symbol", "vy"]], on="symbol", how="left"
 )
 
-# %%
 if df_reap is not None and not df_reap.empty:
     with get_ib("SNP") as ib:
         reaped = {}
@@ -667,15 +704,19 @@ if df_reap is not None and not df_reap.empty:
             
             reaped[c.conId] = s
 
+    # correct the option expiry
+    if not df_reap.empty:
+        _ = [setattr(option, 'lastTradeDateOrContractMonth', "20" + option.localSymbol[6:12]) 
+            for option in df_reap.contract.to_list() if option.conId > 0]
+
     df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
     df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
     df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost*REAPRATIO/100), 0.01)), axis=1)
-
     df_reap['qty'] = df_reap.position.abs().astype(int)
+    
     reaps = (abs(df_reap.mktPrice - df_reap.xPrice)*df_reap.qty*100).sum()
 
     reap_path = ROOT/'data'/'df_reap.pkl'
-
     pickle_me(df_reap, reap_path)
     print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}')
 else:

@@ -15,10 +15,11 @@ import yaml
 from dateutil import parser
 from dotenv import find_dotenv, load_dotenv
 from from_root import from_root
-from ib_async import util
+from ib_async import util, Option
 from loguru import logger
 from scipy.stats import norm
 from tqdm import tqdm
+from scipy.integrate import quad
 
 
 ROOT = from_root()
@@ -164,6 +165,7 @@ def clean_ib_util_df(
     # Try to create DataFrame from contracts
     try:
         udf = util.df(ct)
+
     except (AttributeError, ValueError) as e:
         logger.error(f"Error creating DataFrame from contracts: {e}")
         return None
@@ -187,7 +189,6 @@ def clean_ib_util_df(
 
     # Convert expiry to UTC datetime, if it exists
     if len(udf.expiry.iloc[0]) != 0:
-        # udf["expiry"] = udf["expiry"].apply(lambda x: convert_to_utc_datetime(x, eod=eod, ist=ist))
         udf["expiry"] = udf["expiry"].apply(util.formatIBDatetime)
     else:
         udf["expiry"] = pd.NaT
@@ -195,6 +196,10 @@ def clean_ib_util_df(
     # Assign contracts to DataFrame
     udf["contract"] = ct
 
+    # # Correct the option expiry
+    # _ = [setattr(option, 'lastTradeDateOrContractMonth', "20" + option.localSymbol[6:12]) 
+    #     for option in ct if isinstance(option, Option) and option.conId > 0]
+    
     return udf
 
 
@@ -820,3 +825,15 @@ def is_running_in_regular_terminal() -> bool:
         return False
     else:
         return True
+
+def get_prob(sd):
+    """Compute probability of a normal standard deviation
+
+    Arg:
+        (sd) as standard deviation
+    Returns:
+        probability as a float
+
+    """
+    prob = quad(lambda x: np.exp(-(x**2) / 2) / np.sqrt(2 * np.pi), -sd, sd)[0]
+    return prob

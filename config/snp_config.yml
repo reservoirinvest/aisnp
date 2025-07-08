@@ -18,7 +18,7 @@ COVER_STD_MULT: 1
 
 VIRGIN_DTE: 7
 
-VIRGIN_PUT_STD_MULT: 1.1
+VIRGIN_PUT_STD_MULT: 1.3 # gives 80% probability with 1.3 SD
 VIRGIN_CALL_STD_MULT: 3
 VIRGIN_MIN_DTE: 2 # minimum days to expiration for naked calls
 VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty of virgins
