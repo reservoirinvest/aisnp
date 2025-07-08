@@ -467,7 +467,7 @@ if make_virg_puts:
 
     # Calculate qty of nakeds
     VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
-    max_fund_per_symbol = VIRGIN_QTY_MULT * fin.get("nlv", 0)
+    max_fund_per_symbol = VIRGIN_QTY_MULT * fin.get("net liquidation value", 0)
     df_nkd["qty"] = df_nkd.margin.apply(
         lambda x: max(1, int(max_fund_per_symbol / x)) if x > 0 else 1
     )
@@ -487,50 +487,6 @@ if not df_nkd.empty:
     print(f"Naked Premiums: $ {premium:,.2f}")
 else:
     print("No naked puts available!")
-
-# %%
-# MAKE REAPS
-# Extract unreaped contracts from df_unds
-df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
-
-# Extract unreaped option contracts from df_pf
-df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
-            & (df_pf.secType == "OPT")].reset_index(drop=True)
-
-# Remove in-the-money options from df_reap
-df_reap = df_reap[~((df_reap.right == 'C') & (df_reap.strike < df_reap.undPrice)) &
-                      ~((df_reap.right == 'P') & (df_reap.undPrice < df_reap.strike))].reset_index(drop=True)
-
-
-# Integrate Vy (volatility) into df_sowed_pf from df_unds
-df_reap = df_reap.merge(
-    df_unds[["symbol", "vy"]], on="symbol", how="left"
-)
-
-if df_reap is not None and not df_reap.empty:
-    with get_ib("SNP") as ib:
-        reaped = {}
-        sow_cts = ib.run(qualify_me(ib, df_reap.contract.tolist(), desc="Qualifying reap unds"))
-        df_reap = df_reap.assign(contract = sow_cts)
-
-        for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
-                                    desc="reap opt price", total=len(sow_cts)):
-            s = ib.calculateOptionPrice(c, vy, undPrice)
-            reaped[c.conId] = s
-    df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
-    df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
-    df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost*REAPRATIO/100), 0.01)), axis=1)
-
-    df_reap['qty'] = df_reap.position.abs().astype(int)
-    reaps = (abs(df_reap.mktPrice - df_reap.xPrice)*df_reap.qty*100).sum()
-
-    reap_path = ROOT/'data'/'df_reap.pkl'
-
-    pickle_me(df_reap, reap_path)
-    print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}')
-else:
-    
-    print("There are no reaping options")
 
 # %%
 # BUILD PROTECTION RECOMMENDATIONS
@@ -673,4 +629,56 @@ if not df_lprot.empty or not df_sprot.empty:
     pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
 else:
     print("All are protected. No protection needed.")
+
+# %%
+# MAKE REAPS
+# Extract unreaped contracts from df_unds
+df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
+
+# Extract unreaped option contracts from df_pf
+df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
+            & (df_pf.secType == "OPT")].reset_index(drop=True)
+
+# Remove in-the-money options from df_reap
+df_reap = df_reap[~((df_reap.right == 'C') & (df_reap.strike < df_reap.undPrice)) &
+                      ~((df_reap.right == 'P') & (df_reap.undPrice < df_reap.strike))].reset_index(drop=True)
+
+
+# Integrate Vy (volatility) into df_sowed_pf from df_unds
+df_reap = df_reap.merge(
+    df_unds[["symbol", "vy"]], on="symbol", how="left"
+)
+
+# %%
+if df_reap is not None and not df_reap.empty:
+    with get_ib("SNP") as ib:
+        reaped = {}
+        sow_cts = ib.run(qualify_me(ib, df_reap.contract.tolist(), desc="Qualifying reap unds"))
+        df_reap = df_reap.assign(contract = sow_cts, expiry=[c.lastTradeDateOrContractMonth for c in sow_cts])
+
+        for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
+                                    desc="reap opt price", total=len(sow_cts)):
+            try:
+                s = ib.calculateOptionPrice(c, vy, undPrice)    
+
+            except Exception as e:
+                with get_ib("SNP", LIVE=False) as ib:
+                    s = ib.calculateOptionPrice(c, vy, undPrice)
+            
+            reaped[c.conId] = s
+
+    df_reap['optPrice'] = [s.optPrice if s else np.nan for s in df_reap.conId.map(reaped)]
+    df_reap["xPrice"] = [get_prec(max(0.01,s),0.01) for s in df_reap['optPrice']]
+    df_reap['xPrice'] = df_reap.apply(lambda x: min(x.xPrice, get_prec(abs(x.avgCost*REAPRATIO/100), 0.01)), axis=1)
+
+    df_reap['qty'] = df_reap.position.abs().astype(int)
+    reaps = (abs(df_reap.mktPrice - df_reap.xPrice)*df_reap.qty*100).sum()
+
+    reap_path = ROOT/'data'/'df_reap.pkl'
+
+    pickle_me(df_reap, reap_path)
+    print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}')
+else:
+    
+    print("There are no reaping options")
 # %%
