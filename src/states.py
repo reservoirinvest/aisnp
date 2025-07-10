@@ -28,6 +28,7 @@ MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
 PROTECT_DTE = config.get("PROTECT_DTE")
 PROTECTION_STRIP = config.get("PROTECTION_STRIP")
 REAPRATIO = config.get("REAPRATIO")
+MINREAPDTE = config.get("MINREAPDTE")
 
 # Delete pickles that are old
 for f in ['df_nkd.pkl', 'df_reap.pkl', 'df_protect.pkl']:
@@ -54,8 +55,6 @@ chains = get_pickle(chains_path)
 df_cov = get_pickle(cov_path)
 df_nkd = get_pickle(nkd_path)
 df_reap = get_pickle(reap_path)
-
-
 
 # %%
 # BUILD UNDS
@@ -677,9 +676,12 @@ df_sowed = df_unds[df_unds.state == "unreaped"].reset_index(drop=True)
 df_reap = df_pf[df_pf.symbol.isin(df_sowed.symbol) 
             & (df_pf.secType == "OPT")].reset_index(drop=True)
 
-# Remove in-the-money options from df_reap
-df_reap = df_reap[~((df_reap.right == 'C') & (df_reap.strike < df_reap.undPrice)) &
-                      ~((df_reap.right == 'P') & (df_reap.undPrice < df_reap.strike))].reset_index(drop=True)
+# # Remove in-the-money options from df_reap
+# df_reap = df_reap[~((df_reap.right == 'C') & (df_reap.strike < df_reap.undPrice)) &
+#                       ~((df_reap.right == 'P') & (df_reap.undPrice < df_reap.strike))]
+
+# Remove options that are on or below MINREAPDTE. This is to save last day transaction costs.
+df_reap = df_reap[df_reap.expiry.apply(get_dte) > MINREAPDTE].reset_index(drop=True)
 
 
 # Integrate Vy (volatility) into df_sowed_pf from df_unds

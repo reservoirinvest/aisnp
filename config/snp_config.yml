@@ -18,7 +18,7 @@ COVER_STD_MULT: 1
 
 VIRGIN_DTE: 7
 
-VIRGIN_PUT_STD_MULT: 1.3 # gives 80% probability with 1.3 SD
+VIRGIN_PUT_STD_MULT: 1.28 # gives 80% probability with 1.3 SD
 VIRGIN_CALL_STD_MULT: 3
 VIRGIN_MIN_DTE: 2 # minimum days to expiration for naked calls
 VIRGIN_QTY_MULT: 0.02 # 2% of NLV divided by margin = qty of virgins
@@ -27,7 +27,8 @@ PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
 
 MINEXPOPTPRICE: 1.2
-MINNAKEDOPTPRICE: 1.5
+MINNAKEDOPTPRICE: 1.8
 
 REAPRATIO: 0.2 # percentage of average cost. Lower the better.
+MINREAPDTE: 1 # do not reap on or under this DTE.
 
