@@ -23,8 +23,9 @@ COVER_MIN_DTE = config.get("COVER_MIN_DTE")
 VIRGIN_DTE = config.get("VIRGIN_DTE")
 MAX_FILE_AGE = config.get("MAX_FILE_AGE")
 VIRGIN_QTY_MULT = config.get("VIRGIN_QTY_MULT")
-MINEXPOPTPRICE = config.get("MINEXPOPTPRICE")
+COVXPMULT = config.get("COVXPMULT")
 MINNAKEDOPTPRICE = config.get("MINNAKEDOPTPRICE")
+NAKEDXPMULT = config.get("NAKEDXPMULT")
 PROTECT_DTE = config.get("PROTECT_DTE")
 PROTECTION_STRIP = config.get("PROTECTION_STRIP")
 REAPRATIO = config.get("REAPRATIO")
@@ -212,7 +213,7 @@ else:
 
     with get_ib("SNP") as ib:
         cov_calls = ib.run(qualify_me(ib, cov_calls, desc="Qualifying covered calls"))
-
+        cov_calls = [c for c in cov_calls if c is not None]
         df_cc1 = clean_ib_util_df([c for c in cov_calls if c.conId > 0])
     
     # Get the lower of the long covered call
@@ -362,7 +363,7 @@ if not df_cov.empty:
     df_cov.insert(4, "dte", df_cov.expiry.apply(get_dte))
 
     df_cov["xPrice"] = df_cov.apply(
-        lambda x: get_prec(max(x.price, MINEXPOPTPRICE / x.qty), 0.01)
+        lambda x: get_prec(x.price*COVXPMULT, 0.01)
         if x.qty != 0 else 0,
         axis=1,
     )
@@ -459,12 +460,14 @@ if not virg_puts:
 #     }, axis=1
 # ).to_dict()
 
-    print(f"Virgin put for {df_virg.symbol.to_list()} is not available! ")
+    print(f"Virgin put for {set(df_virg.symbol.to_list())} is not available! ")
     df_nkd = pd.DataFrame()
 else:
     make_virg_puts = True
 
 if make_virg_puts:
+    virg_puts = [p for p in virg_puts if p is not None]
+
     df_virg1 = clean_ib_util_df([p for p in virg_puts if p.conId > 0])
 
     df_virg1["dte"] = df_virg1.expiry.apply(lambda x: get_dte(x))
@@ -509,7 +512,7 @@ if make_virg_puts:
         lambda x: max(1, int(max_fund_per_symbol / x)) if x > 0 else 1
     )
     df_nkd['xPrice'] = df_nkd.apply(
-        lambda x: get_prec(max(x.price, MINNAKEDOPTPRICE / x.qty), 0.01), axis=1)
+        lambda x: get_prec(max(x.price*NAKEDXPMULT, MINNAKEDOPTPRICE / x.qty), 0.01), axis=1)
 
 
 if nkd_path.exists():
@@ -559,6 +562,8 @@ if make_long_protect:
 
     with get_ib("SNP") as ib:
         ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
+        ul1 = [c for c in ul1 if c is not None]
+
         df_iv_p = ib.run(df_iv(
             ib=ib,
             stocks=ul1,
