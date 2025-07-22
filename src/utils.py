@@ -436,11 +436,26 @@ def classify_pf(pf):
            
     pf.loc[stock_mask & 
            pf.symbol.isin(symbols_with_protecting) & 
-           pf.symbol.isin(symbols_with_covering), "state"] = "solid"
+           pf.symbol.isin(symbols_with_covering), "state"] = "zen"
            
     pf.loc[stock_mask & 
            (pf.state == "tbd") & 
            (pf.position != 0), "state"] = "exposed"
+
+    # Classify orphaned options (long options without corresponding stock)
+    # Get symbols that have stock positions using the existing stock_mask
+    has_stock = set(pf[stock_mask].symbol.unique())
+
+    # Mark as orphaned if:
+    # 1. It's an option
+    # 2. It's a long position
+    # 3. The symbol doesn't have any stock position
+    pf.loc[
+        option_mask & 
+        (pf.position > 0) & 
+        ~pf.symbol.isin(has_stock),
+        "state"
+    ] = "orphaned"
     
     # For any remaining unclassified positions
     pf.loc[pf.state == "tbd", "state"] = "unclassified"

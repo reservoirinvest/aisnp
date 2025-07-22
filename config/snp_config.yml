@@ -10,7 +10,7 @@ PAPER: 1301
 
 CID: 10
 
-MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading
+MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading. Higher the better.
 
 COVER_MIN_DTE: 4
 
