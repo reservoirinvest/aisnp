@@ -38,6 +38,7 @@ chains = get_pickle(chains_path, print_msg=False)
 # Get unds. Make it fresh if stale.
 config = load_config("SNP")
 MAX_FILE_AGE = config.get("MAX_FILE_AGE")
+REAPRATIO = config.get("REAPRATIO")
 
 if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
     unds = make_snp_unds()
@@ -163,7 +164,7 @@ df_reward = (
 
 df_sowed = df[df.state == 'sowed'].sort_values('unPnL')
 cover_projection = (df_risk.dte.mean()/7-1)*abs(df_reward.premium.sum())
-sowed_projection = df_sowed.avgCost.sum()
+sowed_projection = df_sowed.avgCost.sum()*(1-REAPRATIO)
 total_reward = cover_projection + abs(sowed_projection)
 
 print('\nRisk Analysis')
@@ -198,7 +199,7 @@ reward_msg = (
 print(reward_msg)
 
 sow_msg = (
-    f'Our sowed reward in about {df_sowed.dte.mean():.1f} dte days is ${df_sowed.avgCost.sum():,.0f}'
+    f'Our sowed reward in about {df_sowed.dte.mean():.1f} dte days is ${sowed_projection:,.0f}'
 )
 
 print(sow_msg)

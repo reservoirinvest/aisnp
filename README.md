@@ -1,5 +1,11 @@
 # Program for optimized sowing, covering, protecting, reaping and de-orphaning SNPs
 
+## TO-DO
+- [ ] AAPL, QQQ and SPY chains - only one is being generated. Find out why?
+- [ ] `analysis.py` fails when there is no df_chains.pkl.
+- [ ] Clean-up `analysis.py` for consistent html and console messages.
+- [x] In `analysis.py` check if sowed reward adjusts based on reapratio
+
 ## Identifying states
 
 There are three dataframes viz: pf, df_openords and df_unds.
