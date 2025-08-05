@@ -248,6 +248,8 @@ def get_file_age(file_path: Path) -> Optional[Timediff]:
 
     return split_time_difference(td)
 
+def get_age_text(p):
+    return f"{how_many_days_old(p):.2f} days old." if p.exists() and how_many_days_old(p) is not None else 'N/A'
 
 def split_time_difference(diff: timedelta) -> Timediff:
     days = diff.days

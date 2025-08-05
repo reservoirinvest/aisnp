@@ -19,16 +19,16 @@ COVER_STD_MULT: 1.2
 
 VIRGIN_DTE: 7
 
-VIRGIN_PUT_STD_MULT: 1.1
+VIRGIN_PUT_STD_MULT: 1.3
 VIRGIN_CALL_STD_MULT: 3
 VIRGIN_MIN_DTE: 1 # minimum days to expiration for naked calls
 VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
 
 MINNAKEDOPTPRICE: 1.1 # To ensure we get at least this much from naked puts
-NAKEDXPMULT: 2.5 # multiple for naked expected price
+NAKEDXPMULT: 3 # multiple for naked expected price
 
 REAPRATIO: 0.1 # percentage of average cost. Lower the better.
-MINREAPDTE: 1 # do not reap on or under this DTE.
+MINREAPDTE: 2 # do not reap on or under this DTE.
 
 PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts

@@ -177,7 +177,7 @@ async def volatilities(
     }  # Combine results into a single dictionary
 
 
-async def df_iv(
+async def make_df_iv(
     ib: IB, stocks: list, sleep_time: int = 3, msg: str = None
 ) -> pd.DataFrame:
     func_params = {"ib": ib, "payload": stocks, "sleep_time": sleep_time}
@@ -273,7 +273,7 @@ def merge_volatility(df, ib):
     symbols = df["symbol"].unique().tolist()
 
     # Get volatility data
-    vol_data = asyncio.run(df_iv(ib=ib, stocks=symbols))
+    vol_data = asyncio.run(make_df_iv(ib=ib, stocks=symbols))
 
     # Merge volatility data with portfolio
     if not vol_data.empty:

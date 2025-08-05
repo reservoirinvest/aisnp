@@ -9,13 +9,12 @@ import pandas as pd
 from ib_async import Option, util
 from loguru import logger
 
-from ibfuncs import (df_chains, df_iv, get_financials, get_ib, get_open_orders,
-                     ib_pf, qualify_me)
-from snp import make_snp_unds
-from utils import (ROOT, atm_margin, classify_open_orders, classify_pf,
-                   clean_ib_util_df, delete_files, delete_pkl_files, do_i_refresh, get_dte,
-                   get_pickle, get_prec, is_market_open, load_config,
-                   pickle_me, tqdm, update_unds_status, how_many_days_old)
+from ibfuncs import (make_df_iv, get_ib, qualify_me)
+from utils import (ROOT, atm_margin, clean_ib_util_df, delete_files, delete_pkl_files, get_dte,
+                   get_pickle, get_prec, load_config,
+                   pickle_me, tqdm, how_many_days_old)
+
+from build_unds_chains import build_data
 
 # Get parameters
 config = load_config("SNP")
@@ -50,86 +49,19 @@ reap_path = ROOT / "data" / "df_reap.pkl"
 util.logToFile(log_file_path, level=40) # IB ERRORs only logged.
 logger.add(log_file_path, rotation="1 week")
 
-df_unds = get_pickle(unds_path)
-chains = get_pickle(chains_path)
+data = build_data()
+df_pf = data['df_pf']
+df_openords = data['df_openords']
+df_unds = data['df_unds']
+chains = data['chains']
+fin = data['fin']
 
 df_cov = get_pickle(cov_path)
 df_nkd = get_pickle(nkd_path)
 df_reap = get_pickle(reap_path)
 
-# %%
-# BUILD UNDS
-# Get portfolio, open orders and financials
-with get_ib("SNP") as ib:
-    qpf = ib_pf(ib)
-    df_pf = classify_pf(qpf)
-
-    openords = get_open_orders(ib)
-
-    fin = ib.run(get_financials(ib))
-
-df_openords = classify_open_orders(openords, df_pf)
-
-if is_market_open() or get_pickle(unds_path) is None:
-
-    # Get unds. Make it fresh if stale.
-    if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
-        df_unds = make_snp_unds()
-    else:
-        print(
-            f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old"
-        )
-        df_unds = get_pickle(unds_path)
-
-        pickle_me(df_unds, unds_path)
-
-# ..apply the status update to df_unds and pickle
-df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords).sort_values("symbol").reset_index(drop=True)
-
-# Update symbol in df_pf with undPrice in df_unds
-df_pf = df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
-
-# %%
-#  GET CHAINS
-
-if do_i_refresh(chains_path, max_days=MAX_FILE_AGE):
-    chain_recreate = True
-else:
-    print(f"Reusing chains. They are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old")
-    chain_recreate = False
-
-if chain_recreate:
-
-    unds = df_unds.contract.to_list()
-
-    # Check if IBG PAPER is online for comprehensive chains. TWS chains usually get incomplete.
-    with ExitStack() as es:
-        try:
-            ib = es.enter_context(get_ib("SNP", LIVE=False))
-        except Exception:
-            logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
-            ib = get_ib("SNP", LIVE=True)
-        finally:
-            chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
-            ib.disconnect()
-    
-        unds1 = clean_ib_util_df(unds)
-        missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]
-        
-        if not missing_unds.empty:
-            with get_ib("SNP") as ib:
-                additional_chains = ib.run(
-                    df_chains(ib, missing_unds.contract.to_list(), msg="missing chains")
-                    )
-                if additional_chains is not None and not additional_chains.empty:
-                    chains = pd.concat([chains, additional_chains], ignore_index=True)
-        
-    pickle_me(chains, chains_path)
-    
-
-else:
-    chains = pd.read_pickle(chains_path)
-
+#%%
+# BASE INTEGRITY CHECK
 print('\n')
 print('BASE INTEGRITY CHECK')
 print('====================')
@@ -162,6 +94,7 @@ print('\n')
 print("Symbols missing in unds from chains:", missing_in_unds['symbol'].unique())
 print("Symbols missing in chains from unds:", missing_in_chains['symbol'].unique())
 print("Symbols missing in chains from pf:", missing_in_chains_from_pf['symbol'].unique())
+print('\n')
 
 # %%
 # MAKE COVERS FOR EXPOSED AND UNCOVERED STOCK POSITIONS
@@ -239,7 +172,7 @@ else:
     # Get covered call prices, volatilities
     with get_ib("SNP") as ib:
         dfx = ib.run(
-            df_iv(
+            make_df_iv(
                 ib=ib,
                 stocks=df_ccf["contract"].tolist(),
                 sleep_time=10,
@@ -331,7 +264,7 @@ else:
     
     with get_ib("SNP") as ib:
         dfx_cp = ib.run(
-            df_iv(
+            make_df_iv(
                 ib=ib,
                 stocks=df_cpf["contract"].tolist(),
                 sleep_time=10,
@@ -385,10 +318,10 @@ if not df_cov.empty:
 
     print(f"Position Cost: $ {cost:,.2f}")
     print(f"Cover Premium: $ {premium:,.2f}")
-    print(f"Max Profit: $ {maxProfit:,.2f}")
+    print(f"Max Profit: $ {maxProfit:,.2f}\n")
 
 else:
-    print("No covers available!")
+    print("No covers available!\n")
 
 # %%
 # MAKE SOWING CONTRACTS FOR VIRGIN AND ORPHANED SYMBOLS
@@ -450,16 +383,6 @@ with ExitStack() as es:
 if not virg_puts:
     make_virg_puts = False
 
-#     virg_puts_dict = virg_short.groupby('symbol').agg({
-#     'expiry': 'first',
-#     'strike': lambda x: x.tolist()
-# }).apply(
-#     lambda x: {
-#         'expiry': str(x['expiry']),
-#         'strike': x['strike']
-#     }, axis=1
-# ).to_dict()
-
     print(f"Virgin put for {set(df_virg.symbol.to_list())} is not available! ")
     df_nkd = pd.DataFrame()
 else:
@@ -485,7 +408,7 @@ if make_virg_puts:
     # Get prices and volatilities of nakeds
     with get_ib("SNP") as ib:
         dfx_n = ib.run(
-            df_iv(
+            make_df_iv(
                 ib=ib,
                 stocks=nakeds["contract"].tolist(),
                 sleep_time=10,
@@ -524,9 +447,9 @@ if not df_nkd.empty:
 
     # Analyze naked puts
     premium = (df_nkd.xPrice * 100 * df_nkd.qty).sum()
-    print(f"Naked Premiums: $ {premium:,.2f}")
+    print(f"Naked Premiums: $ {premium:,.2f}\n")
 else:
-    print("No naked puts available!")
+    print("No naked puts available!\n")
 
 # %%
 # BUILD PROTECTION RECOMMENDATIONS
@@ -564,7 +487,7 @@ if make_long_protect:
         ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
         ul1 = [c for c in ul1 if c is not None]
 
-        df_iv_p = ib.run(df_iv(
+        df_iv_p = ib.run(make_df_iv(
             ib=ib,
             stocks=ul1,
             sleep_time=10,
@@ -619,7 +542,7 @@ if make_short_protect:
 
     with get_ib("SNP") as ib:
         us1 = ib.run(qualify_me(ib, df_us.contract, desc="Qualifying short protects"))
-        df_iv_s = ib.run(df_iv(
+        df_iv_s = ib.run(make_df_iv(
             ib=ib,
             stocks=us1,
             sleep_time=10,
@@ -666,11 +589,11 @@ if not df_lprot.empty or not df_sprot.empty:
     df_protect = df_protect.assign(puc = df_protect.protection/df_protect.cost)
     df_protect.drop(columns=['iv', 'hv', 'position'], inplace=True, errors='ignore')
 
-    print(f"Damage after ${df_protect.protection.sum():,.0f}")
-    print(f"...protected for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days")
+    print(f"Damage after ${df_protect.protection.sum():,.0f}\n")
+    print(f"...protected for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days\n")
     pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
 else:
-    print("All are protected. No protection needed.")
+    print("All are protected. No protection needed.\n")
 
 # %%
 # MAKE REAPS
@@ -702,13 +625,7 @@ if df_reap is not None and not df_reap.empty:
 
         for c, vy, undPrice in tqdm(zip(df_reap.contract, df_reap.vy, df_reap.undPrice),
                                     desc="reap opt price", total=len(sow_cts)):
-            try:
-                s = ib.calculateOptionPrice(c, vy, undPrice)    
-
-            except Exception as e:
-                with get_ib("SNP", LIVE=False) as ib:
-                    s = ib.calculateOptionPrice(c, vy, undPrice)
-            
+            s = ib.calculateOptionPrice(c, vy, undPrice)
             reaped[c.conId] = s
 
     # correct the option expiry
@@ -725,8 +642,7 @@ if df_reap is not None and not df_reap.empty:
 
     reap_path = ROOT/'data'/'df_reap.pkl'
     pickle_me(df_reap, reap_path)
-    print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}')
+    print(f'Have {len(df_reap)} reaping options unlocking US$ {reaps:,.0f}\n')
 else:
-    
-    print("There are no reaping options")
+    print("There are no reaping options\n")
 # %%

@@ -5,7 +5,7 @@ import pandas as pd
 from ib_async import Stock
 from loguru import logger
 
-from ibfuncs import (df_iv, get_ib, get_open_orders,
+from ibfuncs import (make_df_iv, get_ib, get_open_orders,
                      ib_pf, qualify_me)
 from utils import (ROOT, classify_pf, clean_ib_util_df, get_pickle, pickle_me,
                    update_unds_status, classify_open_orders)
@@ -85,7 +85,7 @@ def make_snp_unds() -> pd.DataFrame:
     # Get und prices, volatilities
     with get_ib(MARKET='SNP') as ib:
         dfp = ib.run(
-            df_iv(
+            make_df_iv(
                 ib=ib,
                 stocks=dfu["contract"].tolist(),
                 sleep_time=15,

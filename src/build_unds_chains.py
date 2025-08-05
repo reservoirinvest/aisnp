@@ -39,7 +39,7 @@ def build_data() -> dict:
         qpf = ib_pf(ib)
         df_pf = classify_pf(qpf)
         openords = get_open_orders(ib)
-        # fin = ib.run(get_financials(ib))
+        fin = ib.run(get_financials(ib))
     
     df_openords = classify_open_orders(openords, df_pf)
     
@@ -97,7 +97,8 @@ def build_data() -> dict:
         'df_pf': df_pf,
         'df_openords': df_openords,
         'df_unds': df_unds,
-        'chains': chains
+        'chains': chains,
+        'fin': fin
     }
 #%%
 data = build_data()
