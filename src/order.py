@@ -14,6 +14,7 @@ cov_path = ROOT / "data" / "df_cov.pkl"  # covered call and put path
 nkd_path = ROOT / "data" / "df_nkd.pkl"
 reap_path = ROOT / "data" / "df_reap.pkl"
 protect_path = ROOT / "data" / "df_protect.pkl"
+deorph_path = ROOT / "data" / "df_deorph.pkl"
 
 config = load_config('SNP')
 
@@ -104,9 +105,19 @@ else:
     print("\nThere are no protect options\n")
 
 # %%
+# ORDER ORPHANED OPTIONS
+if (df_deorph_path := deorph_path).exists():
+    df_deorph = get_pickle(df_deorph_path)
+    deorph_cos = make_ib_orders(df_deorph, action='SELL')
+    deorph_trades = place_orders(deorph_cos)
+    print(f'\nPlaced {len(df_deorph)} orphaned options')
+    pickle_me(deorph_trades, ROOT / "data" / "traded_deorphs.pkl")
+    delete_pkl_files(['df_deorph.pkl'])
+else:
+    print("\nThere are no orphaned options\n")
+
+
 # %%
 # RUN ANALYSIS
 exec(open(ROOT / "src" / "analysis.py").read())
 
-
-# %%

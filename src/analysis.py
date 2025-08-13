@@ -3,7 +3,6 @@
 
 import numpy as np
 import pandas as pd
-from IPython.display import HTML, display
 
 from ibfuncs import get_financials, get_ib, get_open_orders, ib_pf
 from snp import make_snp_unds
@@ -180,7 +179,7 @@ risk_msg = []
 
 stocks_val = df_pf[df_pf.symbol.isin(df_pf[df_pf.state == 'protecting'].symbol)].mktVal.sum()
 risk_msg.append(f'Our risk from {df_pf[df_pf.state == "protecting"].symbol.nunique()} protected stocks valued at ${stocks_val:,.0f} is ${df_risk.unprot_val.sum():,.0f} for {df_risk.dte.mean():.1f} days.')
-risk_msg.append(f' ...We paid a risk premium of ${df_risk.cost.sum():,.0f}')
+risk_msg.append(f' ...We paid a risk premium of ${df_risk.cost.sum():,.0f} to protect downside below the risk')
 unprotected_stocks = df[(df.source == "und") & (df.state.isin(["unprotected", "exposed"]))].symbol.unique()
 
 podf = df[(df.source == 'oo')&(df.state == 'protecting')].reset_index(drop=True)
@@ -195,7 +194,7 @@ if unprotected_stocks.size > 0:
         protection = dprot.protection.sum()
         protection_price = dprot.xPrice.sum()
         risk_msg.append(f'...We are protected below fall of ${protection:,.0f} at ${protection_price:,.0f} in unplaced orders, lasting for {df_protect.dte.mean():.1f} days on average.')
-else:
+elif podf_mkt > 0:
     risk_msg.append(f'\nRemaining stock positions worth ${podf_mkt:,.0f} are protected!')
     risk_msg.append(f' ...protection of ${oo_protect:,.0f} from {len(podf)} open orders will be at the cost of ${sum(podf.avgCost*podf.qty):,.0f}')
 
@@ -314,4 +313,6 @@ if chains is not None and df_unds is not None:
     print("Symbols missing in unds from chains:", missing_in_unds['symbol'].unique())
     print("Symbols missing in chains from unds:", missing_in_chains['symbol'].unique())
     print("Symbols missing in chains from pf:", missing_in_chains_from_pf['symbol'].unique())
+# %%
+
 # %%

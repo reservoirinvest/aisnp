@@ -1,10 +1,12 @@
 # Program for optimized sowing, covering, protecting, reaping and de-orphaning SNPs
 
 ## TO-DO
+
+- [X] `analysis.py` fails when there is no df_chains.pkl.
+- [X] Clean-up `analysis.py` for consistent html and console messages.
+- [X] In `analysis.py` check if sowed reward adjusts based on reapratio
+- [X] Handle de-orphaning
 - [ ] AAPL, QQQ and SPY chains - only one is being generated. Find out why?
-- [ ] `analysis.py` fails when there is no df_chains.pkl.
-- [ ] Clean-up `analysis.py` for consistent html and console messages.
-- [x] In `analysis.py` check if sowed reward adjusts based on reapratio
 
 ## Identifying states
 

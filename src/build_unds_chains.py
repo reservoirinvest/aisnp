@@ -44,14 +44,13 @@ def build_data() -> dict:
     df_openords = classify_open_orders(openords, df_pf)
     
     # Get unds
-    df_unds = None
-    if is_market_open() or get_pickle(unds_path) is None:
-        if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
-            df_unds = make_snp_unds()
-        else:
-            print(f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old")
-            df_unds = get_pickle(unds_path)
-            pickle_me(df_unds, unds_path)
+    df_unds = get_pickle(unds_path)
+    if df_unds is None or do_i_refresh(unds_path, max_days=MAX_FILE_AGE) or is_market_open():
+        df_unds = make_snp_unds()
+    else:
+        print(f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old")
+    
+    pickle_me(df_unds, unds_path)
     
     # Update status
     df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords).sort_values("symbol").reset_index(drop=True)
@@ -68,14 +67,8 @@ def build_data() -> dict:
     if chain_recreate:
         unds = df_unds.contract.to_list()
         
-        # Try to use paper trading first, fall back to live if needed
-        try:
-            with get_ib("SNP", LIVE=False) as ib:
-                chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
-        except Exception:
-            logger.info("Failed to use LIVE=False (paper). Falling back to LIVE=True.")
-            with get_ib("SNP", LIVE=True) as ib:
-                chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
+        with get_ib("SNP", LIVE=True) as ib:
+            chains = ib.run(df_chains(ib, unds, sleep_time=5.5, msg="raw chains"))
         
         unds1 = clean_ib_util_df(unds)
         missing_unds = unds1[~unds1["symbol"].isin(chains["symbol"])]

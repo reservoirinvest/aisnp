@@ -760,22 +760,31 @@ def atm_margin(strike, undPrice, dte, vy):
     
     return margin
 
-def is_market_open(date: Union[None, datetime]=datetime.now()) -> bool:
+def is_market_open():
     """
-    Checks if the US stock market (NYSE) is currently open.
-
-    Parameters:
-    date (str): The date to check. If None, the current date is used.
-
-    Returns:
-    bool: True if the market is open, False otherwise.
+    Check if the NYSE is open at the current time.
+    Returns: bool - True if the market is open, False otherwise.
     """
-    if date:
-        result = mcal.get_calendar("NYSE").schedule(start_date=date, end_date=date)
-    else:
-        result = mcal.get_calendar("NYSE").schedule(start_date=datetime.now(), end_date=datetime.now())
+    # Get current time in New York timezone
+    ny_time = datetime.now(pytz.timezone('America/New_York'))
     
-    return result.empty is False
+    # Get NYSE calendar
+    nyse = mcal.get_calendar('NYSE')
+    
+    # Get schedule for today
+    today = ny_time.date()
+    schedule = nyse.schedule(start_date=today, end_date=today)
+    
+    # Check if market is open today
+    if schedule.empty:
+        return False
+    
+    # Get market open and close times for today
+    market_open = schedule.iloc[0]['market_open'].tz_convert('America/New_York')
+    market_close = schedule.iloc[0]['market_close'].tz_convert('America/New_York')
+    
+    # Check if current time is within trading hours
+    return market_open <= ny_time <= market_close
 
 def delete_files(files_to_delete):
     """

@@ -1,9 +1,10 @@
 # This program identifies states and generates orders
+
+
 # %%
 # IMPORTS AND VARIABLES
 
-from contextlib import ExitStack
-
+import time
 import numpy as np
 import pandas as pd
 from ib_async import Option, util
@@ -15,6 +16,9 @@ from utils import (ROOT, atm_margin, clean_ib_util_df, delete_files, delete_pkl_
                    pickle_me, tqdm, how_many_days_old)
 
 from build_unds_chains import build_data
+
+# Start timing the script execution
+start_time = time.time()
 
 # Get parameters
 config = load_config("SNP")
@@ -370,15 +374,8 @@ virg_puts = [
     if not pd.isna(k)
 ]
 
-# Check if IBG PAPER is online to qualify virigin puts.
-with ExitStack() as es:
-    try:
-        ib = es.enter_context(get_ib("SNP", LIVE=False))
-    except Exception:
-        ib = get_ib("SNP", LIVE=True)
-    finally:
-        virg_puts = ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
-        ib.disconnect()
+with get_ib("SNP") as ib:
+    virg_puts = ib.run(qualify_me(ib, virg_puts, desc="Qualifying virgin puts"))
 
 if not virg_puts:
     make_virg_puts = False
@@ -646,3 +643,39 @@ if df_reap is not None and not df_reap.empty:
 else:
     print("There are no reaping options\n")
 # %%
+# EXTRACT ORPHANED CONTRACTS FROM df_pf
+df_deorph = df_pf[(df_pf.state == "orphaned") & (df_pf.secType == "OPT")].copy()
+
+if not df_deorph.empty:
+
+
+
+    # # correct the option expiry
+    # _ = [setattr(option, 'lastTradeDateOrContractMonth', "20" + option.localSymbol[6:12]) 
+    #     for option in df_deorph.contract.to_list() if option.conId > 0]
+    
+    with get_ib("SNP") as ib:
+        deorph_cts = ib.run(qualify_me(ib, df_deorph.contract.tolist(), desc="Qualifying orphaned unds"))
+        df_deorph = df_deorph.assign(contract = deorph_cts)
+
+    df_deorph["qty"] = df_deorph.position.abs().astype(int)
+    df_deorph["xPrice"] = df_deorph["mktPrice"].apply(lambda x: max(0.09, get_prec(x, 0.1)))
+    
+    
+    # Calculate total value of orphaned options
+    deorph_total = (df_deorph.mktPrice * df_deorph.qty * 100).sum()
+
+    deorph_path = ROOT / 'data' / 'df_deorph.pkl'
+    pickle_me(df_deorph, deorph_path)
+    print(f'Have {len(df_deorph)} orphaned options with total value US$ {deorph_total:,.0f}\n')
+else:
+    print("There are no orphaned options to process\n")
+# %%
+# PRINT TOTAL EXECUTION TIME
+end_time = time.time()
+execution_time = end_time - start_time
+minutes = int(execution_time // 60)
+seconds = int(execution_time % 60)
+print(f"\n{'='*50}")
+print(f"Total execution time: {minutes} minutes and {seconds} seconds")
+print(f"{'='*50}")
