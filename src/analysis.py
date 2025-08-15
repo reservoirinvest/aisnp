@@ -68,7 +68,7 @@ for k, v in fin.items():
 
 pf_states = {state: df_pf[df_pf.state == state].symbol.nunique() for state in set(df_pf.state)}
 msg=' '.join(f"{state}: {n};" for state, n in pf_states.items())[:-1]
-print('\nPortfolio has symbols that are ' + msg)
+print('\nPortfolio has symbols that are... \n' + msg)
 
 
 # %%

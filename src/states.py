@@ -120,22 +120,24 @@ else:
         .reset_index(drop=True)
     )
 
-    # Merge chains with underlying prices and volatilities
-    df_cc = df_cc.merge(df_unds[["symbol", "undPrice", "vy"]], on="symbol", how="left")
+    # Merge chains with underlying prices, volatilities and avgCost
+    df_cc = df_cc.merge(df_unds[["symbol", "undPrice", "vy", "avgCost"]], on="symbol", how="left")
 
     # Calculate standard deviation based on implied volatility and days to expiration
     df_cc["sdev"] = df_cc.undPrice * df_cc.vy * (df_cc.dte / 365) ** 0.5
+    
+    # Calculate the minimum price for cover strikes 
+    vol_based_price = df_cc.undPrice + config.get("COVER_STD_MULT") * df_cc.sdev
+    df_cc["covPrice"] = np.maximum(df_cc.avgCost, vol_based_price)
 
-    # For each symbol and expiry, get 3 strikes above undPrice + sdev
-
-    c_std = config.get("COVER_STD_MULT")
+    # For each symbol and expiry, get 3 strikes above covPrice
     no_of_options = 3
 
     cc_long = (
-        df_cc.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev"]]
+        df_cc.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev", "covPrice"]]
         .apply(
-            lambda x: x[x["strike"] > x["undPrice"] + c_std * x["sdev"]]
-            .assign(diff=abs(x["strike"] - (x["undPrice"] + c_std * x["sdev"])))
+            lambda x: x[x["strike"] > x["covPrice"]]
+            .assign(diff=x["strike"] - x["covPrice"])
             .sort_values("diff")
             .head(no_of_options)
         )
@@ -211,25 +213,27 @@ else:
         .reset_index(drop=True)
     )
 
-    # Merge chains with underlying prices and volatilities
-    df_cp = df_cp.merge(df_unds[["symbol", "undPrice", "vy"]], on="symbol", how="left")
+    # Merge chains with underlying prices, volatilities and avgCost
+    df_cp = df_cp.merge(df_unds[["symbol", "undPrice", "vy", "avgCost"]], on="symbol", how="left")
 
     # Calculate standard deviation based on implied volatility and days to expiration
     df_cp["sdev"] = df_cp.undPrice * df_cp.vy * (df_cp.dte / 365) ** 0.5
+    
+    # Calculate the maximum price for put covers (lower of avgCost or undPrice - c_std * sdev)
+    vol_based_price = df_cp.undPrice - config.get("COVER_STD_MULT") * df_cp.sdev
+    df_cp["covPrice"] = np.minimum(df_cp.avgCost, vol_based_price)
 
-    # For each symbol and expiry, get 3 strikes below undPrice - sdev
-    cp_std = config.get("COVER_STD_MULT")
+    # For each symbol and expiry, get 3 strikes below covPrice
     no_of_options = 3
 
     cp_short = (
-        df_cp.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev"]]
+        df_cp.groupby(["symbol", "expiry"])[["symbol", "expiry", "strike", "undPrice", "sdev", "covPrice"]]
         .apply(
-            lambda x: x[x["strike"] < x["undPrice"] - cp_std * x["sdev"]]
-            .assign(diff=abs(x["strike"] - (x["undPrice"] - cp_std * x["sdev"])))
+            lambda x: x[x["strike"] < x["covPrice"]]
+            .assign(diff=x["covPrice"] - x["strike"])
             .sort_values("diff")
             .head(no_of_options)
         )
-        # .reset_index()
         .drop(columns=["level_2", "diff"], errors="ignore")
     )
 
@@ -296,11 +300,12 @@ if cov_path.exists():
     cov_path.unlink()
 
 if not df_cov.empty:
+
     # add 'dte' column with get_dte(expiry) as the 5th column
     df_cov.insert(4, "dte", df_cov.expiry.apply(get_dte))
 
     df_cov["xPrice"] = df_cov.apply(
-        lambda x: get_prec(x.price*COVXPMULT, 0.01)
+        lambda x: max(get_prec(x.price*COVXPMULT, 0.01), 0.05)
         if x.qty != 0 else 0,
         axis=1,
     )

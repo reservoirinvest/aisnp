@@ -45,7 +45,7 @@ def build_data() -> dict:
     
     # Get unds
     df_unds = get_pickle(unds_path)
-    if df_unds is None or do_i_refresh(unds_path, max_days=MAX_FILE_AGE) or is_market_open():
+    if df_unds is None or do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
         df_unds = make_snp_unds()
     else:
         print(f"Reusing und contracts they are less than MAX_FILE_AGE:{MAX_FILE_AGE} days old")
