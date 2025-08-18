@@ -279,8 +279,13 @@ def get_dte(date_input):
         date_input (str or pd.Series): Date string(s) in 'YYYYMMDD' format
     
     Returns:
-        float or pd.Series: Number of days from option closing time to current time in UTC
+        float, pd.Series, or None: Number of days from option closing time to current time in UTC,
+                                  or None if input is not a string or is null
     """
+    # Handle None or non-string, non-Series input
+    if date_input is None or (not isinstance(date_input, (str, pd.Series))):
+        return None
+        
     # If input is a pandas Series, apply the function to each element
     if isinstance(date_input, pd.Series):
         return date_input.apply(get_dte)
@@ -289,12 +294,18 @@ def get_dte(date_input):
     date_str = str(date_input)[:8]
     
     # Parse the date
-    year = int(date_str[:4])
-    month = int(date_str[4:6])
-    day = int(date_str[6:8])
+    try:
+        year = int(date_str[:4])
+        month = int(date_str[4:6])
+        day = int(date_str[6:8])
+    except (ValueError, IndexError):
+        return None
     
     # Create datetime object at option closing time (4 PM market close)
-    expiry_datetime = datetime(year, month, day, 16, 0, 0, tzinfo=timezone.utc)
+    try:
+        expiry_datetime = datetime(year, month, day, 16, 0, 0, tzinfo=timezone.utc)
+    except (ValueError, OverflowError):
+        return None
     
     # Get current time in UTC
     current_time = datetime.now(timezone.utc)
@@ -394,6 +405,11 @@ def classify_pf(pf):
     """
     # Create a copy to avoid modifying the original DataFrame
     pf = pf.copy()
+    
+    # Add dte column for options
+    if 'expiry' in pf.columns and 'dte' not in pf.columns:
+        pf['dte'] = pf.expiry.apply(lambda x: get_dte(x) if pd.notnull(x) else None)
+        
     pf["state"] = "tbd"
 
     # First, classify all options

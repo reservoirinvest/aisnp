@@ -12,22 +12,22 @@ CID: 10
 
 MINCUSHION: 0.3 # 30% minimum cushion for responsible marging trading. Higher the better.
 
+COVER_ME: True
 COVER_MIN_DTE: 4
-COVER_STD_MULT: 1
-COVXPMULT: 1.5 # multiple for cover expected price
-
+COVER_STD_MULT: 0.8
+COVXPMULT: 2.2 # multiple for cover expected price
 
 VIRGIN_DTE: 7 # minimum days to expiration for nakeds
-VIRGIN_PUT_STD_MULT: 1.2
+VIRGIN_PUT_STD_MULT: 1
 VIRGIN_CALL_STD_MULT: 3
-
+VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
 MINNAKEDOPTPRICE: 1.5 # To ensure we get at least this much from naked puts
 NAKEDXPMULT: 3 # multiple for naked expected price
 
-VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
-
-REAPRATIO: 0.1 # percentage of average cost. Lower the better.
-MINREAPDTE: 2 # do not reap on or under this DTE.
-
+PROTECT_ME: False
 PROTECT_DTE: 35
 PROTECTION_STRIP: 8 # no of strikes down for longs and up for shorts
+
+REAP_ME: True
+REAPRATIO: 0.1 # percentage of average cost. Lower the better.
+MINREAPDTE: 2 # do not reap on or under this DTE.

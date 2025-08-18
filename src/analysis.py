@@ -27,11 +27,14 @@ df_protect = get_pickle(protect_path, print_msg=False)
 df_reap = get_pickle(reap_path, print_msg=False)
 chains = get_pickle(chains_path, print_msg=False)
 
-# Get unds. Make it fresh if stale.
 config = load_config("SNP")
 MAX_FILE_AGE = config.get("MAX_FILE_AGE")
 REAPRATIO = config.get("REAPRATIO")
+COVER_ME = config.get("COVER_ME")
+PROTECT_ME = config.get("PROTECT_ME")
+REAP_ME = config.get("REAP_ME")
 
+# Get unds. Make it fresh if stale.
 if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
     df_unds = make_snp_unds()
 
@@ -173,22 +176,27 @@ cover_projection = (df_risk.dte.mean()/7-1)*abs(df_reward.premium.sum())
 sowed_projection = df_sowed.avgCost.sum()*(1-REAPRATIO)
 total_reward = cover_projection + abs(sowed_projection)
 
-print('\nPosition Risk & Reward')
+print('\POSITION Risk & Reward')
 print('=======================')
 risk_msg = []
 
+if not PROTECT_ME:
+    risk_msg.append('\nPROTECT_ME is disabled (false) in configuration\n')
+
 stocks_val = df_pf[df_pf.symbol.isin(df_pf[df_pf.state == 'protecting'].symbol)].mktVal.sum()
-risk_msg.append(f'Our risk from {df_pf[df_pf.state == "protecting"].symbol.nunique()} protected stocks valued at ${stocks_val:,.0f} is ${df_risk.unprot_val.sum():,.0f} for {df_risk.dte.mean():.1f} days.')
-risk_msg.append(f' ...We paid a risk premium of ${df_risk.cost.sum():,.0f} to protect downside below the risk')
+
+if not df_risk.empty:
+    risk_msg.append(f'Our risk from {df_pf[df_pf.state == "protecting"].symbol.nunique()} protected stocks valued at ${stocks_val:,.0f} is ${df_risk.unprot_val.sum():,.0f} for {df_risk.dte.mean():.1f} days.')
+    risk_msg.append(f' ...We paid a risk premium of ${df_risk.cost.sum():,.0f} to protect downside below the risk')
+
 unprotected_stocks = df[(df.source == "und") & (df.state.isin(["unprotected", "exposed"]))].symbol.unique()
 
 podf = df[(df.source == 'oo')&(df.state == 'protecting')].reset_index(drop=True)
 oo_protect = sum(abs((podf.undPrice-podf.strike)*podf.qty)*100)
 podf_mkt = df_pf[df_pf.symbol.isin(podf.symbol.unique()) & (df_pf.secType == 'STK')].mktVal.sum()
 
-
 if unprotected_stocks.size > 0:
-    risk_msg.append(f'\n{len(unprotected_stocks)} Stocks needing protection: {", ".join(unprotected_stocks)}')
+    risk_msg.append(f'\n{len(unprotected_stocks)} stocks need protection: {", ".join(unprotected_stocks)}')
     if df_protect is not None and not df_protect.empty:
         dprot = df_protect[df_protect.symbol.isin(unprotected_stocks)]
         protection = dprot.protection.sum()
@@ -207,9 +215,12 @@ naked_premium = 0
 if not df_openords.empty:
     naked_premium = (df_openords.lmtPrice * df_openords.qty).sum() * 100
 
+if not COVER_ME:
+    print('\nCOVER_ME in configuration is disabled (false). No cover premiums are calculable!!]n')
+
 reward_msg = (
     f'Total reward this month is expected to be ${total_reward:,.0f}.\n '
-    f'Our maximum cover reward in {df_reward.dte.mean():.1f} days is '
+    f'Our maximum cover reward from positions in {df_reward.dte.mean():.1f} days is '
     f'${df_reward.max_reward.sum():,.0f}, if all covers get blown.\n\n'
     f'Our cover premiums from covering options is ${abs(df_reward.premium.sum()):,.0f} this week from our stock positions\n'
     f' ...this can be projected to give us ${cover_projection:,.0f} for the protected period\n\n' 
@@ -248,12 +259,12 @@ else:
 
 if cov_premium > 0 or nkd_premium > 0:
     print('\n')
-    print('PREMIUMS AND PROFIT from df_cov and df_nkd')
-    print('==========================================')
+    print('ORDER premiums and profits from df_cov and df_nkd')
+    print('=================================================')
     print("Total Premium available is", format(cov_premium + nkd_premium, ',.0f'))
     print(f"...Cover Premium: {format(cov_premium, ',.0f')}")
     print(f"...Naked Premiums: {format(nkd_premium, ',.0f')}\n")
-    print(f"Max possible profit from covers: {format(maxProfit, ',.0f')}")
+    print(f"Max possible profit if all df_cov covers get blown: {format(maxProfit, ',.0f')}")
 
 print('\n')
 print('SYMBOL COUNT BY STATE')
