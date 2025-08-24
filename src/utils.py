@@ -750,6 +750,23 @@ def update_unds_status(df_unds:pd.DataFrame,
     return df_unds
 
 
+def get_assignment_risk(df):
+    """
+    This function takes in a dataframe (df) and returns a filtered dataframe
+    based on the following conditions:
+    right == 'C' and strike < undPrice or right == 'P' and undPrice < strike
+    The dataframe is then sorted by 'dte' and 'unPnL' and reset index.
+
+    Parameters:
+    df (pandas.DataFrame): The dataframe to be filtered.
+
+    Returns:
+    pandas.DataFrame: The filtered dataframe.
+    """
+    return df[(df.right == 'C') & (df.strike < df.undPrice) | (df.right == 'P') &\
+         (df.undPrice < df.strike)].sort_values(['dte', 'unPnL']).reset_index(drop=True)
+
+
 def atm_margin(strike, undPrice, dte, vy):
     """
     Calculates the margin for an at-the-money put sale.
@@ -879,3 +896,74 @@ def get_prob(sd):
     """
     prob = quad(lambda x: np.exp(-(x**2) / 2) / np.sqrt(2 * np.pi), -sd, sd)[0]
     return prob
+
+def filter_closest_dates(chains, protect_dte, num_dates=2):
+    """
+    Filter rows from chains DataFrame to get the closest dates to protect_dte for each symbol.
+    
+    Args:
+        chains (pd.DataFrame): DataFrame containing 'symbol' and 'dte' columns
+        protect_dte (datetime): The target date to find closest dates to
+        num_dates (int): Number of closest dates to return per symbol (default: 2)
+        
+    Returns:
+        pd.DataFrame: Filtered DataFrame containing only the rows with the closest dates for each symbol
+    """
+    # Make a copy to avoid SettingWithCopyWarning
+    result = []
+    
+    # Group by symbol and process each group
+    for symbol, group in chains.groupby('symbol'):
+        # Calculate absolute difference between each date and protect_dte for this symbol
+        group = group.copy()
+        group['date_diff'] = (group['dte'] - protect_dte).abs()
+        
+        # Get the num_dates closest dates for this symbol
+        unique_dates = group[['dte', 'date_diff']].drop_duplicates(subset=['dte'])
+        closest_dates = unique_dates.nsmallest(num_dates, 'date_diff')['dte']
+        
+        # Filter the group for these dates and add to results
+        filtered_group = group[group['dte'].isin(closest_dates)].drop(columns=['date_diff'])
+        result.append(filtered_group)
+    
+    # Combine all filtered groups
+    return pd.concat(result, ignore_index=True) if result else pd.DataFrame()
+
+def filter_closest_strikes(chains, n=-2):
+    """
+    Filter rows to get the closest strikes to undPrice for each symbol and expiry.
+    
+    Args:
+        chains (pd.DataFrame): DataFrame containing 'symbol', 'dte', 'strike', 'undPrice' columns
+        n (int): Number of strikes to return. 
+                 If positive (calls for shorts): returns n closest strikes >= undPrice, sorted by strike ascending
+                 If negative (puts for longs): returns |n| closest strikes <= undPrice, sorted by strike descending
+                 
+    Returns:
+        pd.DataFrame: Filtered DataFrame with closest strikes
+    """
+    if n == 0:
+        return pd.DataFrame()
+        
+    result = []
+    abs_n = abs(n)
+    
+    # Group by symbol and expiry
+    for (symbol, expiry), group in chains.groupby(['symbol', 'dte']):
+        group = group.copy()
+        filtered = group.copy()
+        
+        if n > 0:
+            # For positive n: keep strikes >= undPrice, sort dte ascending
+            filtered = group[group['strike'] >= group['undPrice']]
+            filtered = filtered.sort_values('strike', ascending=True)
+        else:
+            # For negative n: keep strikes <= undPrice, sort dte descending
+            filtered = group[group['strike'] <= group['undPrice']]
+            filtered = filtered.sort_values('strike', ascending=False)
+        
+        # Take the first n strikes
+        if not filtered.empty:
+            result.append(filtered.head(abs_n))
+    
+    return pd.concat(result, ignore_index=True) if result else pd.DataFrame()

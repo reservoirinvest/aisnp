@@ -8,12 +8,10 @@ from utils import (
     classify_pf, 
     classify_open_orders, 
     update_unds_status,
-    is_market_open,
     pickle_me,
     clean_ib_util_df
 )
 from snp import make_snp_unds
-from loguru import logger
 
 def build_data() -> dict:
     """
@@ -44,7 +42,7 @@ def build_data() -> dict:
     df_openords = classify_open_orders(openords, df_pf)
     
     # Get unds
-    df_unds = get_pickle(unds_path)
+    df_unds = get_pickle(unds_path, print_msg=False)
     if df_unds is None or do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
         df_unds = make_snp_unds()
     else:

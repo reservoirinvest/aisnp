@@ -8,7 +8,7 @@ from ibfuncs import get_financials, get_ib, get_open_orders, ib_pf
 from snp import make_snp_unds
 from utils import (ROOT, classify_open_orders, classify_pf, do_i_refresh,
                    get_dte, get_pickle, get_age_text, load_config,
-                   update_unds_status)
+                   update_unds_status, get_assignment_risk)
 
 # Get the dataframes
 pf_path = ROOT / "data" / "df_pf.pkl"  # portfolio path
@@ -37,11 +37,14 @@ REAP_ME = config.get("REAP_ME")
 # Get unds. Make it fresh if stale.
 if do_i_refresh(unds_path, max_days=MAX_FILE_AGE):
     df_unds = make_snp_unds()
+else:
+    df_unds = get_pickle(unds_path)
 
 
 with get_ib("SNP") as ib:
     qpf = ib_pf(ib)
     df_pf = classify_pf(qpf)
+    df_pf = df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
 
     fin = ib.run(get_financials(ib))
     fin["unique symbols"] = len(df_pf.symbol.unique())
@@ -68,10 +71,6 @@ for k, v in fin.items():
             print(f"{k}: {format(v, ',.0f')}")
         else:
             print(f"{k}: {format(v, ',.2f')}")
-
-pf_states = {state: df_pf[df_pf.state == state].symbol.nunique() for state in set(df_pf.state)}
-msg=' '.join(f"{state}: {n};" for state, n in pf_states.items())[:-1]
-print('\nPortfolio has symbols that are... \n' + msg)
 
 
 # %%
@@ -171,17 +170,36 @@ df_reward = (
     [['symbol', 'source', 'premium', 'max_reward', 'mktVal', 'dte']]
 )
 
+df_assign = get_assignment_risk(df)
+
+# To-ve Blown cover rows in df_pf where secType is STK or (secType == OPT and position is negative)
+
+cols = ['symbol', 'secType', 'position', 'right', 'dte', 'strike', 'undPrice', 'avgCost', 'mktVal', 'unPnL']
+cover_condition = (
+    (df.source == 'pf') & 
+    (df.symbol.isin(df_assign[df_assign.state == 'covering'].symbol)) &
+    ((df.secType == 'STK') | ((df.secType == 'OPT') & (df.position < 0)))
+)
+cover_blown = df[cover_condition].sort_values(
+    ['symbol', 'right'], 
+    ascending=[True, False]
+)[cols]
+
 df_sowed = df[df.state == 'sowed'].sort_values('unPnL')
 cover_projection = (df_risk.dte.mean()/7-1)*abs(df_reward.premium.sum())
 sowed_projection = df_sowed.avgCost.sum()*(1-REAPRATIO)
 total_reward = cover_projection + abs(sowed_projection)
 
-print('\POSITION Risk & Reward')
-print('=======================')
+print('\nRISKS')
+print('======')
 risk_msg = []
 
 if not PROTECT_ME:
-    risk_msg.append('\nPROTECT_ME is disabled (false) in configuration\n')
+    print('\nPROTECT_ME is disabled (false) in configuration')
+
+pf_states = {state: df_pf[df_pf.state == state].symbol.nunique() for state in set(df_pf.state)}
+msg=' '.join(f"{state}: {n};" for state, n in pf_states.items())[:-1]
+print('\nPortfolio symbols states are... \n' + msg + '\n')
 
 stocks_val = df_pf[df_pf.symbol.isin(df_pf[df_pf.state == 'protecting'].symbol)].mktVal.sum()
 
@@ -196,20 +214,26 @@ oo_protect = sum(abs((podf.undPrice-podf.strike)*podf.qty)*100)
 podf_mkt = df_pf[df_pf.symbol.isin(podf.symbol.unique()) & (df_pf.secType == 'STK')].mktVal.sum()
 
 if unprotected_stocks.size > 0:
-    risk_msg.append(f'\n{len(unprotected_stocks)} stocks need protection: {", ".join(unprotected_stocks)}')
+    stocks_str = [", ".join(unprotected_stocks[i:i+5]) for i in range(0, len(unprotected_stocks), 5)]
+    risk_msg.append(f'\n{len(unprotected_stocks)} stocks need protection: \n...\n\t{"\n\t".join(stocks_str)}')
     if df_protect is not None and not df_protect.empty:
         dprot = df_protect[df_protect.symbol.isin(unprotected_stocks)]
         protection = dprot.protection.sum()
-        protection_price = dprot.xPrice.sum()
-        risk_msg.append(f'...We are protected below fall of ${protection:,.0f} at ${protection_price:,.0f} in unplaced orders, lasting for {df_protect.dte.mean():.1f} days on average.')
+        protection_price = (dprot.xPrice*dprot.qty*100).sum()
+        dprot_val = sum(dprot.undPrice*dprot.qty*100)
+        risk_msg.append(f'\nFor {len(dprot)} stocks worth ${dprot_val:,.0f},')
+        risk_msg.append(f' we can have protection band of ${protection:,.0f} for {df_protect.dte.mean():.1f} days,')
+        risk_msg.append(f' at a cost of ${protection_price:,.0f} in unplaced orders,')
+        if not PROTECT_ME:
+            risk_msg.append(' provided PROTECT_ME is enabled in configuration')
 elif podf_mkt > 0:
     risk_msg.append(f'\nRemaining stock positions worth ${podf_mkt:,.0f} are protected!')
     risk_msg.append(f' ...protection of ${oo_protect:,.0f} from {len(podf)} open orders will be at the cost of ${sum(podf.avgCost*podf.qty):,.0f}')
 
 print('\n'.join(risk_msg))
 
-print('\nRewards')
-print('-------')
+print('\nREWARDS')
+print('======')
 
 naked_premium = 0
 if not df_openords.empty:
@@ -219,21 +243,22 @@ if not COVER_ME:
     print('\nCOVER_ME in configuration is disabled (false). No cover premiums are calculable!!]n')
 
 reward_msg = (
-    f'Total reward this month is expected to be ${total_reward:,.0f}.\n '
-    f'Our maximum cover reward from positions in {df_reward.dte.mean():.1f} days is '
-    f'${df_reward.max_reward.sum():,.0f}, if all covers get blown.\n\n'
-    f'Our cover premiums from covering options is ${abs(df_reward.premium.sum()):,.0f} this week from our stock positions\n'
-    f' ...this can be projected to give us ${cover_projection:,.0f} for the protected period\n\n' 
-    f'Our naked premiums from open orders is ${naked_premium:,.0f}\n'
+    f'Total reward in a week is expected to be ${total_reward:,.0f}.\n'
+    f' ..sowed reward in {df_sowed.dte.mean():.1f} dte days is ${sowed_projection:,.0f}\n'
+    f' ..cover premiums in {df_reward.dte.mean():.1f} days are ${abs(df_reward.premium.sum()):,.0f}\n'
+    f'  ...maximum cover reward  is '
+    f'${df_reward.max_reward.sum():,.0f}, if all covers get blown.\n'
+    
 )
+
+if naked_premium > 0:
+    reward_msg += f'\n ..naked premiums from open orders is ${naked_premium:,.0f}\n'
 
 print(reward_msg)
 
-sow_msg = (
-    f'Our sowed reward in about {df_sowed.dte.mean():.1f} dte days is ${sowed_projection:,.0f}'
-)
-
-print(sow_msg)
+if cover_blown is not None and not cover_blown.empty:
+    print('\nCover blown rows are:\n')
+    print(cover_blown.to_string(index=False))
 
 # %%
 # GETS STATE DETAILS
@@ -258,7 +283,6 @@ else:
     nkd_premium = 0
 
 if cov_premium > 0 or nkd_premium > 0:
-    print('\n')
     print('ORDER premiums and profits from df_cov and df_nkd')
     print('=================================================')
     print("Total Premium available is", format(cov_premium + nkd_premium, ',.0f'))
@@ -298,13 +322,6 @@ if df_protect is not None and not df_protect.empty:
 
     df_pf[(df_pf.secType == 'STK') & ~(df_pf.symbol.isin(s))].reset_index(drop=True)
 
-    print('\nDOWNSIDE PROTECTION')
-    print('======================')
-    print(f"Protects: ${df_protect.protection.sum():,.0f}")
-    print(f"Cost: ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days")
-
-# display(HTML('<hr>'))
-
 print('\n')
 print('BASE INTEGRITY CHECK')
 print('====================')
@@ -324,6 +341,4 @@ if chains is not None and df_unds is not None:
     print("Symbols missing in unds from chains:", missing_in_unds['symbol'].unique())
     print("Symbols missing in chains from unds:", missing_in_chains['symbol'].unique())
     print("Symbols missing in chains from pf:", missing_in_chains_from_pf['symbol'].unique())
-# %%
-
 # %%
