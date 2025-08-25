@@ -23,7 +23,7 @@ VIRGIN_PUT_STD_MULT: 1.1
 VIRGIN_CALL_STD_MULT: 3
 NAKEDXPMULT: 2.5  # multiple for naked expected price
 VIRGIN_QTY_MULT: 0.015 # 1.5% of NLV divided by margin = qty of virgins
-MINNAKEDOPTPRICE: 1.5 # To ensure we get at least this much from naked puts
+MINNAKEDOPTPRICE: 1.8 # To ensure we get at least this much from naked puts
 
 PROTECT_ME: False
 PROTECT_DTE: 35

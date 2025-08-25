@@ -14,8 +14,11 @@ from utils import (ROOT, classify_pf, clean_ib_util_df, get_pickle, pickle_me,
 @lru_cache(maxsize=1)
 def get_wiki_snps():
     try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
         snp_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-        return pd.read_html(snp_url)[0]["Symbol"]
+        return pd.read_html(snp_url, header=0, attrs={"id": "constituents"}, flavor='lxml', storage_options=headers)[0]["Symbol"]
     except Exception as e:
         logger.error(f"Failed to retrieve S&P 500 symbols: {e}")
         return pd.Series()
