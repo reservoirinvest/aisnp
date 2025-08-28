@@ -18,6 +18,7 @@ unds_path = ROOT / "data" / "df_unds.pkl"
 protect_path = ROOT / "data" / "df_protect.pkl"
 reap_path = ROOT / "data" / "df_reap.pkl"
 chains_path = ROOT / "data" / "df_chains.pkl"
+purls_path = ROOT / "data" / "protect_rolls.pkl"
 
 df_pf = get_pickle(pf_path, print_msg=False)
 df_cov = get_pickle(cov_path, print_msg=False)
@@ -26,6 +27,7 @@ df_unds = get_pickle(unds_path, print_msg=False)
 df_protect = get_pickle(protect_path, print_msg=False)
 df_reap = get_pickle(reap_path, print_msg=False)
 chains = get_pickle(chains_path, print_msg=False)
+df_rolls = get_pickle(purls_path, print_msg=False)
 
 config = load_config("SNP")
 MAX_FILE_AGE = config.get("MAX_FILE_AGE")
@@ -229,6 +231,12 @@ if unprotected_stocks.size > 0:
 elif podf_mkt > 0:
     risk_msg.append(f'\nRemaining stock positions worth ${podf_mkt:,.0f} are protected!')
     risk_msg.append(f' ...protection of ${oo_protect:,.0f} from {len(podf)} open orders will be at the cost of ${sum(podf.avgCost*podf.qty):,.0f}')
+
+if not df_rolls.empty:
+    risk_msg.append(
+        f"\nThe rollover cost of {df_rolls.symbol.unique().shape[0]} symbols for "
+        f"{df_rolls.expiry.apply(get_dte).max():.0f} days would be ${df_rolls.rollcost.sum():,.0f}."
+    )
 
 print('\n'.join(risk_msg))
 

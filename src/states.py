@@ -262,6 +262,9 @@ else:
 df_rol = (
     df_pf[(df_pf['state'] == 'protecting') & (df_pf.right == 'P')]
     .assign(
+        odiff=lambda x: (x['undPrice'] - x['strike']),
+        ostrike=df_pf.strike,
+        odte=df_pf.dte,
         pct_diff=lambda x: (abs(x['strike'] - x['undPrice']) / x['undPrice'] * 100)
     )
     .sort_values('pct_diff', ascending=False)
@@ -304,11 +307,15 @@ if not p.empty:
 
     # Append undPrice to purl_price and compute difference
     purls = purl_price.merge(df_unds[['symbol', 'undPrice']], on='symbol')
-    purls['diff'] = (purls['strike'] / purls['undPrice'] - 1)
-    purls = purls.sort_values('diff')
+    purls = purls.merge(df_rol[['symbol', 'odiff']], on='symbol')
+    purls = purls.merge(df_rol[['symbol', 'ostrike']], on='symbol')
+    purls = purls.merge(df_rol[['symbol', 'odte']], on='symbol')
 
-    cols = ['symbol', 'secType', 'expiry', 'strike', 'undPrice', 'right',
-           'price', 'diff']
+    purls['diff'] = purls['strike'] / purls['undPrice'] - 1
+    purls = purls.sort_values('diff', key=lambda x: x - purls['odiff'])
+
+    cols = ['symbol', 'secType', 'expiry', 'strike', 'ostrike', 'odte', 'undPrice', 'right',
+           'price', 'odiff', 'diff']
 
     # Check if there are any purls whose diff is less than -0.05
     if (purls['diff'] < -0.05).any():
@@ -324,12 +331,26 @@ if not p.empty:
 
     purls1 = purls1.merge(df_pf[(df_pf.secType == 'OPT') & (df_pf.right == 'P') & (df_pf.position > 0)][['symbol', 'mktPrice']], on='symbol', how='left')
     purls1.rename(columns={'mktPrice': 'cost'}, inplace=True)
+    purls1['rollcost'] = (purls1.price - purls1.cost +
+                          purls1['strike'] - purls1['ostrike']) * purls1.qty * 100
 
-    rollover_cost = (purls1.price - purls1.cost) * purls1.qty * 100
-    print(f"\nThe rollover cost of {purls1.symbol.unique().shape[0]} symbols for {purls1.expiry.apply(get_dte).max():.0f} days would be ${rollover_cost.sum():,.0f}."
-          f"\nTotal protect cost can be north of ${rollover_cost.sum() + df_protect.cost.sum():,.0f}.")
+    purls1 = purls1.sort_values(['odte', 'rollcost'], ascending=[True, False])
+    rol_cols = ['symbol', 'conId', 'expiry', 'undPrice', 'strike', 'ostrike', 'odte', 'right',
+                'qty', 'price', 'cost', 'rollcost']
+    
+    # pd.set_option('display.expand_frame_repr', False)
+    # print(purls1[rol_cols])
 
-    pickle_me(purls1, purls_path)
+    rollover_cost = (purls1.price - purls1.cost + purls1['strike'] - purls1['ostrike']) * purls1.qty * 100
+    print(f"\nThe rollover cost of {purls1.symbol.unique().shape[0]} symbols for {purls1.expiry.apply(get_dte).max():.0f} days would be ${rollover_cost.sum():,.0f}.")
+
+    try:
+        df_protect.cost.sum()
+        print(f"\nTotal protect cost can be north of ${rollover_cost.sum() + df_protect.cost.sum():,.0f}.")
+    except AttributeError:
+        pass
+
+    pickle_me(purls1[rol_cols], purls_path)
 
 # %%
 # MAKE COVERS FOR EXPOSED AND UNCOVERED STOCK POSITIONS
