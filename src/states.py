@@ -253,7 +253,7 @@ if not df_lprot.empty or not df_sprot.empty:
     print(f"...{len(df_protect.symbol.unique())} symbols can be protected for a cost of ${df_protect.cost.sum():,.0f} for dte: {df_protect.dte.mean():.1f} days\n")
     pickle_me(df_protect, ROOT/'data'/'df_protect.pkl')
 else:
-    print("All are protected. No protection needed.\n")
+    print("All stocks are protected. No protection needed.\n")
 
 #%% 
 # ROLLS FOR PROTECTING PUTS
@@ -342,7 +342,7 @@ if not p.empty:
     # print(purls1[rol_cols])
 
     rollover_cost = (purls1.price - purls1.cost + purls1['strike'] - purls1['ostrike']) * purls1.qty * 100
-    print(f"\nThe rollover cost of {purls1.symbol.unique().shape[0]} symbols for {purls1.expiry.apply(get_dte).max():.0f} days would be ${rollover_cost.sum():,.0f}.")
+    print(f"\nThe rollover cost of {purls1.symbol.unique().shape[0]} symbols for {purls1.expiry.apply(get_dte).max():.0f} days would be ${rollover_cost.sum():,.0f}.\n")
 
     try:
         df_protect.cost.sum()

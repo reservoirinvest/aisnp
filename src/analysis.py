@@ -46,7 +46,9 @@ else:
 with get_ib("SNP") as ib:
     qpf = ib_pf(ib)
     df_pf = classify_pf(qpf)
-    df_pf = df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
+    
+    # add a column called undPrice. undPrice should be df_pf.mktPrice for df_pf.secType == 'STK'. undPrice for other secType should be this undPrice of the STK for the symbol
+    df_pf['undPrice'] = np.where(df_pf.secType == 'STK', df_pf.mktPrice, df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")['undPrice'])
 
     fin = ib.run(get_financials(ib))
     fin["unique symbols"] = len(df_pf.symbol.unique())
@@ -56,13 +58,9 @@ with get_ib("SNP") as ib:
             del fin[k]
     fin[f"...{len(df_pf[df_pf.secType == 'OPT'])} options"] = df_pf[df_pf.secType == 'OPT'].mktVal.sum()
     
-
     openords = get_open_orders(ib)
     df_openords = classify_open_orders(openords, df_pf)
     df_unds = update_unds_status(df_unds=df_unds, df_pf=df_pf, df_openords=df_openords)
-
-# Update symbol in df_pf with undPrice in df_unds
-df_pf = df_pf.merge(df_unds[["symbol", "undPrice"]], on="symbol", how="left")
 
 print("\nFINANCIALS")
 print('==========')
@@ -232,11 +230,18 @@ elif podf_mkt > 0:
     risk_msg.append(f'\nRemaining stock positions worth ${podf_mkt:,.0f} are protected!')
     risk_msg.append(f' ...protection of ${oo_protect:,.0f} from {len(podf)} open orders will be at the cost of ${sum(podf.avgCost*podf.qty):,.0f}')
 
-if not df_rolls.empty:
+if df_rolls is not None and not df_rolls.empty:
     risk_msg.append(
         f"\nThe rollover cost of {df_rolls.symbol.unique().shape[0]} symbols for "
         f"{df_rolls.expiry.apply(get_dte).max():.0f} days would be ${df_rolls.rollcost.sum():,.0f}."
     )
+
+df_ass_risk = df[(df.state == 'sowed') & ((df.right == 'C') & (df.undPrice > df.strike) | (df.right == 'P') & (df.strike > df.undPrice))].reset_index(drop=True)
+
+if not df_ass_risk.empty:
+    risk_msg.append(f'\n{len(set(df_ass_risk.symbol))} assignments are hovering in {df_ass_risk.dte.mean():.1f} days: \n')
+    risk_cols = ['symbol', 'right', 'undPrice', 'strike', 'dte', 'position', 'qty', 'avgCost', 'mktVal', 'unPnL']
+    risk_msg.append(df_ass_risk[risk_cols].to_string(index=False))
 
 print('\n'.join(risk_msg))
 
@@ -265,7 +270,7 @@ if naked_premium > 0:
 print(reward_msg)
 
 if cover_blown is not None and not cover_blown.empty:
-    print('\nCover blown rows are:\n')
+    print(f'\n{len(set(cover_blown.symbol))} covers blown realizing ${cover_blown.unPnL.sum():,.0f} in {cover_blown.dte.mean():.1f} days:\n')
     print(cover_blown.to_string(index=False))
 
 # %%
@@ -291,7 +296,7 @@ else:
     nkd_premium = 0
 
 if cov_premium > 0 or nkd_premium > 0:
-    print('ORDER premiums and profits from df_cov and df_nkd')
+    print('\nORDER premiums and profits from df_cov and df_nkd')
     print('=================================================')
     print("Total Premium available is", format(cov_premium + nkd_premium, ',.0f'))
     print(f"...Cover Premium: {format(cov_premium, ',.0f')}")
