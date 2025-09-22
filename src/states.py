@@ -140,34 +140,37 @@ if make_long_protect:
         axis=1
     )
 
+    df_iv_p = pd.DataFrame()
     with get_ib("SNP") as ib:
         ul1 = ib.run(qualify_me(ib, df_ul.contract, desc="Qualifying long protects"))
         ul1 = [c for c in ul1 if c is not None]
+        
+        if ul1:
+            df_iv_p = ib.run(make_df_iv(
+                ib=ib,
+                stocks=ul1,
+                sleep_time=10,
+                msg="long protect option prices and vy",
+            ))            
 
-        df_iv_p = ib.run(make_df_iv(
-            ib=ib,
-            stocks=ul1,
-            sleep_time=10,
-            msg="long protect option prices and vy",
-        ))
+    if not df_iv_p.empty:
+        # Long Protection recommendation suite
+        df_ivp = df_iv_p.merge(
+            df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
+        )
+        df_ivp = df_ivp.assign(vy=df_ivp["iv"].combine_first(df_ivp["vy"]))
 
-    # Long Protection recommendation suite
-    df_ivp = df_iv_p.merge(
-        df_unds[["symbol", "vy", "undPrice"]], on="symbol", how="left"
-    )
-    df_ivp = df_ivp.assign(vy=df_ivp["iv"].combine_first(df_ivp["vy"]))
+        df_ivp = df_ivp.merge(df_pf[df_pf.secType == 'STK'][['symbol', 'position']], on='symbol')
 
-    df_ivp = df_ivp.merge(df_pf[df_pf.secType == 'STK'][['symbol', 'position']], on='symbol')
+        df_ivp['qty'] = (df_ivp.position.abs()/100).astype('int')
+        df_ivp['dte'] = get_dte(df_ivp.expiry)
+        df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
 
-    df_ivp['qty'] = (df_ivp.position.abs()/100).astype('int')
-    df_ivp['dte'] = get_dte(df_ivp.expiry)
-    df_ivp["protection"] = (df_ivp["undPrice"] - df_ivp["strike"])*100*df_ivp.qty
-
-    # # Median protection
-    # df_lprot = df_ivp.groupby('symbol')[df_ivp.columns.to_list()].apply(lambda x: x.iloc[len(x)//2] if len(x) > 0 else x)
-
-    # Closest put protection
-    df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[x['protection'].argmin()] if len(x) > 0 else x, include_groups=False).reset_index()
+        # Closest put protection
+        df_lprot = df_ivp.groupby('symbol').apply(lambda x: x.iloc[x['protection'].argmin()] if len(x) > 0 else x, include_groups=False).reset_index()
+    else:
+        print("Long protection options not available!")
+        df_lprot = pd.DataFrame()
 
 else:
     df_lprot = pd.DataFrame()
@@ -557,6 +560,8 @@ if not df_cov.empty:
 
     # add 'dte' column with get_dte(expiry) as the 5th column
     df_cov.insert(4, "dte", df_cov.expiry.apply(get_dte))
+
+    df_cov = df_cov.dropna(subset=["price"])
 
     df_cov["xPrice"] = df_cov.apply(
         lambda x: max(get_prec(x.price*COVXPMULT, 0.01), 0.05)

@@ -239,7 +239,7 @@ if df_rolls is not None and not df_rolls.empty:
 df_ass_risk = df[(df.state == 'sowed') & ((df.right == 'C') & (df.undPrice > df.strike) | (df.right == 'P') & (df.strike > df.undPrice))].reset_index(drop=True)
 
 if not df_ass_risk.empty:
-    risk_msg.append(f'\n{len(set(df_ass_risk.symbol))} assignments are hovering in {df_ass_risk.dte.mean():.1f} days: \n')
+    risk_msg.append(f'\n{len(set(df_ass_risk.symbol))} naked assignments are hovering in {df_ass_risk.dte.mean():.1f} days: \n')
     risk_cols = ['symbol', 'right', 'undPrice', 'strike', 'dte', 'position', 'qty', 'avgCost', 'mktVal', 'unPnL']
     risk_msg.append(df_ass_risk[risk_cols].to_string(index=False))
 
